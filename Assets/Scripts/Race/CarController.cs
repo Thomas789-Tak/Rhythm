@@ -294,7 +294,8 @@ public class CarController : MonoBehaviour
             //왼쪽
             if (Input.GetAxis("Horizontal") > 0)
             {
-                //현재 속도를 참조해서 하자
+                //현재 속도를 참조해서 하자  
+                /// 턴인풋 받기
                 MyRigidBody.AddForce(Vector3.Slerp(-transform.right, -transform.right * myFriction*referenceDrift, 500f * Time.deltaTime), ForceMode.Impulse);
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, turnInput * myTurnStrength * 0.5f * Time.deltaTime, 0f)), turnLerpSpeed * Time.deltaTime);
                 if (myCurrentSpeed > 0)

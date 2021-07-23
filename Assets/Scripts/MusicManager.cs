@@ -21,6 +21,7 @@ public class MusicManager: MonoBehaviour // 노래의 패턴에 대한 정보를 갖고 있는 
     //---------효과음 리스트 ---------
     public AudioSource Skid;
     public AudioSource GearChange;
+    public AudioSource Error;
     //--------wakeup 변수 -----------
     int wakeupCurrentMainCount;
     int wakeupCurrentBeatCount;

@@ -1,20 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Test : MonoBehaviour
 {
-    public AudioSource beat;
+    public Image LImage;
+    public Image RImage;
+    float a;
     private void Update()
     {
-        //if(Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    beat.Play();
-        //}
+        print(a);
     }
     private void FixedUpdate()
     {
-
+        if(LImage.rectTransform.position.x>=0)
+        {
+            LImage.rectTransform.position = new Vector2(LImage.rectTransform.position.x, LImage.rectTransform.position.y);
+            a += Time.deltaTime;
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

@@ -19,6 +19,7 @@ public class TimingFalse : MonoBehaviour // 타이밍이 빗나갈 때 작용하는 클래스
             {
                 collision.gameObject.SetActive(false);
                 player.GetSpeedDown();
+                MusicManager.Instance.Error.Play();
             }
         }
     }

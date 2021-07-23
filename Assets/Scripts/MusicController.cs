@@ -108,6 +108,7 @@ public class MusicController : MonoBehaviour // 노래를 판정하고 조절하는 클래스
             {
                 player.GetSpeedDown();
                 collision.gameObject.SetActive(false);
+                MusicManager.Instance.Error.Play();
             }
         }
     }
