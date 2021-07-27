@@ -871,18 +871,6 @@ PrefabInstance:
       propertyPath: music
       value: 
       objectReference: {fileID: 1140032602}
-    - target: {fileID: 1864674883762767415, guid: 450d5122745e105439b3ea5eef08c202, type: 3}
-      propertyPath: offset.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1864674883762767415, guid: 450d5122745e105439b3ea5eef08c202, type: 3}
-      propertyPath: offset.y
-      value: 1.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 1864674883762767415, guid: 450d5122745e105439b3ea5eef08c202, type: 3}
-      propertyPath: offset.z
-      value: -6.7
-      objectReference: {fileID: 0}
     - target: {fileID: 8355446946540298292, guid: 450d5122745e105439b3ea5eef08c202, type: 3}
       propertyPath: m_Name
       value: Dai-ichi Nyoko - Blue
