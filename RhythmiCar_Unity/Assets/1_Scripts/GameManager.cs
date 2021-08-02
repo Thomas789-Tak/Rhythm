@@ -6,10 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+
     private static GameManager instance =null;
     public Text text;
     public CarController car;
     public Button Retry;
+    public int myNum = 1;
 
     private void Awake()
     {
@@ -17,12 +19,15 @@ public class GameManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(this.gameObject);
         }
         else
         {
             Destroy(this.gameObject);
         }
+
         Retry.gameObject.SetActive(false);
+        Application.targetFrameRate = 60;
     }
     public static GameManager Instance
     {
@@ -40,5 +45,9 @@ public class GameManager : MonoBehaviour
     public void RetryGame()
     {
         SceneManager.LoadScene(0);
+    }
+    public void ToMainScene()
+    {
+        SceneManager.LoadScene(1);
     }
 }

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1003989425778",
+    "firebase_url": "https://rhythmicar-default-rtdb.firebaseio.com",
+    "project_id": "rhythmicar",
+    "storage_bucket": "rhythmicar.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1003989425778:android:1d74d25008c26144692ceb",
+        "android_client_info": {
+          "package_name": "com.wooltari.rhythmicar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1003989425778-e09pm4eicupkmfbk90hu5olg2ua352i1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdHL-KLcYb8BJlkTyiT1QzKSrU_TUR07k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1003989425778-e09pm4eicupkmfbk90hu5olg2ua352i1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

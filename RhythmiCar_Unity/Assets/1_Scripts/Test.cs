@@ -5,27 +5,26 @@ using UnityEngine.UI;
 
 public class Test : MonoBehaviour
 {
-    public Image LImage;
-    public Image RImage;
-    float a;
+    SpriteRenderer sprite;
+    float speed;
+    private void Start()
+    {
+
+    }
     private void Update()
     {
-        print(a);
     }
     private void FixedUpdate()
     {
-        if(LImage.rectTransform.position.x>=0)
-        {
-            LImage.rectTransform.position = new Vector2(LImage.rectTransform.position.x, LImage.rectTransform.position.y);
-            a += Time.deltaTime;
-        }
+
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+
+    public void Click()
     {
-        print("¥Í¿Ω");
-        if (collision.CompareTag("Note"))
-        {
-            print("¥Í¿Ω");
-        }
+        print("Dwon");
     }
+    public void ClickUP()
+    {
+        print("Up");
+    }    
 }

@@ -13,13 +13,11 @@ public class CarController : MonoBehaviour
     Transform CarColliderPos;
     TrailRenderer LeftSkidMark;
     TrailRenderer RightSkidMark;
-    Vector3 lastPosition;
     ParticleSystem SuccessVFx;
     ParticleSystem FailVFx;
     public MusicController music;
     Scrollbar Kick;
     Scrollbar SteeringWheel;
-    public Image GearReadyUI;
 
     [Header("유저 데이터")]
     [SerializeField] int myID;
@@ -27,20 +25,18 @@ public class CarController : MonoBehaviour
     [SerializeField] int myMusicEquipCount;
 
     [Header("유저 스탯")]
-    [SerializeField] [Tooltip("가속도")][Range(1,100)] float myAcceleration;
+    int musicEquipCount;
+    [SerializeField] [Tooltip("가속도")] [Range(1, 100)] float myAcceleration;
     [SerializeField] [Tooltip("최대 부스터게이지량")] [Range(1, 300)] float myBoosterMaxGauge;
     [SerializeField] [Tooltip("부스터속도")] [Range(1, 300)] float myBoosterSpeed;
     [SerializeField] [Tooltip("최대회전각도")] [Range(1, 300)] float myMaxSteering=45;
     [SerializeField] [Tooltip("회전속도")] [Range(1, 300)] float myTurnStrength =30f;
     [SerializeField] [Tooltip("제동력")] [Range(1, 300)] float myBrakeForce = 50f;
     [SerializeField] [Tooltip("제동마찰력")] [Range(1, 300)] float myFriction =40f;
-    [SerializeField] [Tooltip("현재기어")] [Range(1, 3)] public int myCurrentGear;
-    [SerializeField] [Tooltip("현재부스터게이지")] [Range(1, 300)] float myBoosterCurrentGauge;
     [SerializeField] [Tooltip("현재속도")] [Range(1, 300)] public float myCurrentSpeed;
+    float myBoosterCurrentGauge;
+    float rhythmPower;
     public float maxSpeed;
-    float gearUpSpeed;
-    float gearDownSpeed;
-    float gearDefaultSpeed;
 
     float gravityForce =2000f; // 중력
     float groundRayLength = 1.5f; // 바닥체크 레이 길이
@@ -49,14 +45,12 @@ public class CarController : MonoBehaviour
     float turnInput; // 좌우 방향키 입력값
     float turnLerpSpeed=160f; // 턴할 때 부드러운 정도
     float HillLerpSpeed=10f; // 언덕올라갈 때 부드러운 정도
-    public float driftTime;
+    float driftTime;
 
     bool isGrounding; //지상인지 체크
     bool isDrifting; // 드리프트중인지 체크
     bool isBoosting; // 부스터중인지 체크
     bool isTouchWheel;
-    public bool isGearReady;
-    public bool isGearChanging;
 
 
     int GroundLayer;
@@ -66,14 +60,12 @@ public class CarController : MonoBehaviour
     {
         InitRigidBody(); // (1)
         Kick = GameObject.Find("Kick").GetComponent<Scrollbar>();
-        GearReadyUI = Kick.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>();
         SteeringWheel = GameObject.Find("SteeringWheel").GetComponent<Scrollbar>();
     }
 
     // (1) 리지드바드 + 스페어콜라이더 초기화하는 함수
     void InitRigidBody()
     {
-        myCurrentGear = 1;
         MyRigidBody = transform.GetChild(2).GetComponent<Rigidbody>();
         MyRigidBody.interpolation = RigidbodyInterpolation.Extrapolate;
         MySphereCollider = MyRigidBody.GetComponent<SphereCollider>();
@@ -97,8 +89,9 @@ public class CarController : MonoBehaviour
 
     void FixedUpdate()
     {
-        CarEngine(); // (3)
-        SetColliderWhenFly(); // (5)        
+        CheckGround();
+        CarEngine(); // (3)   
+
     }
 
     void Update()
@@ -122,82 +115,42 @@ public class CarController : MonoBehaviour
         FrontRightWheel.localRotation = Quaternion.Euler(FrontRightWheel.localRotation.eulerAngles.x, turnInput * myMaxSteering, FrontRightWheel.localRotation.eulerAngles.z);
 
     }
+
+
+
     // (6) 현재 상태를 업데이트 하는 함수
     void UpdateCurrentState()
     {
-        gearDownSpeed = maxSpeed-60;
-        gearUpSpeed = maxSpeed-20;
-        gearDefaultSpeed = maxSpeed;
-        if(myCurrentSpeed>=gearUpSpeed&&myCurrentGear!=3)
-        {
-            isGearReady = true;
-            GearReadyUI.gameObject.SetActive(true);
-            if(isGearReady&&Kick.value>=0.7f)
-            {
-                if(myCurrentGear!=2)
-                {
-                    music.GearUp(myCurrentGear);
-                    MusicManager.Instance.GearChange.Play();
 
-                }
-                myCurrentGear++;
-            }
-        }
-        else
-        {
-            isGearReady = false;
-            GearReadyUI.gameObject.SetActive(false);
-            Kick.value = 0;
-        }
-        if(myCurrentSpeed<=gearDownSpeed&&myCurrentGear!=1)
-        {
-            if(myCurrentGear!=3)
-            {
-                music.GearDown(myCurrentGear);
-                MusicManager.Instance.GearChange.Play();
-
-            }
-            myCurrentGear--;
-        }
         if(isTouchWheel==false)
         {
             SteeringWheel.value = 0.5f;
         }
-        if(music.isKickButtonDown)
+        //if(music.isKickButtonDown)
+        //{
+        //    driftTime += Time.deltaTime;
+        //}
+        if(Input.GetKey(KeyCode.LeftShift))
         {
             driftTime += Time.deltaTime;
         }
-        if(MusicManager.Instance.GearChange.isPlaying)
-        {
-            isGearChanging = true;
-        }
         else
         {
-            isGearChanging = false;
+            driftTime = 0;
         }
     }
 
     // (5) 점프 시 콜라이더 비활성화
     void SetColliderWhenFly()
     {
-        //점프대가 나올 때 일시적으로 차량 콜라이더 해제
-        RaycastHit hillInfo;
-        float fowardLength=3f;
-        if (Physics.Raycast(GroundCheckPos.position, transform.forward, out hillInfo, fowardLength, hillLayer))
+        //Invoke("DelaySetCollider", 2f);
+        if(transform.position.y<=-19f)
         {
-            CarColliderPos.gameObject.SetActive(false);
-        }
-        else if (isGrounding == false)
-        {        
-            Invoke("DelaySetCollider", 2f);
-            if(transform.position.y<=-19f)
-            {
-                GameManager.Instance.Retry.gameObject.SetActive(true);
-                MusicManager.Instance.ifI.Pause();
-                MusicManager.Instance.wakeUp.Pause();
-                Time.timeScale = 0;
+            GameManager.Instance.Retry.gameObject.SetActive(true);
+            MusicManager.Instance.ifI.Pause();
+            MusicManager.Instance.wakeUp.Pause();
+            Time.timeScale = 0;
 
-            }
         }
 
     }
@@ -237,29 +190,32 @@ public class CarController : MonoBehaviour
     void GetInput()
     {
 
-        turnInput = (SteeringWheel.value-0.5f)*2f;
+        //turnInput = (SteeringWheel.value-0.5f)*2f;
+        if (myCurrentSpeed != 0)
+        {
+            turnInput = Input.GetAxis("Horizontal");
+        }
+        else
+        {
+            turnInput = 0;
+        }
+
         //차량 위치 => 리지드바디 위치로 갱신
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            myCurrentSpeed += myAcceleration;
+        }
 
         //드리프트
-        if(driftTime>=0.2f && isGrounding) //속도가 일정이하로 떨어지면 드리프트 안되게 하자  , ,속도에 대한 정의 필요
+        if(driftTime>=0.2f && isGrounding&&myCurrentSpeed>30f) //속도가 일정이하로 떨어지면 드리프트 안되게 하자  , ,속도에 대한 정의 필요
         {
             isDrifting = true;
-            if (myCurrentSpeed > 30f)
+            if (MusicManager.Instance.Skid.isPlaying == false)
             {
-                if (MusicManager.Instance.Skid.isPlaying == false)
-                {
-                    MusicManager.Instance.Skid.Play();
-                }
-                LeftSkidMark.emitting = true;
-                RightSkidMark.emitting = true;
+                MusicManager.Instance.Skid.Play();
             }
-            else
-            {
-                LeftSkidMark.emitting = false;
-                RightSkidMark.emitting = false;
-
-            }
-
+            LeftSkidMark.emitting = true;
+            RightSkidMark.emitting = true;
         }
         else
         {
@@ -276,7 +232,7 @@ public class CarController : MonoBehaviour
         if (isGrounding)
         {       
             //엑셀
-            MyRigidBody.AddForce(gravityForce * -Vector3.up + transform.forward * myCurrentSpeed * 1000f,ForceMode.Force);
+            MyRigidBody.AddForce(transform.forward * myCurrentSpeed * 1000f,ForceMode.Force);
             MyRigidBody.drag = groundDrag;
         }
         else
@@ -290,13 +246,14 @@ public class CarController : MonoBehaviour
         //드리프트
         if (isDrifting)
         {
-            float referenceDrift=myCurrentSpeed*0.1f;
-            //왼쪽
+            float referenceDrift=myCurrentSpeed*0.3f;
+            //오른쪽
             if (Input.GetAxis("Horizontal") > 0)
             {
                 //현재 속도를 참조해서 하자  
                 /// 턴인풋 받기
-                MyRigidBody.AddForce(Vector3.Slerp(-transform.right, -transform.right * myFriction*referenceDrift, 500f * Time.deltaTime), ForceMode.Impulse);
+                MyRigidBody.AddForce(Vector3.Slerp(-transform.right, -transform.right * myFriction*referenceDrift*turnInput, 500f * Time.deltaTime), ForceMode.Impulse);
+                print("드리프트 속도"+transform.right * myFriction * referenceDrift * turnInput);
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, turnInput * myTurnStrength * 0.5f * Time.deltaTime, 0f)), turnLerpSpeed * Time.deltaTime);
                 if (myCurrentSpeed > 0)
                 {
@@ -310,12 +267,12 @@ public class CarController : MonoBehaviour
                     myCurrentSpeed -= myBrakeForce * Time.deltaTime;
                 }
             }
-            //오른쪽
+            //왼쪽
             else
             {
                 if (myCurrentSpeed > 0)
                 {
-                    MyRigidBody.AddForce(Vector3.Slerp(transform.right, transform.right * myFriction * referenceDrift, 500f * Time.deltaTime), ForceMode.Impulse);
+                    MyRigidBody.AddForce(Vector3.Slerp(transform.right, transform.right * myFriction * referenceDrift * Mathf.Abs(turnInput), 500f * Time.deltaTime), ForceMode.Impulse);
                     transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, turnInput * myTurnStrength * 0.5f * Time.deltaTime, 0f)), turnLerpSpeed * Time.deltaTime);
                     myCurrentSpeed -= myBrakeForce * referenceDrift * Time.deltaTime;
                 }
@@ -326,17 +283,11 @@ public class CarController : MonoBehaviour
             //파티클 넣어주기
 
         }
-        else
-        {
-            //isDrifting = false;
-        }
-        CheckGround();
     }
 
     //바닥체크 함수 + 각도 조정
     void CheckGround()
     {
-        isGrounding = false;
         RaycastHit groundInfo;
         if (Physics.Raycast(GroundCheckPos.position, -transform.up, out groundInfo, groundRayLength, GroundLayer))
         {
@@ -345,6 +296,11 @@ public class CarController : MonoBehaviour
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.FromToRotation(transform.up, groundInfo.normal) * transform.rotation, Time.deltaTime * HillLerpSpeed);
             //좌우 이동
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, turnInput * myTurnStrength * Time.deltaTime, 0f)), turnLerpSpeed*Time.deltaTime);
+        }
+        else
+        {
+            isGrounding = false;
+            SetColliderWhenFly(); // (5)     
         }
     }
 
