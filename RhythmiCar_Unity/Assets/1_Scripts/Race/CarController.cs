@@ -244,25 +244,24 @@ public class CarController : MonoBehaviour
         //드리프트
         if (isDrifting)
         {
-            float referenceDrift=myCurrentSpeed*0.1f;
+            float referenceDrift=myCurrentSpeed*0.4f;
             //오른쪽
             if (Input.GetAxis("Horizontal") > 0)
             {
                 //현재 속도를 참조해서 하자  
                 /// 턴인풋 받기
                 MyRigidBody.AddForce(Vector3.Slerp(-transform.right, -transform.right * myFriction*referenceDrift*turnInput, 500f * Time.deltaTime), ForceMode.Impulse);
-                print("드리프트 속도"+transform.right * myFriction * referenceDrift * turnInput);
-                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, turnInput * myTurnStrength * 0.5f * Time.deltaTime, 0f)), turnLerpSpeed * Time.deltaTime);
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, 2f*turnInput * myTurnStrength * 0.5f * Time.deltaTime, 0f)), turnLerpSpeed * Time.deltaTime);
                 if (myCurrentSpeed > 0)
                 {
-                    myCurrentSpeed -= myBrakeForce *referenceDrift* Time.deltaTime;
+                    myCurrentSpeed -= myBrakeForce * referenceDrift * Time.deltaTime*0.5f;
                 }
             }
             else if(Input.GetAxis("Horizontal")==0)
             {
                 if(myCurrentSpeed > 0)
                 {
-                    myCurrentSpeed -= myBrakeForce * Time.deltaTime;
+                    myCurrentSpeed -= myBrakeForce * referenceDrift * Time.deltaTime;
                 }
             }
             //왼쪽
@@ -271,8 +270,8 @@ public class CarController : MonoBehaviour
                 if (myCurrentSpeed > 0)
                 {
                     MyRigidBody.AddForce(Vector3.Slerp(transform.right, transform.right * myFriction * referenceDrift * Mathf.Abs(turnInput), 500f * Time.deltaTime), ForceMode.Impulse);
-                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, turnInput * myTurnStrength * 0.5f * Time.deltaTime, 0f)), turnLerpSpeed * Time.deltaTime);
-                    myCurrentSpeed -= myBrakeForce * referenceDrift * Time.deltaTime;
+                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, 2f * turnInput * myTurnStrength * 0.5f * Time.deltaTime, 0f)), turnLerpSpeed * Time.deltaTime);
+                    myCurrentSpeed -= myBrakeForce * referenceDrift * Time.deltaTime*0.5f;
                 }
 
 
