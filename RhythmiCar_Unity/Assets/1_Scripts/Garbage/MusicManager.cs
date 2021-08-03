@@ -78,6 +78,7 @@ public class MusicManager: MonoBehaviour // 노래의 패턴에 대한 정보를 갖고 있는 
 
     public void PlayWakeUp()
     {
+        
         if(isWakeupPlaying==false)
         {
 

@@ -22,20 +22,19 @@ public class CarController : MonoBehaviour
     [Header("유저 데이터")]
     [SerializeField] int myID;
     [SerializeField] string myVehicleName;
-    [SerializeField] int myMusicEquipCount;
 
     [Header("유저 스탯")]
-    int musicEquipCount;
+    int myMusicEquipCount;
     [SerializeField] [Tooltip("가속도")] [Range(1, 100)] float myAcceleration;
     [SerializeField] [Tooltip("최대 부스터게이지량")] [Range(1, 300)] float myBoosterMaxGauge;
     [SerializeField] [Tooltip("부스터속도")] [Range(1, 300)] float myBoosterSpeed;
-    [SerializeField] [Tooltip("최대회전각도")] [Range(1, 300)] float myMaxSteering=45;
     [SerializeField] [Tooltip("회전속도")] [Range(1, 300)] float myTurnStrength =30f;
     [SerializeField] [Tooltip("제동력")] [Range(1, 300)] float myBrakeForce = 50f;
     [SerializeField] [Tooltip("제동마찰력")] [Range(1, 300)] float myFriction =40f;
-    [SerializeField] [Tooltip("현재속도")] [Range(1, 300)] public float myCurrentSpeed;
+    float myRhythmPower;
+    public float myCurrentSpeed;
+    float myMaxSteering=45;
     float myBoosterCurrentGauge;
-    float rhythmPower;
     public float maxSpeed;
 
     float gravityForce =2000f; // 중력
@@ -66,6 +65,7 @@ public class CarController : MonoBehaviour
     // (1) 리지드바드 + 스페어콜라이더 초기화하는 함수
     void InitRigidBody()
     {
+        /// 초기화 할때 mass 값과ㅓ 같은건 프리팹으로 따로 빼서 awake 때 호출하지 않게 하자 
         MyRigidBody = transform.GetChild(2).GetComponent<Rigidbody>();
         MyRigidBody.interpolation = RigidbodyInterpolation.Extrapolate;
         MySphereCollider = MyRigidBody.GetComponent<SphereCollider>();
@@ -147,8 +147,6 @@ public class CarController : MonoBehaviour
         if(transform.position.y<=-19f)
         {
             GameManager.Instance.Retry.gameObject.SetActive(true);
-            MusicManager.Instance.ifI.Pause();
-            MusicManager.Instance.wakeUp.Pause();
             Time.timeScale = 0;
 
         }
@@ -246,7 +244,7 @@ public class CarController : MonoBehaviour
         //드리프트
         if (isDrifting)
         {
-            float referenceDrift=myCurrentSpeed*0.3f;
+            float referenceDrift=myCurrentSpeed*0.1f;
             //오른쪽
             if (Input.GetAxis("Horizontal") > 0)
             {
