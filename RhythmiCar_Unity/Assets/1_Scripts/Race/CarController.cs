@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Profiling;
 using UnityEngine.UI;
 
 public class CarController : MonoBehaviour
@@ -96,7 +97,9 @@ public class CarController : MonoBehaviour
 
     void Update()
     {
+        Profiler.BeginSample("플레이어 인풋");
         GetInput(); // (2)
+        Profiler.EndSample();
         UpdateObjectTransform(); // (4)
         UpdateCurrentState(); // (6)
     }
@@ -205,7 +208,7 @@ public class CarController : MonoBehaviour
         }
 
         //드리프트
-        if(driftTime>=0.2f && isGrounding&&myCurrentSpeed>30f) //속도가 일정이하로 떨어지면 드리프트 안되게 하자  , ,속도에 대한 정의 필요
+        if(driftTime>=0.2f && isGrounding&&myCurrentSpeed>30f)
         {
             isDrifting = true;
             if (MusicManager.Instance.Skid.isPlaying == false)
@@ -227,11 +230,17 @@ public class CarController : MonoBehaviour
     void CarEngine()
     {
         //바닥체크 함수
-        if (isGrounding)
+        if (isGrounding&&isDrifting==false)
         {       
             //엑셀
             MyRigidBody.AddForce(transform.forward * myCurrentSpeed * 1000f,ForceMode.Force);
             MyRigidBody.drag = groundDrag;
+        }
+        else if(isDrifting)
+        {
+            MyRigidBody.drag = 0f;
+            MyRigidBody.angularDrag = 0f;
+            MyRigidBody.AddForce(transform.forward * myCurrentSpeed * 1000f*0.01f, ForceMode.Force);
         }
         else
         {
@@ -239,6 +248,7 @@ public class CarController : MonoBehaviour
             MyRigidBody.drag = 0f;
             MyRigidBody.angularDrag = 0f;
             MyRigidBody.AddForce(gravityForce * -Vector3.up,ForceMode.Force);
+            
         }
 
         //드리프트
@@ -250,7 +260,7 @@ public class CarController : MonoBehaviour
             {
                 //현재 속도를 참조해서 하자  
                 /// 턴인풋 받기
-                MyRigidBody.AddForce(Vector3.Slerp(-transform.right, -transform.right * myFriction*referenceDrift*turnInput, 500f * Time.deltaTime), ForceMode.Impulse);
+                MyRigidBody.AddForce(Vector3.Slerp(-transform.right, -transform.right * myFriction*referenceDrift*turnInput, 500f * Time.deltaTime), ForceMode.Force);
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, 2f*turnInput * myTurnStrength * 0.5f * Time.deltaTime, 0f)), turnLerpSpeed * Time.deltaTime);
                 if (myCurrentSpeed > 0)
                 {
@@ -269,7 +279,7 @@ public class CarController : MonoBehaviour
             {
                 if (myCurrentSpeed > 0)
                 {
-                    MyRigidBody.AddForce(Vector3.Slerp(transform.right, transform.right * myFriction * referenceDrift * Mathf.Abs(turnInput), 500f * Time.deltaTime), ForceMode.Impulse);
+                    MyRigidBody.AddForce(Vector3.Slerp(transform.right, transform.right * myFriction * referenceDrift * Mathf.Abs(turnInput), 500f * Time.deltaTime), ForceMode.Force);
                     transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, 2f * turnInput * myTurnStrength * 0.5f * Time.deltaTime, 0f)), turnLerpSpeed * Time.deltaTime);
                     myCurrentSpeed -= myBrakeForce * referenceDrift * Time.deltaTime*0.5f;
                 }

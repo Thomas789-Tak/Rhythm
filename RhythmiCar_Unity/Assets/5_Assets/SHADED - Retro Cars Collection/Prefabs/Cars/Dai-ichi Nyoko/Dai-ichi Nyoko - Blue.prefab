@@ -1469,24 +1469,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   music: {fileID: 0}
-  GearReadyUI: {fileID: 0}
   myID: 0
   myVehicleName: 
-  myMusicEquipCount: 0
   myAcceleration: 7
   myBoosterMaxGauge: 0
   myBoosterSpeed: 0
-  myMaxSteering: 30
   myTurnStrength: 60
   myBrakeForce: 3
   myFriction: 40
-  myCurrentGear: 0
-  myBoosterCurrentGauge: 0
   myCurrentSpeed: 20
   maxSpeed: 0
-  driftTime: 0
-  isGearReady: 0
-  isGearChanging: 0
 --- !u!1001 &554338283
 PrefabInstance:
   m_ObjectHideFlags: 0

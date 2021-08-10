@@ -42,10 +42,6 @@ public class MusicManager: MonoBehaviour // 노래의 패턴에 대한 정보를 갖고 있는 
 
     private void Awake()
     {
-        wakeupNoteDelay = 2f;
-        wakeupBeatCount = 63;
-        ifIBeatCount = 144;
-        ifICurrentBeatCount = wakeupBeatCount + 1;
         if(instance==null)
         {
             instance = this;
@@ -53,14 +49,6 @@ public class MusicManager: MonoBehaviour // 노래의 패턴에 대한 정보를 갖고 있는 
         else
         {
             Destroy(this.gameObject);
-        }
-
-        for (int i=0; i<300; i++)
-        {
-            Notes[i]=Instantiate(noteInstance, transform.position, Quaternion.Euler(0,0,90));
-            Notes[i].rectTransform.position = StartPos.position;
-            Notes[i].transform.SetParent(NoteParent);
-            Notes[i].gameObject.SetActive(false);
         }
     }
 

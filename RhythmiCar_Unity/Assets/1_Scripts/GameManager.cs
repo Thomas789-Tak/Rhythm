@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
         }
 
         Retry.gameObject.SetActive(false);
-        Application.targetFrameRate = 60;
+        Application.targetFrameRate = -1;
     }
     public static GameManager Instance
     {

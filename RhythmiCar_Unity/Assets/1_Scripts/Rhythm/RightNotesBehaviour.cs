@@ -5,15 +5,15 @@ using UnityEngine;
 public class RightNotesBehaviour : MonoBehaviour
 {
     public float noteSpeed;
-    void Start()
+    private void OnEnable()
     {
-        noteSpeed = NoteManager.Instance.bpm*2;
+        noteSpeed = NoteManager.Instance.bpm * 2;
     }
 
 
     void Update()
     {
-        transform.localPosition += -Vector3.right * noteSpeed * Time.deltaTime;
+        transform.localPosition += noteSpeed * Time.deltaTime * -Vector3.right;
     }
 
 }
