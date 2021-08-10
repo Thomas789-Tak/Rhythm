@@ -14,7 +14,7 @@ public class CarController : MonoBehaviour
     Transform CarColliderPos;
     TrailRenderer LeftSkidMark;
     TrailRenderer RightSkidMark;
-    ParticleSystem SuccessVFx;
+    public static ParticleSystem SuccessVFx;
     ParticleSystem FailVFx;
     public MusicController music;
     Scrollbar Kick;

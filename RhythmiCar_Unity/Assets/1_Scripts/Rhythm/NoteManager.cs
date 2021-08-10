@@ -56,13 +56,13 @@ public class NoteManager : MonoBehaviour
             currentTime -= 60d / bpm;
         }
     }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if(collision.CompareTag("Note"))
-        {
-            collision.gameObject.SetActive(false);
-        }
-    }
+    //private void OnTriggerExit2D(Collider2D collision)
+    //{
+    //    if(collision.CompareTag("Note"))
+    //    {
+    //        collision.gameObject.SetActive(false);
+    //    }
+    //}
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(isStart==false)
