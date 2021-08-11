@@ -25,7 +25,7 @@ public class CarController : MonoBehaviour
     [SerializeField] string myVehicleName;
 
     [Header("유저 스탯")]
-    int myMusicEquipCount;
+    List<SoundManager.EBGM> mySongEquipList = new List<SoundManager.EBGM>();
     [SerializeField] [Tooltip("가속도")] [Range(1, 100)] float myAcceleration;
     [SerializeField] [Tooltip("최대 부스터게이지량")] [Range(1, 300)] float myBoosterMaxGauge;
     [SerializeField] [Tooltip("부스터속도")] [Range(1, 300)] float myBoosterSpeed;
