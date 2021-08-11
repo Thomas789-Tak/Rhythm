@@ -5,8 +5,6 @@ using Firebase;
 using Firebase.Database;
 
 
-
-
 public class DataManager : MonoBehaviour
 {
     #region Data
@@ -28,7 +26,7 @@ public class DataManager : MonoBehaviour
     [ContextMenu("Test")]
     void test()
     {
-
+        
     }
 
     [ContextMenu("ReadData")]
