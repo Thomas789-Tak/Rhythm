@@ -1,0 +1,4 @@
+﻿name,isOpend,openCost,bpm,maxSpeed
+사막의 질주,TRUE,0,90,60
+울타리 마을,TRUE,0,100,70
+MULLE,FALSE,500,108,75
