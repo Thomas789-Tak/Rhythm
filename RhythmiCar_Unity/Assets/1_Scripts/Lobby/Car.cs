@@ -7,9 +7,10 @@ public class Car
     public string name;
     public int currentLevel;
     
-    public List<CarStatus> statuses = new List<CarStatus>();
+    public List<Status> statuses = new List<Status>();
 
-    public class CarStatus
+    [System.Serializable]
+    public class Status
     {
         public int songEquipCount;
 

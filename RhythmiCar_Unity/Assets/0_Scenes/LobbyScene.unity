@@ -8895,6 +8895,476 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b2ec188b52da2841b32446562ac533b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  carData:
+  - name: Red
+    currentLevel: 0
+    statuses:
+    - songEquipCount: 2
+      level: 1
+      levelUpCost: 2000
+      acceleration: 11
+      boosterMaxGauge: 101
+      boosterSpeed: 0
+      turnStrength: 41
+      brakeForce: 31
+      friction: 21
+      rhythmPower: 51
+    - songEquipCount: 2
+      level: 2
+      levelUpCost: 100
+      acceleration: 12
+      boosterMaxGauge: 102
+      boosterSpeed: 0
+      turnStrength: 42
+      brakeForce: 32
+      friction: 22
+      rhythmPower: 52
+    - songEquipCount: 2
+      level: 3
+      levelUpCost: 150
+      acceleration: 13
+      boosterMaxGauge: 103
+      boosterSpeed: 0
+      turnStrength: 43
+      brakeForce: 33
+      friction: 23
+      rhythmPower: 53
+    - songEquipCount: 2
+      level: 4
+      levelUpCost: 200
+      acceleration: 14
+      boosterMaxGauge: 104
+      boosterSpeed: 0
+      turnStrength: 44
+      brakeForce: 34
+      friction: 24
+      rhythmPower: 54
+    - songEquipCount: 2
+      level: 5
+      levelUpCost: 250
+      acceleration: 15
+      boosterMaxGauge: 105
+      boosterSpeed: 0
+      turnStrength: 45
+      brakeForce: 35
+      friction: 25
+      rhythmPower: 55
+    - songEquipCount: 2
+      level: 6
+      levelUpCost: 300
+      acceleration: 16
+      boosterMaxGauge: 106
+      boosterSpeed: 0
+      turnStrength: 46
+      brakeForce: 36
+      friction: 26
+      rhythmPower: 56
+    - songEquipCount: 2
+      level: 7
+      levelUpCost: 350
+      acceleration: 17
+      boosterMaxGauge: 107
+      boosterSpeed: 0
+      turnStrength: 47
+      brakeForce: 37
+      friction: 27
+      rhythmPower: 57
+    - songEquipCount: 2
+      level: 8
+      levelUpCost: 400
+      acceleration: 18
+      boosterMaxGauge: 108
+      boosterSpeed: 0
+      turnStrength: 48
+      brakeForce: 38
+      friction: 28
+      rhythmPower: 58
+    - songEquipCount: 2
+      level: 9
+      levelUpCost: 450
+      acceleration: 19
+      boosterMaxGauge: 109
+      boosterSpeed: 0
+      turnStrength: 49
+      brakeForce: 39
+      friction: 29
+      rhythmPower: 59
+    - songEquipCount: 2
+      level: 10
+      levelUpCost: 500
+      acceleration: 20
+      boosterMaxGauge: 110
+      boosterSpeed: 0
+      turnStrength: 50
+      brakeForce: 40
+      friction: 30
+      rhythmPower: 60
+  - name: Black
+    currentLevel: 0
+    statuses:
+    - songEquipCount: 3
+      level: 1
+      levelUpCost: 5000
+      acceleration: 12
+      boosterMaxGauge: 102
+      boosterSpeed: 0
+      turnStrength: 42
+      brakeForce: 32
+      friction: 22
+      rhythmPower: 52
+    - songEquipCount: 3
+      level: 2
+      levelUpCost: 200
+      acceleration: 13
+      boosterMaxGauge: 103
+      boosterSpeed: 0
+      turnStrength: 43
+      brakeForce: 33
+      friction: 23
+      rhythmPower: 53
+    - songEquipCount: 3
+      level: 3
+      levelUpCost: 250
+      acceleration: 14
+      boosterMaxGauge: 104
+      boosterSpeed: 0
+      turnStrength: 44
+      brakeForce: 34
+      friction: 24
+      rhythmPower: 54
+    - songEquipCount: 3
+      level: 4
+      levelUpCost: 300
+      acceleration: 15
+      boosterMaxGauge: 105
+      boosterSpeed: 0
+      turnStrength: 45
+      brakeForce: 35
+      friction: 25
+      rhythmPower: 55
+    - songEquipCount: 3
+      level: 5
+      levelUpCost: 350
+      acceleration: 16
+      boosterMaxGauge: 106
+      boosterSpeed: 0
+      turnStrength: 46
+      brakeForce: 36
+      friction: 26
+      rhythmPower: 56
+    - songEquipCount: 3
+      level: 6
+      levelUpCost: 400
+      acceleration: 17
+      boosterMaxGauge: 107
+      boosterSpeed: 0
+      turnStrength: 47
+      brakeForce: 37
+      friction: 27
+      rhythmPower: 57
+    - songEquipCount: 3
+      level: 7
+      levelUpCost: 450
+      acceleration: 18
+      boosterMaxGauge: 108
+      boosterSpeed: 0
+      turnStrength: 48
+      brakeForce: 38
+      friction: 28
+      rhythmPower: 58
+    - songEquipCount: 3
+      level: 8
+      levelUpCost: 500
+      acceleration: 19
+      boosterMaxGauge: 109
+      boosterSpeed: 0
+      turnStrength: 49
+      brakeForce: 39
+      friction: 29
+      rhythmPower: 59
+    - songEquipCount: 3
+      level: 9
+      levelUpCost: 550
+      acceleration: 20
+      boosterMaxGauge: 110
+      boosterSpeed: 0
+      turnStrength: 50
+      brakeForce: 40
+      friction: 30
+      rhythmPower: 60
+    - songEquipCount: 3
+      level: 10
+      levelUpCost: 600
+      acceleration: 21
+      boosterMaxGauge: 111
+      boosterSpeed: 0
+      turnStrength: 51
+      brakeForce: 41
+      friction: 31
+      rhythmPower: 61
+  - name: Purple
+    currentLevel: 0
+    statuses:
+    - songEquipCount: 2
+      level: 1
+      levelUpCost: 10000
+      acceleration: 13
+      boosterMaxGauge: 103
+      boosterSpeed: 0
+      turnStrength: 43
+      brakeForce: 33
+      friction: 23
+      rhythmPower: 53
+    - songEquipCount: 2
+      level: 2
+      levelUpCost: 1000
+      acceleration: 14
+      boosterMaxGauge: 104
+      boosterSpeed: 0
+      turnStrength: 44
+      brakeForce: 34
+      friction: 24
+      rhythmPower: 54
+    - songEquipCount: 2
+      level: 3
+      levelUpCost: 1100
+      acceleration: 15
+      boosterMaxGauge: 105
+      boosterSpeed: 0
+      turnStrength: 45
+      brakeForce: 35
+      friction: 25
+      rhythmPower: 55
+    - songEquipCount: 2
+      level: 4
+      levelUpCost: 1200
+      acceleration: 16
+      boosterMaxGauge: 106
+      boosterSpeed: 0
+      turnStrength: 46
+      brakeForce: 36
+      friction: 26
+      rhythmPower: 56
+    - songEquipCount: 2
+      level: 5
+      levelUpCost: 1300
+      acceleration: 17
+      boosterMaxGauge: 107
+      boosterSpeed: 0
+      turnStrength: 47
+      brakeForce: 37
+      friction: 27
+      rhythmPower: 57
+    - songEquipCount: 2
+      level: 6
+      levelUpCost: 1400
+      acceleration: 18
+      boosterMaxGauge: 108
+      boosterSpeed: 0
+      turnStrength: 48
+      brakeForce: 38
+      friction: 28
+      rhythmPower: 58
+    - songEquipCount: 2
+      level: 7
+      levelUpCost: 1500
+      acceleration: 19
+      boosterMaxGauge: 109
+      boosterSpeed: 0
+      turnStrength: 49
+      brakeForce: 39
+      friction: 29
+      rhythmPower: 59
+    - songEquipCount: 2
+      level: 8
+      levelUpCost: 1600
+      acceleration: 20
+      boosterMaxGauge: 110
+      boosterSpeed: 0
+      turnStrength: 50
+      brakeForce: 40
+      friction: 30
+      rhythmPower: 60
+    - songEquipCount: 2
+      level: 9
+      levelUpCost: 1700
+      acceleration: 21
+      boosterMaxGauge: 111
+      boosterSpeed: 0
+      turnStrength: 51
+      brakeForce: 41
+      friction: 31
+      rhythmPower: 61
+    - songEquipCount: 2
+      level: 10
+      levelUpCost: 1800
+      acceleration: 22
+      boosterMaxGauge: 112
+      boosterSpeed: 0
+      turnStrength: 52
+      brakeForce: 42
+      friction: 32
+      rhythmPower: 62
+  - name: Yellow
+    currentLevel: 0
+    statuses:
+    - songEquipCount: 2
+      level: 1
+      levelUpCost: 20000
+      acceleration: 15
+      boosterMaxGauge: 104
+      boosterSpeed: 0
+      turnStrength: 44
+      brakeForce: 34
+      friction: 24
+      rhythmPower: 54
+    - songEquipCount: 2
+      level: 2
+      levelUpCost: 2000
+      acceleration: 16
+      boosterMaxGauge: 105
+      boosterSpeed: 0
+      turnStrength: 45
+      brakeForce: 35
+      friction: 25
+      rhythmPower: 55
+    - songEquipCount: 2
+      level: 3
+      levelUpCost: 2200
+      acceleration: 17
+      boosterMaxGauge: 106
+      boosterSpeed: 0
+      turnStrength: 46
+      brakeForce: 36
+      friction: 26
+      rhythmPower: 56
+    - songEquipCount: 2
+      level: 4
+      levelUpCost: 2400
+      acceleration: 18
+      boosterMaxGauge: 107
+      boosterSpeed: 0
+      turnStrength: 47
+      brakeForce: 37
+      friction: 27
+      rhythmPower: 57
+    - songEquipCount: 3
+      level: 5
+      levelUpCost: 2600
+      acceleration: 19
+      boosterMaxGauge: 108
+      boosterSpeed: 0
+      turnStrength: 48
+      brakeForce: 38
+      friction: 28
+      rhythmPower: 58
+    - songEquipCount: 3
+      level: 6
+      levelUpCost: 2800
+      acceleration: 20
+      boosterMaxGauge: 109
+      boosterSpeed: 0
+      turnStrength: 49
+      brakeForce: 39
+      friction: 29
+      rhythmPower: 59
+    - songEquipCount: 3
+      level: 7
+      levelUpCost: 3000
+      acceleration: 21
+      boosterMaxGauge: 110
+      boosterSpeed: 0
+      turnStrength: 50
+      brakeForce: 40
+      friction: 30
+      rhythmPower: 60
+    - songEquipCount: 3
+      level: 8
+      levelUpCost: 3200
+      acceleration: 22
+      boosterMaxGauge: 111
+      boosterSpeed: 0
+      turnStrength: 51
+      brakeForce: 41
+      friction: 31
+      rhythmPower: 61
+    - songEquipCount: 3
+      level: 9
+      levelUpCost: 3400
+      acceleration: 23
+      boosterMaxGauge: 112
+      boosterSpeed: 0
+      turnStrength: 52
+      brakeForce: 42
+      friction: 32
+      rhythmPower: 62
+    - songEquipCount: 3
+      level: 10
+      levelUpCost: 3600
+      acceleration: 24
+      boosterMaxGauge: 113
+      boosterSpeed: 0
+      turnStrength: 53
+      brakeForce: 43
+      friction: 33
+      rhythmPower: 63
+  songData:
+  - name: "\uC0AC\uB9C9\uC758 \uC9C8\uC8FC"
+    isOpend: 1
+    openCost: 0
+    bpm: 90
+    maxSpeed: 60
+  - name: "\uC6B8\uD0C0\uB9AC \uB9C8\uC744"
+    isOpend: 1
+    openCost: 0
+    bpm: 100
+    maxSpeed: 70
+  - name: MULLE
+    isOpend: 0
+    openCost: 500
+    bpm: 108
+    maxSpeed: 75
+  stageData:
+  - theme: "\uC544\uC9C0\uB791\uC774 \uC0AC\uB9C9"
+    level: 1
+    isOpend: 1
+    isCleared: 0
+    highScore: 0
+  - theme: "\uC544\uC9C0\uB791\uC774 \uC0AC\uB9C9"
+    level: 2
+    isOpend: 0
+    isCleared: 0
+    highScore: 0
+  - theme: "\uC544\uC9C0\uB791\uC774 \uC0AC\uB9C9"
+    level: 3
+    isOpend: 0
+    isCleared: 0
+    highScore: 0
+  - theme: "\uC544\uC9C0\uB791\uC774 \uC0AC\uB9C9"
+    level: 4
+    isOpend: 0
+    isCleared: 0
+    highScore: 0
+  - theme: "\uC6B8\uD0C0\uB9AC \uB3C4\uC2DC"
+    level: 1
+    isOpend: 1
+    isCleared: 0
+    highScore: 0
+  - theme: "\uC6B8\uD0C0\uB9AC \uB3C4\uC2DC"
+    level: 2
+    isOpend: 0
+    isCleared: 0
+    highScore: 0
+  - theme: "\uC6B8\uD0C0\uB9AC \uB3C4\uC2DC"
+    level: 3
+    isOpend: 0
+    isCleared: 0
+    highScore: 0
+  - theme: "\uC6B8\uD0C0\uB9AC \uB3C4\uC2DC"
+    level: 4
+    isOpend: 0
+    isCleared: 0
+    highScore: 0
 --- !u!1 &2059130057
 GameObject:
   m_ObjectHideFlags: 0
