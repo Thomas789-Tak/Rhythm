@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 [System.Serializable]
 public class Car
 {
-    
     [SerializeField] private string name;
     [SerializeField] private int currentLevel;
 
@@ -85,4 +85,3 @@ public class Car
         Yellow = 3,
     }
 }
-

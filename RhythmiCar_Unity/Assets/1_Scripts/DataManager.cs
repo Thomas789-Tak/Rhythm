@@ -3,128 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using Firebase;
 using Firebase.Database;
-using Firebase.Auth;
 
 
 public class DataManager : MonoBehaviour
 {
-    #region Data
+    public static System.Uri dbUrl = new System.Uri("https://rhythmicar-default-rtdb.firebaseio.com/");
 
-    //public Dictionary<string, Car> carData;// = new Dictionary<string, Car>();
-    public List<Car> carData = new List<Car>();
-    public List<Song> songData = new List<Song>();
-    public List<Stage> stageData = new List<Stage>();
+    #region Original Data
+
+    [SerializeField] private List<Car> carData = new List<Car>();
+    [SerializeField] private List<Song> songData = new List<Song>();
+    [SerializeField] private List<Stage> stageData = new List<Stage>();
 
     #endregion
 
-    void Start()
-    {
-
-    }
+    #region Firebase
 
     public DatabaseReference reference { get; set; }
-    public FirebaseAuth auth;
 
-    public class Rank
-    {
-        public string name;
-        public int score;
-        public int timestamp;
+    #endregion
 
-        public Rank(string name, int score, int timestamp)
-        {
-            this.name = name;
-            this.score = score;
-            this.timestamp = timestamp;
-        }
-    }
-
-
-    [ContextMenu("FirebaseDatabase")]
-    void FirebaseDatabase()
-    {
-        WriteDatabase();
-        ReadDatabase();
-    }
-
-    void WriteDatabase()
-    {
-        FirebaseApp.DefaultInstance.Options.DatabaseUrl = new System.Uri("https://rhythmicar-default-rtdb.firebaseio.com/");
-        reference = Firebase.Database.FirebaseDatabase.DefaultInstance.RootReference;
-
-        Rank rank = new Rank("Sittan", 96, 1413523370);
-
-        string json = JsonUtility.ToJson(rank);
-
-        string key = reference.Child("rank").Push().Key;
-
-        reference.Child("rank").Child(key).SetRawJsonValueAsync(json);
-
-    }
-
-    void ReadDatabase()
-    {
-        FirebaseApp.DefaultInstance.Options.DatabaseUrl = new System.Uri("https://rhythmicar-default-rtdb.firebaseio.com/");
-        reference = Firebase.Database.FirebaseDatabase.DefaultInstance.GetReference("rank");
-
-        reference.GetValueAsync().ContinueWith(task =>
-        {
-            if(task.IsCompleted)
-            {
-                DataSnapshot snapshot = task.Result;
-                foreach(DataSnapshot data in snapshot.Children)
-                {
-                    IDictionary rank = (IDictionary)data.Value;
-                    Debug.Log("이름: " + rank["name"] + " / 점수: " + rank["score"]);
-                }
-            }
-        });
-    }
-
-    [ContextMenu("FirebaseAuth")]
-    void Auth()
-    {
-        auth = FirebaseAuth.DefaultInstance;
-        Join("hang5050@naver.com", "shqk1492");
-        Login("hang5050@naver.com", "shqk1492");
-    }
-
-    void Join(string email, string password)
-    {
-        auth.CreateUserWithEmailAndPasswordAsync(email, password).ContinueWith(
-            task =>
-            {
-                if(!task.IsCanceled && !task.IsFaulted)
-                {
-                    Debug.Log("[회원가입 성공] 이메일 :" + email);
-                }
-                else
-                {
-                    Debug.Log("[회원가입 실패]");
-                }
-
-            });
-    }
-
-    void Login(string email, string password)
-    {
-        auth.SignInWithEmailAndPasswordAsync(email, password).ContinueWith(
-            task =>
-            {
-                if (task.IsCompleted && !task.IsCanceled && !task.IsFaulted)
-                {
-                    FirebaseUser user = task.Result;
-                    Debug.Log("[로그인 성공] " + user.Email);
-                }
-                else
-                {
-                    Debug.Log("[로그인 실패]");
-                }
-            });
-    }
-
-    [ContextMenu("ReadData")]
-    void ReadData()
+    [ContextMenu("ReadDataFromCSV")]
+    void ReadDataFromCSV()
     {
         ReadCarData();
         ReadSongData();
@@ -224,6 +124,47 @@ public class DataManager : MonoBehaviour
 
             stageData.Add(newStage);
         }
+    }
+
+    [ContextMenu("SaveDataToFirebase")]
+    void SaveOriginalDataToFirebase()
+    {
+        FirebaseApp.DefaultInstance.Options.DatabaseUrl = dbUrl;
+        reference = FirebaseDatabase.DefaultInstance.RootReference.Child("originalData");
+
+        reference.RemoveValueAsync();
+
+        carData.ForEach(data => 
+        {
+            string dataToJson = JsonUtility.ToJson(data);
+            string key = data.Name;
+
+            reference.Child("carData").Child(key).SetRawJsonValueAsync(dataToJson);
+        });
+
+        songData.ForEach(data =>
+        {
+            string dataToJson = JsonUtility.ToJson(data);
+            string key = data.SongName;
+
+            reference.Child("songData").Child(key).SetRawJsonValueAsync(dataToJson);
+        });
+
+        stageData.ForEach(data =>
+        {
+            string dataToJson = JsonUtility.ToJson(data);
+            string key = data.Theme + " lv" + data.Level;
+
+            reference.Child("stageData").Child(key).SetRawJsonValueAsync(dataToJson);
+            //.ContinueWith(task =>
+            //{
+            //    if (task.IsCompleted) Debug.Log("Data Upload Complete");
+            //});
+        });
+
+        //string key = reference.Child("rank").Push().Key;
+
+        //reference.Child("rank").Child(key).SetRawJsonValueAsync(json);
     }
 
 }
