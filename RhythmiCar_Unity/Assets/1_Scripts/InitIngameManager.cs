@@ -13,6 +13,7 @@ public static class InitIngameManager //씬에 들어올 때 이 클래스의 정보를 바탕으
     public static float brakeForce { get; set; }
     public static float friction { get; set; }
     public static float rhythmPower { get; set; }
+    
 
     // 스테이지 정보
     public static int stagelevel { get; set; }

@@ -10,7 +10,6 @@ public class NoteManager : MonoBehaviour
     [SerializeField] Transform LeftStartPosition;
     [SerializeField] Transform RightStratPosition;
     public bool isStart { get; set; }
-    public AudioSource music;
 
     private void Awake()
     {

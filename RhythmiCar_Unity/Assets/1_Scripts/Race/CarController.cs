@@ -25,6 +25,7 @@ public class CarController : MonoBehaviour
     [SerializeField] string myVehicleName;
 
     [Header("유저 스탯")]
+    [SerializeField]
     List<SoundManager.EBGM> mySongEquipList = new List<SoundManager.EBGM>();
     [SerializeField] [Tooltip("가속도")] [Range(1, 100)] float myAcceleration;
     [SerializeField] [Tooltip("최대 부스터게이지량")] [Range(1, 300)] float myBoosterMaxGauge;
@@ -211,10 +212,10 @@ public class CarController : MonoBehaviour
         if(driftTime>=0.2f && isGrounding&&myCurrentSpeed>30f)
         {
             isDrifting = true;
-            if (MusicManager.Instance.Skid.isPlaying == false)
+            if(SoundManager.Instance.sfx.isPlaying==false)
             {
-                MusicManager.Instance.Skid.Play();
-            }
+                SoundManager.Instance.PlayOneShotSFX(SoundManager.ESFX.CarDriftSound); //수정하자
+            }    
             LeftSkidMark.emitting = true;
             RightSkidMark.emitting = true;
         }

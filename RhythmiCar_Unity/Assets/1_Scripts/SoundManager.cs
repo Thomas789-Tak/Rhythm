@@ -27,71 +27,44 @@ public class SoundManager : MonoBehaviour
     AudioSource bgm;
 
     [SerializeField]
-    AudioSource sfx;
+    public AudioSource sfx;
 
 
     public enum EBGM
     {
-        INTRO,
-        INTRO_ANGRY,
-        TITLE,
-        IN_GAME,
-        GAME_OVER_BELOW_SCORE,
-        GAME_OVER_OVER_SCORE,
+        _90BPM_WakeUp,
+        _108BPM_IfI,
+        _180BPM_Turn,
+        _196BPM_Bluedy,
+
     }
 
     public enum ESFX
     {
-        NONE,
-        SPACE_BAR,
-        WATER_SPLASH,
-        SELECT,
-        COUNT_DOWN_INTRO,
-        COUNT_DOWN_ONE,
-        COUNT_DOWN_TWO,
-        COUNT_DOWN_THREE,
+        EngineStartSound,
+        CarDriftSound,
     }
 
     [Header("BGM")]
     [SerializeField]
-    AudioClip bgm_introClip;
+    AudioClip bgm_WakeUp;
 
     [SerializeField]
-    AudioClip bgm_introAngryClip;
+    AudioClip bgm_IfI;
 
     [SerializeField]
-    AudioClip bgm_titleClip;
+    AudioClip bgm_Turn;
 
     [SerializeField]
-    AudioClip bgm_inGameClip;
-
-    [SerializeField]
-    AudioClip bgm_gameOverBelowScoreClip;
-
-    [SerializeField]
-    AudioClip bgm_gameOverOverScoreClip;
+    AudioClip bgm_Bluedy;
 
     [Header("SFX")]
-    [SerializeField]
-    AudioClip sfx_spaceBar;
 
     [SerializeField]
-    AudioClip sfx_water;
+    AudioClip sfx_EngineStartSound;
 
     [SerializeField]
-    AudioClip sfx_select;
-
-    [SerializeField]
-    AudioClip sfx_countdown_intro;
-
-    [SerializeField]
-    AudioClip sfx_countdown_one;
-
-    [SerializeField]
-    AudioClip sfx_countdown_two;
-
-    [SerializeField]
-    AudioClip sfx_countdown_three;
+    AudioClip sfx_DriftSound;
 
     private void Awake()
     {
@@ -129,23 +102,17 @@ public class SoundManager : MonoBehaviour
     {
         switch (value)
         {
-            case EBGM.INTRO:
-                bgm.clip = bgm_introClip;
+            case EBGM._90BPM_WakeUp:
+                bgm.clip = bgm_WakeUp;
                 break;
-            case EBGM.INTRO_ANGRY:
-                bgm.clip = bgm_introAngryClip;
+            case EBGM._108BPM_IfI:
+                bgm.clip = bgm_IfI;
                 break;
-            case EBGM.TITLE:
-                bgm.clip = bgm_titleClip;
+            case EBGM._180BPM_Turn:
+                bgm.clip = bgm_Turn;
                 break;
-            case EBGM.IN_GAME:
-                bgm.clip = bgm_inGameClip;
-                break;
-            case EBGM.GAME_OVER_BELOW_SCORE:
-                bgm.clip = bgm_gameOverBelowScoreClip;
-                break;
-            case EBGM.GAME_OVER_OVER_SCORE:
-                bgm.clip = bgm_gameOverOverScoreClip;
+            case EBGM._196BPM_Bluedy:
+                bgm.clip = bgm_Bluedy;
                 break;
         }
     }
@@ -154,20 +121,10 @@ public class SoundManager : MonoBehaviour
     {
         switch (value)
         {
-            case ESFX.SPACE_BAR:
-                return sfx_spaceBar;
-            case ESFX.WATER_SPLASH:
-                return sfx_water;
-            case ESFX.SELECT:
-                return sfx_select;
-            case ESFX.COUNT_DOWN_INTRO:
-                return sfx_countdown_intro;
-            case ESFX.COUNT_DOWN_ONE:
-                return sfx_countdown_one;
-            case ESFX.COUNT_DOWN_TWO:
-                return sfx_countdown_two;
-            case ESFX.COUNT_DOWN_THREE:
-                return sfx_countdown_three;
+            case ESFX.EngineStartSound:
+                return sfx_EngineStartSound;
+            case ESFX.CarDriftSound:
+                return sfx_DriftSound;
             default:
                 return null;
         }
