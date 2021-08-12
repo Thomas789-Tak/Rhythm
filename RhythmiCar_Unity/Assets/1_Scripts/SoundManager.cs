@@ -35,7 +35,7 @@ public class SoundManager : MonoBehaviour
         _90BPM_WakeUp,
         _108BPM_IfI,
         _180BPM_Turn,
-        _196BPM_Bluedy,
+        _196BPM_SuddenShower,
 
     }
 
@@ -111,7 +111,7 @@ public class SoundManager : MonoBehaviour
             case EBGM._180BPM_Turn:
                 bgm.clip = bgm_Turn;
                 break;
-            case EBGM._196BPM_Bluedy:
+            case EBGM._196BPM_SuddenShower:
                 bgm.clip = bgm_Bluedy;
                 break;
         }

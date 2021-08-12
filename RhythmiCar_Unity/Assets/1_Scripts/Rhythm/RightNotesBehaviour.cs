@@ -26,8 +26,8 @@ public class RightNotesBehaviour : MonoBehaviour // 실제 게임에 영향을 주는 노트
         {
             if (NoteManager.Instance.isStart == false)
             {
-                SoundManager.Instance.PlayBGM(SoundManager.EBGM._196BPM_Bluedy);
-                NoteManager.Instance.isStart = true;              
+                SoundManager.Instance.PlayBGM(SoundManager.EBGM._196BPM_SuddenShower);
+                NoteManager.Instance.isStart = true;
             }
             isJudgeAble = true;
             if(isJudgeAble&&Input.GetKeyDown(KeyCode.Space))

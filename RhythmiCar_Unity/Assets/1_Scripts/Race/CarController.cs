@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class CarController : MonoBehaviour
 {
-    Rigidbody MyRigidBody;
+    public Rigidbody MyRigidBody;
     SphereCollider MySphereCollider;
     Transform GroundCheckPos;
     Transform FrontLeftWheel;
@@ -16,7 +16,6 @@ public class CarController : MonoBehaviour
     TrailRenderer RightSkidMark;
     public static ParticleSystem SuccessVFx;
     ParticleSystem FailVFx;
-    public MusicController music;
     Scrollbar Kick;
     Scrollbar SteeringWheel;
 
@@ -64,8 +63,7 @@ public class CarController : MonoBehaviour
         SteeringWheel = GameObject.Find("SteeringWheel").GetComponent<Scrollbar>();
     }
 
-    // (1) 리지드바드 + 스페어콜라이더 초기화하는 함수
-    void InitRigidBody()
+    void InitRigidBody() // (1) 리지드바드 + 스페어콜라이더 초기화하는 함수
     {
         /// 초기화 할때 mass 값과ㅓ 같은건 프리팹으로 따로 빼서 awake 때 호출하지 않게 하자 
         MyRigidBody = transform.GetChild(2).GetComponent<Rigidbody>();
@@ -91,21 +89,19 @@ public class CarController : MonoBehaviour
 
     void FixedUpdate()
     {
-        CheckGround();
-        CarEngine(); // (3)   
+        CheckGroundAndRotation();
+        CarEngine();
 
     }
 
     void Update()
     {
-        Profiler.BeginSample("플레이어 인풋");
-        GetInput(); // (2)
-        Profiler.EndSample();
-        UpdateObjectTransform(); // (4)
-        UpdateCurrentState(); // (6)
+        GetInput();
+        UpdateObjectTransform();
+        UpdateCurrentState();
     }
-    // (4) 각종 오브젝트 위치를 할당하는 함수
-    void UpdateObjectTransform()
+   
+    void UpdateObjectTransform()  // (4) 각종 오브젝트 위치를 할당하는 함수
     {
         //리지드 바디가 커지면 여기 y값을 조절하면 된다
         transform.position = new Vector3(MyRigidBody.transform.position.x, MyRigidBody.transform.position.y-0.3f, MyRigidBody.transform.position.z);
@@ -120,10 +116,7 @@ public class CarController : MonoBehaviour
 
     }
 
-
-
-    // (6) 현재 상태를 업데이트 하는 함수
-    void UpdateCurrentState()
+    void UpdateCurrentState() // (6) 현재 상태를 업데이트 하는 함수
     {
 
         if(isTouchWheel==false)
@@ -144,11 +137,10 @@ public class CarController : MonoBehaviour
         }
     }
 
-    // (5) 점프 시 콜라이더 비활성화
-    void SetColliderWhenFly()
+    void SetColliderWhenFly() // (5) 점프 시 콜라이더 비활성화
     {
         //Invoke("DelaySetCollider", 2f);
-        if(transform.position.y<=-19f)
+        if (transform.position.y<=-19f) // 패배조건 설정; 
         {
             GameManager.Instance.Retry.gameObject.SetActive(true);
             Time.timeScale = 0;
@@ -162,34 +154,7 @@ public class CarController : MonoBehaviour
     }
 
 
-    public void GetSpeedUp()
-    {
-        if (myCurrentSpeed <= maxSpeed)
-        {
-            myCurrentSpeed += myAcceleration;
-        }
-        if(myCurrentSpeed>maxSpeed)
-        {
-            myCurrentSpeed=maxSpeed;
-        }
-        SuccessVFx.Play();
-    }
-    public void GetSpeedDown()
-    {
-        if(myCurrentSpeed>0)
-        {
-            myCurrentSpeed -= myAcceleration * 0.5f;
-            FailVFx.Play();
-        }
-        else
-        {
-            myCurrentSpeed = 0;
-        }
-
-    }
-
-    // (2) 플레이어의 인풋을 받아오는 함수
-    void GetInput()
+    void GetInput() // (2) 플레이어의 인풋을 받아오는 함수
     {
 
         //turnInput = (SteeringWheel.value-0.5f)*2f;
@@ -227,88 +192,88 @@ public class CarController : MonoBehaviour
         }
     }
 
-    // (3) 차량에 동력을 전달하는 함수
-    void CarEngine()
+    void CarEngine() // 차량에 동력을 전달하는 함수
     {
-        //바닥체크 함수
-        if (isGrounding&&isDrifting==false)
+        if (isGrounding&&isDrifting==false) // 평상 시 가속
         {       
-            //엑셀
             MyRigidBody.AddForce(transform.forward * myCurrentSpeed * 1000f,ForceMode.Force);
             MyRigidBody.drag = groundDrag;
+            MyRigidBody.angularDrag = groundAngularDrag;
         }
-        else if(isDrifting)
+        else if(isDrifting) // 드리프트 시
         {
-            MyRigidBody.drag = 0f;
-            MyRigidBody.angularDrag = 0f;
-            MyRigidBody.AddForce(transform.forward * myCurrentSpeed * 1000f*0.01f, ForceMode.Force);
-        }
-        else
-        {
-            //공중에 떴을 때 처리
-            MyRigidBody.drag = 0f;
-            MyRigidBody.angularDrag = 0f;
-            MyRigidBody.AddForce(gravityForce * -Vector3.up,ForceMode.Force);
-            
-        }
-
-        //드리프트
-        if (isDrifting)
-        {
-            float referenceDrift=myCurrentSpeed*0.4f;
-            //오른쪽
-            if (Input.GetAxis("Horizontal") > 0)
-            {
-                //현재 속도를 참조해서 하자  
-                /// 턴인풋 받기
-                MyRigidBody.AddForce(Vector3.Slerp(-transform.right, -transform.right * myFriction*referenceDrift*turnInput, 500f * Time.deltaTime), ForceMode.Force);
-                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, 2f*turnInput * myTurnStrength * 0.5f * Time.deltaTime, 0f)), turnLerpSpeed * Time.deltaTime);
-                if (myCurrentSpeed > 0)
-                {
-                    myCurrentSpeed -= myBrakeForce * referenceDrift * Time.deltaTime*0.5f;
-                }
-            }
-            else if(Input.GetAxis("Horizontal")==0)
-            {
-                if(myCurrentSpeed > 0)
-                {
-                    myCurrentSpeed -= myBrakeForce * referenceDrift * Time.deltaTime;
-                }
-            }
-            //왼쪽
-            else
-            {
-                if (myCurrentSpeed > 0)
-                {
-                    MyRigidBody.AddForce(Vector3.Slerp(transform.right, transform.right * myFriction * referenceDrift * Mathf.Abs(turnInput), 500f * Time.deltaTime), ForceMode.Force);
-                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, 2f * turnInput * myTurnStrength * 0.5f * Time.deltaTime, 0f)), turnLerpSpeed * Time.deltaTime);
-                    myCurrentSpeed -= myBrakeForce * referenceDrift * Time.deltaTime*0.5f;
-                }
-
-
-            }
-
-            //파티클 넣어주기
-
+            MyRigidBody.drag = 1f;
+            MyRigidBody.angularDrag = 1f;
+            // 기존 MyRigidBody.AddForce(transform.forward * myCurrentSpeed * 1000f*0.01f, ForceMode.Force);
+            MyRigidBody.AddForce(transform.forward* myCurrentSpeed * 1000f*0.5f, ForceMode.Force);
         }
     }
 
-    //바닥체크 함수 + 각도 조정
-    void CheckGround()
+    void CheckGroundAndRotation() //바닥체크 함수 + 각도 조정
     {
         RaycastHit groundInfo;
         if (Physics.Raycast(GroundCheckPos.position, -transform.up, out groundInfo, groundRayLength, GroundLayer))
         {
             isGrounding = true;
-            //각도가 있는 지형에서 차량의 각도를 조정해주는 부분
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.FromToRotation(transform.up, groundInfo.normal) * transform.rotation, Time.deltaTime * HillLerpSpeed);
-            //좌우 이동
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, turnInput * myTurnStrength * Time.deltaTime, 0f)), turnLerpSpeed*Time.deltaTime);
+            
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.FromToRotation(transform.up, groundInfo.normal) * transform.rotation, HillLerpSpeed); //각도가 있는 지형에서 차량의 각도를 조정해주는 부분
+
+            if (isDrifting) // 드리프트 시 회전
+            {
+                print("드리프트 시");
+                if(turnInput>0) // 오른쪽 회전 시
+                {
+                    print("오른쪽 드리프트");
+                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, turnInput * myTurnStrength*myFriction*0.0006f, 0f)), turnLerpSpeed);
+                    MyRigidBody.AddForce(Vector3.Slerp(-transform.right, -transform.right * myFriction * myCurrentSpeed*0.03f * turnInput, 10f), ForceMode.Force);
+                    if (myCurrentSpeed > 0)
+                    {
+                        myCurrentSpeed -= myBrakeForce; // 수정필요 현재 속도에 비례해서 아래 3개 포함 브레이크에 관해서 기획적으로 수정 필요(비율적으로 속도를 줄일건지 동일한 속도로 줄일건지)
+                    }
+                    else
+                    {
+                        myCurrentSpeed = 0f;
+                    }
+                }
+                else if(turnInput==0) // 중립 시 
+                {
+                    if (myCurrentSpeed > 0)
+                    {
+                        myCurrentSpeed -= myBrakeForce;
+                    }
+                    else
+                    {
+                        myCurrentSpeed = 0f;
+                    }
+                }
+                else // 왼쪽 회전 시
+                {
+                    print("왼쪽 드리프트");
+                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, turnInput * myTurnStrength*0.0006f*myFriction , 0f)), turnLerpSpeed);
+                    MyRigidBody.AddForce(Vector3.Slerp(transform.right, transform.right * myFriction * myCurrentSpeed*0.03f * Mathf.Abs(turnInput), 10f), ForceMode.Force);
+                    if (myCurrentSpeed > 0)
+                    {
+                        myCurrentSpeed -= myBrakeForce;
+                    }
+                    else
+                    {
+                        myCurrentSpeed = 0f;
+                    }
+                }
+            }
+            else // 드리프트를 하지 않는 평상시 좌우 회전
+            {
+                print("평상시");
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, turnInput * myTurnStrength*0.03f, 0f)), turnLerpSpeed);
+            }
         }
-        else
+        else // 지상이 아닐때 상황
         {
             isGrounding = false;
-            SetColliderWhenFly(); // (5)     
+            MyRigidBody.drag = 0f;
+            MyRigidBody.angularDrag = 0f;
+            MyRigidBody.AddForce(gravityForce * -Vector3.up, ForceMode.Force);
+            SetColliderWhenFly();
         }
     }
 

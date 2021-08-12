@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using PathCreation;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,9 +13,12 @@ public class GameManager : MonoBehaviour
     public CarController car;
     public Button Retry;
     public int myNum = 1;
+    public int noteCount;
+    public PathCreator[] road;
 
     private void Awake()
     {
+        text.text = (road[0].path.length/1.6f).ToString();
         Time.timeScale = 1;
         if (instance == null)
         {
@@ -40,13 +44,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
+    private void Update()
+    {
+        text.text=car.MyRigidBody.velocity.magnitude.ToString("N0")+"차량속도" + "currentSpeed==>" + car.myCurrentSpeed.ToString("N0");
+    }
     public void RetryGame()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
     public void ToMainScene()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
     }
 }
