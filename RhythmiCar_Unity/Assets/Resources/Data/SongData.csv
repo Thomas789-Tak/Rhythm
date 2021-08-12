@@ -1,4 +1,5 @@
-﻿name,isOpend,openCost,bpm,maxSpeed
-사막의 질주,TRUE,0,90,60
-울타리 마을,TRUE,0,100,70
-MULLE,FALSE,500,108,75
+﻿EBGM,SongName,WriterName,IsOpend,OpenCost,Bpm,MaxSpeed
+_90BPM_WakeUp,WakeUp,Bluedy,TRUE,0,90,60
+_108BPM_IfI,If I,Bluedy,TRUE,0,100,70
+_180BPM_Turn,Turn,Bluedy,FALSE,500,108,75
+_196BPM_Bluedy,Bluedy,Bluedy,FALSE,1000,196,120

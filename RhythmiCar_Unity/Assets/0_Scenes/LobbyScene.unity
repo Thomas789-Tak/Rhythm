@@ -9312,16 +9312,19 @@ MonoBehaviour:
   - name: "\uC0AC\uB9C9\uC758 \uC9C8\uC8FC"
     isOpend: 1
     openCost: 0
+    bgmCount: 0
     bpm: 90
     maxSpeed: 60
   - name: "\uC6B8\uD0C0\uB9AC \uB9C8\uC744"
-    isOpend: 1
+    isOpend: 0
     openCost: 0
+    bgmCount: 1
     bpm: 100
     maxSpeed: 70
   - name: MULLE
     isOpend: 0
     openCost: 500
+    bgmCount: 3
     bpm: 108
     maxSpeed: 75
   stageData:

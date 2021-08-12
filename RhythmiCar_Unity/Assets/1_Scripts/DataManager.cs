@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Firebase;
 using Firebase.Database;
+using Firebase.Auth;
 
 
 public class DataManager : MonoBehaviour
@@ -22,11 +23,104 @@ public class DataManager : MonoBehaviour
     }
 
     public DatabaseReference reference { get; set; }
+    public FirebaseAuth auth;
 
-    [ContextMenu("Test")]
-    void test()
+    public class Rank
     {
-        
+        public string name;
+        public int score;
+        public int timestamp;
+
+        public Rank(string name, int score, int timestamp)
+        {
+            this.name = name;
+            this.score = score;
+            this.timestamp = timestamp;
+        }
+    }
+
+
+    [ContextMenu("FirebaseDatabase")]
+    void FirebaseDatabase()
+    {
+        WriteDatabase();
+        ReadDatabase();
+    }
+
+    void WriteDatabase()
+    {
+        FirebaseApp.DefaultInstance.Options.DatabaseUrl = new System.Uri("https://rhythmicar-default-rtdb.firebaseio.com/");
+        reference = Firebase.Database.FirebaseDatabase.DefaultInstance.RootReference;
+
+        Rank rank = new Rank("Sittan", 96, 1413523370);
+
+        string json = JsonUtility.ToJson(rank);
+
+        string key = reference.Child("rank").Push().Key;
+
+        reference.Child("rank").Child(key).SetRawJsonValueAsync(json);
+
+    }
+
+    void ReadDatabase()
+    {
+        FirebaseApp.DefaultInstance.Options.DatabaseUrl = new System.Uri("https://rhythmicar-default-rtdb.firebaseio.com/");
+        reference = Firebase.Database.FirebaseDatabase.DefaultInstance.GetReference("rank");
+
+        reference.GetValueAsync().ContinueWith(task =>
+        {
+            if(task.IsCompleted)
+            {
+                DataSnapshot snapshot = task.Result;
+                foreach(DataSnapshot data in snapshot.Children)
+                {
+                    IDictionary rank = (IDictionary)data.Value;
+                    Debug.Log("이름: " + rank["name"] + " / 점수: " + rank["score"]);
+                }
+            }
+        });
+    }
+
+    [ContextMenu("FirebaseAuth")]
+    void Auth()
+    {
+        auth = FirebaseAuth.DefaultInstance;
+        Join("hang5050@naver.com", "shqk1492");
+        Login("hang5050@naver.com", "shqk1492");
+    }
+
+    void Join(string email, string password)
+    {
+        auth.CreateUserWithEmailAndPasswordAsync(email, password).ContinueWith(
+            task =>
+            {
+                if(!task.IsCanceled && !task.IsFaulted)
+                {
+                    Debug.Log("[회원가입 성공] 이메일 :" + email);
+                }
+                else
+                {
+                    Debug.Log("[회원가입 실패]");
+                }
+
+            });
+    }
+
+    void Login(string email, string password)
+    {
+        auth.SignInWithEmailAndPasswordAsync(email, password).ContinueWith(
+            task =>
+            {
+                if (task.IsCompleted && !task.IsCanceled && !task.IsFaulted)
+                {
+                    FirebaseUser user = task.Result;
+                    Debug.Log("[로그인 성공] " + user.Email);
+                }
+                else
+                {
+                    Debug.Log("[로그인 실패]");
+                }
+            });
     }
 
     [ContextMenu("ReadData")]
@@ -36,14 +130,13 @@ public class DataManager : MonoBehaviour
         ReadSongData();
         ReadStageData();
     }
-
     void ReadCarData()
     {
         string dataPath = "Data/CarData";
         List<Dictionary<string, object>> data = CSVReader.Read(dataPath);
         Debug.Log("Load Path : " + dataPath);
 
-        int kindOfCar = System.Enum.GetValues(typeof(ECarKind)).Length;
+        int kindOfCar = System.Enum.GetValues(typeof(Car.ECarKind)).Length;
         int totalLevel = 10;
 
         carData = new List<Car>();
@@ -51,34 +144,36 @@ public class DataManager : MonoBehaviour
         for (int i = 0; i < kindOfCar; i++)
         {
 
-            Car newCar = new Car();
-            newCar.statuses = new List<Car.Status>();
-            newCar.name = ((ECarKind)i).ToString();
-            newCar.currentLevel = 0;
-
-            
+            List<Car.Status> newStatuses = new List<Car.Status>();
             for (int lv = 0; lv < totalLevel; lv++)
             {
-                Car.Status newStatus = new Car.Status();
                 int num = i * totalLevel + lv;
 
-                newStatus.songEquipCount = (int)data[num][nameof(Car.Status.songEquipCount)];
-                newStatus.level = (int)data[num][nameof(Car.Status.level)];
-                newStatus.levelUpCost = (int)data[num][nameof(Car.Status.levelUpCost)];
-                newStatus.acceleration = (float)data[num][nameof(Car.Status.acceleration)];
-                newStatus.boosterMaxGauge = (float)data[num][nameof(Car.Status.boosterMaxGauge)];
-                newStatus.turnStrength = (float)data[num][nameof(Car.Status.turnStrength)];
-                newStatus.brakeForce = (float)data[num][nameof(Car.Status.brakeForce)];
-                newStatus.friction = (float)data[num][nameof(Car.Status.friction)];
-                newStatus.rhythmPower = (float)data[num][nameof(Car.Status.rhythmPower)];
+                int songEquipCount = (int)data[num][nameof(Car.Status.SongEquipCount)];
+                int level = (int)data[num][nameof(Car.Status.Level)];
+                int levelUpCost = (int)data[num][nameof(Car.Status.LevelUpCost)];
+                float acceleration = (float)data[num][nameof(Car.Status.Acceleration)];
+                float boosterMaxGauge = (float)data[num][nameof(Car.Status.BoosterMaxGauge)];
+                float boosterSpeed = (float)data[num][nameof(Car.Status.BoosterSpeed)];
+                float turnStrength = (float)data[num][nameof(Car.Status.TurnStrength)];
+                float brakeForce = (float)data[num][nameof(Car.Status.BrakeForce)];
+                float friction = (float)data[num][nameof(Car.Status.Friction)];
+                float rhythmPower = (float)data[num][nameof(Car.Status.RhythmPower)];
 
-                newCar.statuses.Add(newStatus);
+                Car.Status newStatus = new Car.Status(songEquipCount, level, levelUpCost, acceleration,
+                    boosterMaxGauge, boosterSpeed, turnStrength, brakeForce, friction, rhythmPower);
+
+                newStatuses.Add(newStatus);
             }
+
+            string name = ((Car.ECarKind)i).ToString();
+            int currentLevel = 0;
+            
+            Car newCar = new Car(name, currentLevel, newStatuses);
 
             carData.Add(newCar);
         }
     }
-
     void ReadSongData()
     {
         string dataPath = "Data/SongData";
@@ -91,21 +186,24 @@ public class DataManager : MonoBehaviour
 
         for (int i = 0; i < kindOfSong; i++)
         {
-            string name = (string)data[i][nameof(Song.name)];
+            var eBGM = (SoundManager.EBGM)System.Enum
+                .Parse(typeof(SoundManager.EBGM), (string)data[i][nameof(Song.EBGM)]);
 
-            bool isOpend = bool.Parse((string)data[i][nameof(Song.isOpend)]);
-            int openCost = (int)data[i][nameof(Song.openCost)];
+            string songName = (string)data[i][nameof(Song.SongName)];
+            string writerName = (string)data[i][nameof(Song.WriterName)];
 
-            int bpm = (int)data[i][nameof(Song.bpm)];
-            int maxSpeed = (int)data[i][nameof(Song.maxSpeed)];
+            bool isOpend = bool.Parse((string)data[i][nameof(Song.IsOpend)]);
+            int openCost = (int)data[i][nameof(Song.OpenCost)];
 
-            var newSong = new Song(name, isOpend, openCost, bpm, maxSpeed);
+            int bpm = (int)data[i][nameof(Song.Bpm)];
+            int maxSpeed = (int)data[i][nameof(Song.MaxSpeed)];
+
+            var newSong = new Song(eBGM, songName, writerName, isOpend, openCost, bpm, maxSpeed);
 
             songData.Add(newSong);
         }
 
     }
-
     void ReadStageData()
     {
         string dataPath = "Data/StageData";
@@ -118,9 +216,9 @@ public class DataManager : MonoBehaviour
 
         for (int i = 0; i < totalNum; i++)
         {
-            string theme = (string)data[i][nameof(Stage.theme)];
-            int level = (int)data[i][nameof(Stage.level)];
-            bool isOpend = bool.Parse((string)data[i][nameof(Stage.isOpend)]);
+            string theme = (string)data[i][nameof(Stage.Theme)];
+            int level = (int)data[i][nameof(Stage.Level)];
+            bool isOpend = bool.Parse((string)data[i][nameof(Stage.IsOpend)]);
 
             var newStage = new Stage(theme, level, isOpend);
 
@@ -128,9 +226,4 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    [ContextMenu("CheckData")]
-    public void CheckData()
-    {
-        //Debug.Log(carData[ECarKind.Red.ToString()].statuses[2].songEquipCount);
-    }
 }

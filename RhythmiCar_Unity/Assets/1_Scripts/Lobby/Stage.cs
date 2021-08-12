@@ -1,26 +1,29 @@
 ﻿using System.Collections;
+using UnityEngine;
 
 [System.Serializable]
 public class Stage
 {
-    public string theme;
-    public int level;
-    public bool isOpend;
 
-    public bool isCleared;
-    public float highScore;
+    [SerializeField] private string theme;
+    [SerializeField] private int level;
+    [SerializeField] private bool isOpend;
 
-    /// <summary>
-    /// CSV에서 받아온 데이터를 사용하는 생성자
-    /// 이곳에 없는 변수들은 FireBase에서 받아오도록 한다.
-    /// </summary>
-    /// <param name="theme"></param>
-    /// <param name="level"></param>
-    /// <param name="isOpend"></param>
-    public Stage(string theme, int level, bool isOpend)
+    [SerializeField] private bool isCleared;
+    [SerializeField] private float highScore;
+
+    public Stage(string theme, int level, bool isOpend, bool isCleared = false, float highScore = 0)
     {
         this.theme = theme;
         this.level = level;
         this.isOpend = isOpend;
+        this.isCleared = isCleared;
+        this.highScore = highScore;
     }
+
+    public string Theme { get => theme; private set => theme = value; }
+    public int Level { get => level; private set => level = value; }
+    public bool IsOpend { get => isOpend; private set => isOpend = value; }
+    public bool IsCleared { get => isCleared; private set => isCleared = value; }
+    public float HighScore { get => highScore; private set => highScore = value; }
 }
