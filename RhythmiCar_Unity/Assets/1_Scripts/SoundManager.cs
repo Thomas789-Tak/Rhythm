@@ -22,12 +22,13 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    [Header("AudioSource")]
+    [Header("[[AudioSource]]")]
     [SerializeField]
     AudioSource bgm;
 
-    [SerializeField]
     public AudioSource sfx;
+
+    public AudioSource sfx_Loop;
 
 
     public enum EBGM
@@ -42,10 +43,14 @@ public class SoundManager : MonoBehaviour
     public enum ESFX
     {
         EngineStartSound,
+    }
+
+    public enum ESFX_Loop
+    {
         CarDriftSound,
     }
 
-    [Header("BGM")]
+    [Header("[BGM]")]
     [SerializeField]
     AudioClip bgm_WakeUp;
 
@@ -56,15 +61,17 @@ public class SoundManager : MonoBehaviour
     AudioClip bgm_Turn;
 
     [SerializeField]
-    AudioClip bgm_Bluedy;
+    AudioClip bgm_SuddenShower;
 
-    [Header("SFX")]
+    [Header("[SFX]")]
 
     [SerializeField]
     AudioClip sfx_EngineStartSound;
 
+    [Header("[SFX_Loop]")]
+
     [SerializeField]
-    AudioClip sfx_DriftSound;
+    AudioClip sfx_Loop_DriftSound;
 
     private void Awake()
     {
@@ -98,6 +105,13 @@ public class SoundManager : MonoBehaviour
             sfx.PlayOneShot(aclip);
     }
 
+    public void PlayLoopSFX(ESFX_Loop value)
+    {
+        AudioClip bclip = SetSFX_Loop(value);
+        if (bclip&&sfx.isPlaying==false)
+            sfx.PlayOneShot(bclip);
+    }
+
     void SetBGM(EBGM value)
     {
         switch (value)
@@ -112,7 +126,7 @@ public class SoundManager : MonoBehaviour
                 bgm.clip = bgm_Turn;
                 break;
             case EBGM._196BPM_SuddenShower:
-                bgm.clip = bgm_Bluedy;
+                bgm.clip = bgm_SuddenShower;
                 break;
         }
     }
@@ -123,8 +137,17 @@ public class SoundManager : MonoBehaviour
         {
             case ESFX.EngineStartSound:
                 return sfx_EngineStartSound;
-            case ESFX.CarDriftSound:
-                return sfx_DriftSound;
+            default:
+                return null;
+        }
+    }
+
+    AudioClip SetSFX_Loop(ESFX_Loop value)
+    {
+        switch (value)
+        {
+            case ESFX_Loop.CarDriftSound:
+                return sfx_Loop_DriftSound;
             default:
                 return null;
         }

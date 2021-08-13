@@ -12,10 +12,13 @@ public class GameManager : MonoBehaviour
     public Text text;
     public CarController car;
     public Button Retry;
+    public Button KickButton;
+    public Scrollbar WheelSlider;
     public int myNum = 1;
     public int noteCount;
     public PathCreator[] road;
-
+    public bool isTouchWheelUI;
+    public bool isTouchKickUI;
     private void Awake()
     {
         text.text = (road[0].path.length/1.6f).ToString();
@@ -28,7 +31,6 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-
         Retry.gameObject.SetActive(false);
         Application.targetFrameRate = 60;
     }
@@ -46,7 +48,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        text.text=car.MyRigidBody.velocity.magnitude.ToString("N0")+"차량속도" + "currentSpeed==>" + car.myCurrentSpeed.ToString("N0");
+        text.text = car.MyRigidBody.velocity.magnitude.ToString("N0")+"Km/h";
     }
     public void RetryGame()
     {
@@ -55,5 +57,25 @@ public class GameManager : MonoBehaviour
     public void ToMainScene()
     {
         SceneManager.LoadScene(0);
+    }
+    public void WheelTouchDown()
+    {
+        isTouchWheelUI = true;
+    }
+    public void WheelTouchUp()
+    {
+        isTouchWheelUI = false;
+    }
+    public void KickTouchDown()
+    {
+        isTouchKickUI = true;
+    }
+    public void KickTouchUp()
+    {
+        isTouchKickUI = false;
+    }
+    public void SpeedUp()
+    {
+        car.SpeedUP();
     }
 }

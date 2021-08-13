@@ -12,12 +12,10 @@ public class CarController : MonoBehaviour
     Transform FrontLeftWheel;
     Transform FrontRightWheel;
     Transform CarColliderPos;
-    TrailRenderer LeftSkidMark;
-    TrailRenderer RightSkidMark;
+    TrailRenderer BackLeftSkidMark;
+    TrailRenderer BackRightSkidMark;
     public static ParticleSystem SuccessVFx;
     ParticleSystem FailVFx;
-    Scrollbar Kick;
-    Scrollbar SteeringWheel;
 
     [Header("유저 데이터")]
     [SerializeField] int myID;
@@ -29,9 +27,9 @@ public class CarController : MonoBehaviour
     [SerializeField] [Tooltip("가속도")] [Range(1, 100)] float myAcceleration;
     [SerializeField] [Tooltip("최대 부스터게이지량")] [Range(1, 300)] float myBoosterMaxGauge;
     [SerializeField] [Tooltip("부스터속도")] [Range(1, 300)] float myBoosterSpeed;
-    [SerializeField] [Tooltip("회전속도")] [Range(1, 300)] float myTurnStrength =30f;
-    [SerializeField] [Tooltip("제동력")] [Range(1, 300)] float myBrakeForce = 50f;
-    [SerializeField] [Tooltip("제동마찰력")] [Range(1, 300)] float myFriction =40f;
+    [SerializeField] [Tooltip("회전속도")] [Range(1, 300)] float myTurnStrength;
+    [SerializeField] [Tooltip("제동력")] [Range(1, 300)] float myBrakeForce;
+    [SerializeField] [Tooltip("제동마찰력")] [Range(1, 300)] float myFriction;
     float myRhythmPower;
     public float myCurrentSpeed;
     float myMaxSteering=45;
@@ -46,11 +44,11 @@ public class CarController : MonoBehaviour
     float turnLerpSpeed=160f; // 턴할 때 부드러운 정도
     float HillLerpSpeed=10f; // 언덕올라갈 때 부드러운 정도
     float driftTime;
+    float optimizeRayCheckTime;
 
     bool isGrounding; //지상인지 체크
     bool isDrifting; // 드리프트중인지 체크
     bool isBoosting; // 부스터중인지 체크
-    bool isTouchWheel;
 
 
     int GroundLayer;
@@ -59,8 +57,7 @@ public class CarController : MonoBehaviour
     void Awake()
     {
         InitRigidBody(); // (1)
-        Kick = GameObject.Find("Kick").GetComponent<Scrollbar>();
-        SteeringWheel = GameObject.Find("SteeringWheel").GetComponent<Scrollbar>();
+        SoundManager.Instance.PlayOneShotSFX(SoundManager.ESFX.EngineStartSound);
     }
 
     void InitRigidBody() // (1) 리지드바드 + 스페어콜라이더 초기화하는 함수
@@ -74,8 +71,8 @@ public class CarController : MonoBehaviour
         GroundCheckPos.parent = null;
         FrontLeftWheel = transform.Find("Wheels").transform.Find("Meshes").transform.Find("FLW").GetComponent<Transform>();
         FrontRightWheel = transform.Find("Wheels").transform.Find("Meshes").transform.Find("FRW").GetComponent<Transform>();
-        RightSkidMark = transform.Find("Wheels").transform.Find("Meshes").transform.Find("FRW").transform.Find("rightSkid").GetComponent<Transform>().GetComponent<TrailRenderer>();
-        LeftSkidMark = transform.Find("Wheels").transform.Find("Meshes").transform.Find("FLW").transform.Find("leftSkid").GetComponent<Transform>().GetComponent<TrailRenderer>();
+        BackRightSkidMark = transform.Find("Wheels").transform.Find("Meshes").transform.Find("RRW").transform.Find("BackRightSkid").GetComponent<Transform>().GetComponent<TrailRenderer>();
+        BackLeftSkidMark = transform.Find("Wheels").transform.Find("Meshes").transform.Find("RLW").transform.Find("BackLeftSkid").GetComponent<Transform>().GetComponent<TrailRenderer>();
         MySphereCollider.radius = 0.8f;
         MyRigidBody.mass = 700f;
         MyRigidBody.drag = groundDrag;
@@ -96,11 +93,32 @@ public class CarController : MonoBehaviour
 
     void Update()
     {
+        CheckRoadType();
         GetInput();
         UpdateObjectTransform();
         UpdateCurrentState();
     }
-   
+
+    void CheckRoadType() // 레이캐스트 체크주기를 조절하여 최적화
+    {
+        optimizeRayCheckTime += Time.deltaTime;
+        if(optimizeRayCheckTime>=0.3f)
+        {
+            RaycastHit groundInfo;
+            if (Physics.Raycast(GroundCheckPos.position, -transform.up, out groundInfo, groundRayLength, GroundLayer))
+            {
+                isGrounding = true;
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.FromToRotation(transform.up, groundInfo.normal) * transform.rotation, HillLerpSpeed); //각도가 있는 지형에서 차량의 각도를 조정해주는 부분
+            }
+            else
+            {
+                isGrounding = false;
+            }
+            optimizeRayCheckTime = 0f;
+        }
+
+    }
+
     void UpdateObjectTransform()  // (4) 각종 오브젝트 위치를 할당하는 함수
     {
         //리지드 바디가 커지면 여기 y값을 조절하면 된다
@@ -116,24 +134,70 @@ public class CarController : MonoBehaviour
 
     }
 
-    void UpdateCurrentState() // (6) 현재 상태를 업데이트 하는 함수
+    void PcController()
     {
-
-        if(isTouchWheel==false)
+        if (myCurrentSpeed != 0)
         {
-            SteeringWheel.value = 0.5f;
+            turnInput = Input.GetAxis("Horizontal");
         }
-        //if(music.isKickButtonDown)
-        //{
-        //    driftTime += Time.deltaTime;
-        //}
-        if(Input.GetKey(KeyCode.LeftShift))
+        else
+        {
+            turnInput = 0;
+        }
+
+        if (Input.GetKey(KeyCode.LeftShift))
         {
             driftTime += Time.deltaTime;
         }
         else
         {
             driftTime = 0;
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            myCurrentSpeed += myAcceleration;
+        }
+    }
+
+    void MobileController()
+    {
+        if(myCurrentSpeed!=0)
+        {
+            turnInput = (GameManager.Instance.WheelSlider.value-0.5f)*2f;
+        }
+        else
+        {
+            turnInput = 0;
+        }
+        if (GameManager.Instance.isTouchWheelUI == false)
+        {
+            GameManager.Instance.WheelSlider.value = 0.5f;
+        }
+        if (GameManager.Instance.isTouchKickUI)
+        {
+            driftTime += Time.deltaTime;
+        }
+        else
+        {
+            driftTime = 0f;
+        }
+
+    }
+    void UpdateCurrentState() // (6) 현재 상태를 업데이트 하는 함수
+    {     
+        //드리프트
+        if (driftTime >= 0.2f && isGrounding && myCurrentSpeed > 30f)
+        {
+            isDrifting = true;
+            SoundManager.Instance.PlayLoopSFX(SoundManager.ESFX_Loop.CarDriftSound);
+            BackLeftSkidMark.emitting = true;
+            BackRightSkidMark.emitting = true;
+        }
+        else
+        {
+            isDrifting = false;
+            BackLeftSkidMark.emitting = false;
+            BackRightSkidMark.emitting = false;
         }
     }
 
@@ -156,40 +220,8 @@ public class CarController : MonoBehaviour
 
     void GetInput() // (2) 플레이어의 인풋을 받아오는 함수
     {
-
-        //turnInput = (SteeringWheel.value-0.5f)*2f;
-        if (myCurrentSpeed != 0)
-        {
-            turnInput = Input.GetAxis("Horizontal");
-        }
-        else
-        {
-            turnInput = 0;
-        }
-
-        //차량 위치 => 리지드바디 위치로 갱신
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            myCurrentSpeed += myAcceleration;
-        }
-
-        //드리프트
-        if(driftTime>=0.2f && isGrounding&&myCurrentSpeed>30f)
-        {
-            isDrifting = true;
-            if(SoundManager.Instance.sfx.isPlaying==false)
-            {
-                SoundManager.Instance.PlayOneShotSFX(SoundManager.ESFX.CarDriftSound); //수정하자
-            }    
-            LeftSkidMark.emitting = true;
-            RightSkidMark.emitting = true;
-        }
-        else
-        {
-            isDrifting = false;
-            LeftSkidMark.emitting = false;
-            RightSkidMark.emitting = false;
-        }
+        //MobileController();
+        PcController();   
     }
 
     void CarEngine() // 차량에 동력을 전달하는 함수
@@ -211,24 +243,17 @@ public class CarController : MonoBehaviour
 
     void CheckGroundAndRotation() //바닥체크 함수 + 각도 조정
     {
-        RaycastHit groundInfo;
-        if (Physics.Raycast(GroundCheckPos.position, -transform.up, out groundInfo, groundRayLength, GroundLayer))
+        if (isGrounding)
         {
-            isGrounding = true;
-            
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.FromToRotation(transform.up, groundInfo.normal) * transform.rotation, HillLerpSpeed); //각도가 있는 지형에서 차량의 각도를 조정해주는 부분
-
             if (isDrifting) // 드리프트 시 회전
             {
-                print("드리프트 시");
                 if(turnInput>0) // 오른쪽 회전 시
                 {
-                    print("오른쪽 드리프트");
-                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, turnInput * myTurnStrength*myFriction*0.0006f, 0f)), turnLerpSpeed);
-                    MyRigidBody.AddForce(Vector3.Slerp(-transform.right, -transform.right * myFriction * myCurrentSpeed*0.03f * turnInput, 10f), ForceMode.Force);
+                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, turnInput * myTurnStrength*0.03f, 0f)), turnLerpSpeed);
+                    MyRigidBody.AddForce(Vector3.Slerp(-transform.right, -transform.right * myFriction * myCurrentSpeed*0.05f * turnInput, 10f), ForceMode.Force);
                     if (myCurrentSpeed > 0)
                     {
-                        myCurrentSpeed -= myBrakeForce; // 수정필요 현재 속도에 비례해서 아래 3개 포함 브레이크에 관해서 기획적으로 수정 필요(비율적으로 속도를 줄일건지 동일한 속도로 줄일건지)
+                        myCurrentSpeed -= myBrakeForce;
                     }
                     else
                     {
@@ -248,9 +273,8 @@ public class CarController : MonoBehaviour
                 }
                 else // 왼쪽 회전 시
                 {
-                    print("왼쪽 드리프트");
-                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, turnInput * myTurnStrength*0.0006f*myFriction , 0f)), turnLerpSpeed);
-                    MyRigidBody.AddForce(Vector3.Slerp(transform.right, transform.right * myFriction * myCurrentSpeed*0.03f * Mathf.Abs(turnInput), 10f), ForceMode.Force);
+                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, turnInput * myTurnStrength * 0.03f, 0f)), turnLerpSpeed);
+                    MyRigidBody.AddForce(Vector3.Slerp(transform.right, transform.right * myFriction * myCurrentSpeed*0.05f * Mathf.Abs(turnInput), 10f), ForceMode.Force);
                     if (myCurrentSpeed > 0)
                     {
                         myCurrentSpeed -= myBrakeForce;
@@ -263,13 +287,11 @@ public class CarController : MonoBehaviour
             }
             else // 드리프트를 하지 않는 평상시 좌우 회전
             {
-                print("평상시");
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, turnInput * myTurnStrength*0.03f, 0f)), turnLerpSpeed);
             }
         }
         else // 지상이 아닐때 상황
         {
-            isGrounding = false;
             MyRigidBody.drag = 0f;
             MyRigidBody.angularDrag = 0f;
             MyRigidBody.AddForce(gravityForce * -Vector3.up, ForceMode.Force);
@@ -277,12 +299,8 @@ public class CarController : MonoBehaviour
         }
     }
 
-    public void GetTouchDown()
+    public void SpeedUP()
     {
-        isTouchWheel = true;
-    }
-    public void GetTouchUp()
-    {
-        isTouchWheel = false;
+        myCurrentSpeed += myAcceleration;
     }
 }
