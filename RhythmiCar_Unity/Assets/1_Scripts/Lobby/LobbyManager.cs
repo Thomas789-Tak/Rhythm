@@ -1,21 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UniRx;
+using DG.Tweening;
+
 
 public class LobbyManager : MonoBehaviour
 {
+    [SerializeField] private Player player;
+    [SerializeField] private DataManager dataManager;
 
-
-
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        
+        player = GetComponent<Player>();
+        dataManager = GetComponent<DataManager>();
+
     }
 
-    // Update is called once per frame
-    void Update()
+
+    public void GameStart()
     {
-        
+        LoadingSceneManager.LoadScene("Map1");
     }
+
+
 }
+

@@ -10,6 +10,7 @@ public class Car
     [SerializeField] private int currentLevel;
 
     [SerializeField] private List<Status> statuses = new List<Status>();
+
     [System.Serializable]
     public class Status
     {

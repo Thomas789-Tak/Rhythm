@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using Firebase;
 using Firebase.Database;
 using Firebase.Auth;
+using UniRx;
 
 public class Player : MonoBehaviour
 {
@@ -17,9 +19,36 @@ public class Player : MonoBehaviour
     [SerializeField] private List<Song> curSongs;
     [SerializeField] private Stage curStage;
 
+    private Subject<Car> carSubject;
+    private Subject<List<Song>> songsSubject;
+    private Subject<Stage> stageSubject;
 
     public DatabaseReference reference { get; set; }
     public FirebaseAuth auth;
+
+
+    [ContextMenu("Get Path")]
+    public void GETPATH()
+    {
+
+    }
+
+    public void SetCar(Car newCar)
+    {
+        curCar = carData.Find(car => car.Name == newCar.Name);
+    }
+
+    public void SetSong(int slotNum, SoundManager.EBGM newBGM)
+    {
+        curSongs[slotNum] = songData.Find(song => song.EBGM == newBGM);
+    }
+
+    public void SetStage(Stage newStage)
+    {
+        curStage = stageData.FindAll(stage => stage.Theme == newStage.Theme)
+            .Find(stage => stage.Level == newStage.Level);
+    }
+
 
     [ContextMenu("FirebaseDatabase")]
     void aa()

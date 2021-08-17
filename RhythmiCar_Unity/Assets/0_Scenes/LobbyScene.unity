@@ -5839,7 +5839,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1404278091}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2048405611}
+        m_TargetAssemblyTypeName: LobbyManager, Assembly-CSharp
+        m_MethodName: GameStart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1407367732
 GameObject:
   m_ObjectHideFlags: 0
@@ -8861,6 +8873,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2048405608}
+  - component: {fileID: 2048405611}
+  - component: {fileID: 2048405610}
   - component: {fileID: 2048405609}
   m_Layer: 0
   m_Name: Manager
@@ -9309,22 +9323,25 @@ MonoBehaviour:
       friction: 33
       rhythmPower: 63
   songData:
-  - name: "\uC0AC\uB9C9\uC758 \uC9C8\uC8FC"
+  - eBGM: 0
+    songName: 
+    writerName: 
     isOpend: 1
     openCost: 0
-    bgmCount: 0
     bpm: 90
     maxSpeed: 60
-  - name: "\uC6B8\uD0C0\uB9AC \uB9C8\uC744"
+  - eBGM: 0
+    songName: 
+    writerName: 
     isOpend: 0
     openCost: 0
-    bgmCount: 1
     bpm: 100
     maxSpeed: 70
-  - name: MULLE
+  - eBGM: 0
+    songName: 
+    writerName: 
     isOpend: 0
     openCost: 500
-    bgmCount: 3
     bpm: 108
     maxSpeed: 75
   stageData:
@@ -9368,6 +9385,47 @@ MonoBehaviour:
     isOpend: 0
     isCleared: 0
     highScore: 0
+--- !u!114 &2048405610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2048405607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b116e50161826b847a32c138e9e917d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  money: 0
+  carData: []
+  songData: []
+  stageData: []
+  curCar:
+    name: 
+    currentLevel: 0
+    statuses: []
+  curSongs: []
+  curStage:
+    theme: 
+    level: 0
+    isOpend: 0
+    isCleared: 0
+    highScore: 0
+--- !u!114 &2048405611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2048405607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebaeeac0bc40f9f4f97816d709de7640, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 2048405610}
+  dataManager: {fileID: 2048405609}
 --- !u!1 &2059130057
 GameObject:
   m_ObjectHideFlags: 0
