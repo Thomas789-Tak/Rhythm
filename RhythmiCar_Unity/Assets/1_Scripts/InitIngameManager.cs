@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Firebase;
+using Firebase.Auth;
+using Firebase.Database;
+
 
 public static class InitIngameManager //씬에 들어올 때 이 클래스의 정보를 바탕으로 초기화 해줌
 {
     public static Car selectedCar;
     public static List<Song> selectedSongs;
     public static Stage selectedStage;
+    public static FirebaseAuth auth;
 
     /// <summary>
     /// 정보를 받아올때의 예시
