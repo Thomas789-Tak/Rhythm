@@ -11,9 +11,11 @@ public class GameManager : MonoBehaviour
     private static GameManager instance =null;
     public Text text;
     public CarController car;
-    public Button Retry;
+    public Button RetryButton;
     public Button KickButton;
-    public Scrollbar WheelSlider;
+    public Button BoosterButton;
+    public Image BoosterGauge;
+    public Scrollbar WheelScrollBar;
     public int myNum = 1;
     public int noteCount;
     public PathCreator[] road;
@@ -31,7 +33,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        Retry.gameObject.SetActive(false);
+        RetryButton.gameObject.SetActive(false);
         Application.targetFrameRate = 60;
     }
     public static GameManager Instance
@@ -77,5 +79,9 @@ public class GameManager : MonoBehaviour
     public void SpeedUp()
     {
         car.SpeedUP();
+    }
+    public void BoosterTouchDown()
+    {        
+        car.isBoosting = true;
     }
 }

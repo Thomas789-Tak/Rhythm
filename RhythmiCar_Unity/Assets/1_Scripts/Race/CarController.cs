@@ -48,7 +48,7 @@ public class CarController : MonoBehaviour
 
     bool isGrounding; //지상인지 체크
     bool isDrifting; // 드리프트중인지 체크
-    bool isBoosting; // 부스터중인지 체크
+    public bool isBoosting { get; set; } // 부스터중인지 체크
 
 
     int GroundLayer;
@@ -97,6 +97,29 @@ public class CarController : MonoBehaviour
         GetInput();
         UpdateObjectTransform();
         UpdateCurrentState();
+        BoosterState();
+        print(isBoosting +""+ myBoosterCurrentGauge);
+    }
+
+    void BoosterState()
+    {
+        GameManager.Instance.BoosterGauge.fillAmount = myBoosterCurrentGauge / myBoosterMaxGauge;
+        if(isBoosting)
+        {
+            myBoosterCurrentGauge -= Time.deltaTime*30f;
+            if(myCurrentSpeed<=maxSpeed*2f)
+            {
+                myCurrentSpeed += Time.deltaTime * 80f;
+            }
+            if(myBoosterCurrentGauge<=0)
+            {
+                if(myCurrentSpeed >= maxSpeed)
+                {
+                    myCurrentSpeed = maxSpeed;
+                }
+                isBoosting = false;
+            }
+        }
     }
 
     void CheckRoadType() // 레이캐스트 체크주기를 조절하여 최적화
@@ -136,6 +159,7 @@ public class CarController : MonoBehaviour
 
     void PcController()
     {
+        //좌우 회전
         if (myCurrentSpeed != 0)
         {
             turnInput = Input.GetAxis("Horizontal");
@@ -145,6 +169,7 @@ public class CarController : MonoBehaviour
             turnInput = 0;
         }
 
+        //드리프트
         if (Input.GetKey(KeyCode.LeftShift))
         {
             driftTime += Time.deltaTime;
@@ -153,26 +178,51 @@ public class CarController : MonoBehaviour
         {
             driftTime = 0;
         }
+        //가속
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            myCurrentSpeed += myAcceleration;
+            if(myCurrentSpeed<=maxSpeed)
+            {
+                myCurrentSpeed += myAcceleration;
+                if(myBoosterCurrentGauge<myBoosterMaxGauge)  // 모바일도 구현 부스터 게이지 차는 것
+                {
+                    myBoosterCurrentGauge += 10;
+                }
+                else
+                {
+                    myBoosterCurrentGauge = myBoosterMaxGauge;
+                }
+            }
+            else
+            {
+                myCurrentSpeed = maxSpeed;
+            }
+        }
+        //부스터
+        if(Input.GetKeyDown(KeyCode.LeftControl)&&myBoosterCurrentGauge>=myBoosterMaxGauge)
+        {
+            isBoosting = true;
         }
     }
 
     void MobileController()
     {
+        //좌우 회전
         if(myCurrentSpeed!=0)
         {
-            turnInput = (GameManager.Instance.WheelSlider.value-0.5f)*2f;
+            turnInput = (GameManager.Instance.WheelScrollBar.value-0.5f)*2f;
         }
         else
         {
             turnInput = 0;
         }
+
+        // 터치가 없을 경우 중립 위치로 조정
         if (GameManager.Instance.isTouchWheelUI == false)
         {
-            GameManager.Instance.WheelSlider.value = 0.5f;
+            GameManager.Instance.WheelScrollBar.value = 0.5f;
         }
+        //드리프트
         if (GameManager.Instance.isTouchKickUI)
         {
             driftTime += Time.deltaTime;
@@ -181,7 +231,14 @@ public class CarController : MonoBehaviour
         {
             driftTime = 0f;
         }
-
+        if(myBoosterCurrentGauge>=myBoosterMaxGauge)
+        {
+            GameManager.Instance.BoosterButton.interactable = true;
+        }
+        else
+        {
+            GameManager.Instance.BoosterButton.interactable = false;
+        }
     }
     void UpdateCurrentState() // (6) 현재 상태를 업데이트 하는 함수
     {     
@@ -206,7 +263,7 @@ public class CarController : MonoBehaviour
         //Invoke("DelaySetCollider", 2f);
         if (transform.position.y<=-19f) // 패배조건 설정; 
         {
-            GameManager.Instance.Retry.gameObject.SetActive(true);
+            GameManager.Instance.RetryButton.gameObject.SetActive(true);
             Time.timeScale = 0;
 
         }
@@ -301,6 +358,13 @@ public class CarController : MonoBehaviour
 
     public void SpeedUP()
     {
-        myCurrentSpeed += myAcceleration;
+        if (myCurrentSpeed <= maxSpeed)
+        {
+            myCurrentSpeed += myAcceleration;
+        }
+        else
+        {
+            myCurrentSpeed = maxSpeed;
+        }
     }
 }
