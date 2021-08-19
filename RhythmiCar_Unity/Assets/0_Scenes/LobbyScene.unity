@@ -8874,7 +8874,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2048405608}
   - component: {fileID: 2048405611}
-  - component: {fileID: 2048405610}
   - component: {fileID: 2048405609}
   m_Layer: 0
   m_Name: Manager
@@ -8909,6 +8908,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b2ec188b52da2841b32446562ac533b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player:
+    money: 0
+    carData: []
+    songData: []
+    stageData: []
+    curCar:
+      name: 
+      currentLevel: 0
+      statuses: []
+    curSongs: []
+    curStage:
+      theme: 
+      level: 0
+      isOpend: 0
+      isCleared: 0
+      highScore: 0
   carData:
   - name: Red
     currentLevel: 0
@@ -8916,9 +8931,9 @@ MonoBehaviour:
     - songEquipCount: 2
       level: 1
       levelUpCost: 2000
-      acceleration: 11
+      acceleration: 11.1
       boosterMaxGauge: 101
-      boosterSpeed: 0
+      boosterSpeed: 151
       turnStrength: 41
       brakeForce: 31
       friction: 21
@@ -8928,7 +8943,7 @@ MonoBehaviour:
       levelUpCost: 100
       acceleration: 12
       boosterMaxGauge: 102
-      boosterSpeed: 0
+      boosterSpeed: 152
       turnStrength: 42
       brakeForce: 32
       friction: 22
@@ -8938,7 +8953,7 @@ MonoBehaviour:
       levelUpCost: 150
       acceleration: 13
       boosterMaxGauge: 103
-      boosterSpeed: 0
+      boosterSpeed: 153
       turnStrength: 43
       brakeForce: 33
       friction: 23
@@ -8948,7 +8963,7 @@ MonoBehaviour:
       levelUpCost: 200
       acceleration: 14
       boosterMaxGauge: 104
-      boosterSpeed: 0
+      boosterSpeed: 154
       turnStrength: 44
       brakeForce: 34
       friction: 24
@@ -8958,7 +8973,7 @@ MonoBehaviour:
       levelUpCost: 250
       acceleration: 15
       boosterMaxGauge: 105
-      boosterSpeed: 0
+      boosterSpeed: 155
       turnStrength: 45
       brakeForce: 35
       friction: 25
@@ -8968,7 +8983,7 @@ MonoBehaviour:
       levelUpCost: 300
       acceleration: 16
       boosterMaxGauge: 106
-      boosterSpeed: 0
+      boosterSpeed: 156
       turnStrength: 46
       brakeForce: 36
       friction: 26
@@ -8978,7 +8993,7 @@ MonoBehaviour:
       levelUpCost: 350
       acceleration: 17
       boosterMaxGauge: 107
-      boosterSpeed: 0
+      boosterSpeed: 157
       turnStrength: 47
       brakeForce: 37
       friction: 27
@@ -8988,7 +9003,7 @@ MonoBehaviour:
       levelUpCost: 400
       acceleration: 18
       boosterMaxGauge: 108
-      boosterSpeed: 0
+      boosterSpeed: 158
       turnStrength: 48
       brakeForce: 38
       friction: 28
@@ -8998,7 +9013,7 @@ MonoBehaviour:
       levelUpCost: 450
       acceleration: 19
       boosterMaxGauge: 109
-      boosterSpeed: 0
+      boosterSpeed: 159
       turnStrength: 49
       brakeForce: 39
       friction: 29
@@ -9008,7 +9023,7 @@ MonoBehaviour:
       levelUpCost: 500
       acceleration: 20
       boosterMaxGauge: 110
-      boosterSpeed: 0
+      boosterSpeed: 160
       turnStrength: 50
       brakeForce: 40
       friction: 30
@@ -9021,7 +9036,7 @@ MonoBehaviour:
       levelUpCost: 5000
       acceleration: 12
       boosterMaxGauge: 102
-      boosterSpeed: 0
+      boosterSpeed: 152
       turnStrength: 42
       brakeForce: 32
       friction: 22
@@ -9031,7 +9046,7 @@ MonoBehaviour:
       levelUpCost: 200
       acceleration: 13
       boosterMaxGauge: 103
-      boosterSpeed: 0
+      boosterSpeed: 153
       turnStrength: 43
       brakeForce: 33
       friction: 23
@@ -9041,7 +9056,7 @@ MonoBehaviour:
       levelUpCost: 250
       acceleration: 14
       boosterMaxGauge: 104
-      boosterSpeed: 0
+      boosterSpeed: 154
       turnStrength: 44
       brakeForce: 34
       friction: 24
@@ -9051,7 +9066,7 @@ MonoBehaviour:
       levelUpCost: 300
       acceleration: 15
       boosterMaxGauge: 105
-      boosterSpeed: 0
+      boosterSpeed: 155
       turnStrength: 45
       brakeForce: 35
       friction: 25
@@ -9061,7 +9076,7 @@ MonoBehaviour:
       levelUpCost: 350
       acceleration: 16
       boosterMaxGauge: 106
-      boosterSpeed: 0
+      boosterSpeed: 156
       turnStrength: 46
       brakeForce: 36
       friction: 26
@@ -9071,7 +9086,7 @@ MonoBehaviour:
       levelUpCost: 400
       acceleration: 17
       boosterMaxGauge: 107
-      boosterSpeed: 0
+      boosterSpeed: 157
       turnStrength: 47
       brakeForce: 37
       friction: 27
@@ -9081,7 +9096,7 @@ MonoBehaviour:
       levelUpCost: 450
       acceleration: 18
       boosterMaxGauge: 108
-      boosterSpeed: 0
+      boosterSpeed: 158
       turnStrength: 48
       brakeForce: 38
       friction: 28
@@ -9091,7 +9106,7 @@ MonoBehaviour:
       levelUpCost: 500
       acceleration: 19
       boosterMaxGauge: 109
-      boosterSpeed: 0
+      boosterSpeed: 159
       turnStrength: 49
       brakeForce: 39
       friction: 29
@@ -9101,7 +9116,7 @@ MonoBehaviour:
       levelUpCost: 550
       acceleration: 20
       boosterMaxGauge: 110
-      boosterSpeed: 0
+      boosterSpeed: 160
       turnStrength: 50
       brakeForce: 40
       friction: 30
@@ -9111,7 +9126,7 @@ MonoBehaviour:
       levelUpCost: 600
       acceleration: 21
       boosterMaxGauge: 111
-      boosterSpeed: 0
+      boosterSpeed: 161
       turnStrength: 51
       brakeForce: 41
       friction: 31
@@ -9124,7 +9139,7 @@ MonoBehaviour:
       levelUpCost: 10000
       acceleration: 13
       boosterMaxGauge: 103
-      boosterSpeed: 0
+      boosterSpeed: 153
       turnStrength: 43
       brakeForce: 33
       friction: 23
@@ -9134,7 +9149,7 @@ MonoBehaviour:
       levelUpCost: 1000
       acceleration: 14
       boosterMaxGauge: 104
-      boosterSpeed: 0
+      boosterSpeed: 154
       turnStrength: 44
       brakeForce: 34
       friction: 24
@@ -9144,7 +9159,7 @@ MonoBehaviour:
       levelUpCost: 1100
       acceleration: 15
       boosterMaxGauge: 105
-      boosterSpeed: 0
+      boosterSpeed: 155
       turnStrength: 45
       brakeForce: 35
       friction: 25
@@ -9154,7 +9169,7 @@ MonoBehaviour:
       levelUpCost: 1200
       acceleration: 16
       boosterMaxGauge: 106
-      boosterSpeed: 0
+      boosterSpeed: 156
       turnStrength: 46
       brakeForce: 36
       friction: 26
@@ -9164,7 +9179,7 @@ MonoBehaviour:
       levelUpCost: 1300
       acceleration: 17
       boosterMaxGauge: 107
-      boosterSpeed: 0
+      boosterSpeed: 157
       turnStrength: 47
       brakeForce: 37
       friction: 27
@@ -9174,7 +9189,7 @@ MonoBehaviour:
       levelUpCost: 1400
       acceleration: 18
       boosterMaxGauge: 108
-      boosterSpeed: 0
+      boosterSpeed: 158
       turnStrength: 48
       brakeForce: 38
       friction: 28
@@ -9184,7 +9199,7 @@ MonoBehaviour:
       levelUpCost: 1500
       acceleration: 19
       boosterMaxGauge: 109
-      boosterSpeed: 0
+      boosterSpeed: 159
       turnStrength: 49
       brakeForce: 39
       friction: 29
@@ -9194,7 +9209,7 @@ MonoBehaviour:
       levelUpCost: 1600
       acceleration: 20
       boosterMaxGauge: 110
-      boosterSpeed: 0
+      boosterSpeed: 160
       turnStrength: 50
       brakeForce: 40
       friction: 30
@@ -9204,7 +9219,7 @@ MonoBehaviour:
       levelUpCost: 1700
       acceleration: 21
       boosterMaxGauge: 111
-      boosterSpeed: 0
+      boosterSpeed: 161
       turnStrength: 51
       brakeForce: 41
       friction: 31
@@ -9214,7 +9229,7 @@ MonoBehaviour:
       levelUpCost: 1800
       acceleration: 22
       boosterMaxGauge: 112
-      boosterSpeed: 0
+      boosterSpeed: 162
       turnStrength: 52
       brakeForce: 42
       friction: 32
@@ -9227,7 +9242,7 @@ MonoBehaviour:
       levelUpCost: 20000
       acceleration: 15
       boosterMaxGauge: 104
-      boosterSpeed: 0
+      boosterSpeed: 154
       turnStrength: 44
       brakeForce: 34
       friction: 24
@@ -9237,7 +9252,7 @@ MonoBehaviour:
       levelUpCost: 2000
       acceleration: 16
       boosterMaxGauge: 105
-      boosterSpeed: 0
+      boosterSpeed: 155
       turnStrength: 45
       brakeForce: 35
       friction: 25
@@ -9247,7 +9262,7 @@ MonoBehaviour:
       levelUpCost: 2200
       acceleration: 17
       boosterMaxGauge: 106
-      boosterSpeed: 0
+      boosterSpeed: 156
       turnStrength: 46
       brakeForce: 36
       friction: 26
@@ -9257,7 +9272,7 @@ MonoBehaviour:
       levelUpCost: 2400
       acceleration: 18
       boosterMaxGauge: 107
-      boosterSpeed: 0
+      boosterSpeed: 157
       turnStrength: 47
       brakeForce: 37
       friction: 27
@@ -9267,7 +9282,7 @@ MonoBehaviour:
       levelUpCost: 2600
       acceleration: 19
       boosterMaxGauge: 108
-      boosterSpeed: 0
+      boosterSpeed: 158
       turnStrength: 48
       brakeForce: 38
       friction: 28
@@ -9277,7 +9292,7 @@ MonoBehaviour:
       levelUpCost: 2800
       acceleration: 20
       boosterMaxGauge: 109
-      boosterSpeed: 0
+      boosterSpeed: 159
       turnStrength: 49
       brakeForce: 39
       friction: 29
@@ -9287,7 +9302,7 @@ MonoBehaviour:
       levelUpCost: 3000
       acceleration: 21
       boosterMaxGauge: 110
-      boosterSpeed: 0
+      boosterSpeed: 160
       turnStrength: 50
       brakeForce: 40
       friction: 30
@@ -9297,7 +9312,7 @@ MonoBehaviour:
       levelUpCost: 3200
       acceleration: 22
       boosterMaxGauge: 111
-      boosterSpeed: 0
+      boosterSpeed: 161
       turnStrength: 51
       brakeForce: 41
       friction: 31
@@ -9307,7 +9322,7 @@ MonoBehaviour:
       levelUpCost: 3400
       acceleration: 23
       boosterMaxGauge: 112
-      boosterSpeed: 0
+      boosterSpeed: 162
       turnStrength: 52
       brakeForce: 42
       friction: 32
@@ -9317,33 +9332,40 @@ MonoBehaviour:
       levelUpCost: 3600
       acceleration: 24
       boosterMaxGauge: 113
-      boosterSpeed: 0
+      boosterSpeed: 163
       turnStrength: 53
       brakeForce: 43
       friction: 33
       rhythmPower: 63
   songData:
   - eBGM: 0
-    songName: 
-    writerName: 
+    songName: WakeUp
+    writerName: Bluedy
     isOpend: 1
     openCost: 0
     bpm: 90
     maxSpeed: 60
-  - eBGM: 0
-    songName: 
-    writerName: 
-    isOpend: 0
+  - eBGM: 1
+    songName: If I
+    writerName: Bluedy
+    isOpend: 1
     openCost: 0
     bpm: 100
     maxSpeed: 70
-  - eBGM: 0
-    songName: 
-    writerName: 
+  - eBGM: 2
+    songName: Turn
+    writerName: Bluedy
     isOpend: 0
     openCost: 500
     bpm: 108
     maxSpeed: 75
+  - eBGM: 3
+    songName: Bluedy
+    writerName: Bluedy
+    isOpend: 0
+    openCost: 1000
+    bpm: 196
+    maxSpeed: 120
   stageData:
   - theme: "\uC544\uC9C0\uB791\uC774 \uC0AC\uB9C9"
     level: 1
@@ -9385,33 +9407,6 @@ MonoBehaviour:
     isOpend: 0
     isCleared: 0
     highScore: 0
---- !u!114 &2048405610
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2048405607}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b116e50161826b847a32c138e9e917d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  money: 0
-  carData: []
-  songData: []
-  stageData: []
-  curCar:
-    name: 
-    currentLevel: 0
-    statuses: []
-  curSongs: []
-  curStage:
-    theme: 
-    level: 0
-    isOpend: 0
-    isCleared: 0
-    highScore: 0
 --- !u!114 &2048405611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9424,7 +9419,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebaeeac0bc40f9f4f97816d709de7640, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 2048405610}
+  player:
+    money: 0
+    carData: []
+    songData: []
+    stageData: []
+    curCar:
+      name: 
+      currentLevel: 0
+      statuses: []
+    curSongs: []
+    curStage:
+      theme: 
+      level: 0
+      isOpend: 0
+      isCleared: 0
+      highScore: 0
   dataManager: {fileID: 2048405609}
 --- !u!1 &2059130057
 GameObject:

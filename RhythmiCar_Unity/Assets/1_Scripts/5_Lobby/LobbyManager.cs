@@ -13,8 +13,8 @@ public class LobbyManager : MonoBehaviour
 
     private void Awake()
     {
-        player = GetComponent<Player>();
-        dataManager = GetComponent<DataManager>();
+        //player = GetComponent<Player>();
+        //dataManager = GetComponent<DataManager>();
 
     }
 

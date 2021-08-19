@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Firebase;
 using Firebase.Database;
-
-
+using UniRx;
 public class DataManager : MonoBehaviour
 {
     public static System.Uri dbUrl = new System.Uri("https://rhythmicar-default-rtdb.firebaseio.com/");
+    public Player player;
+
 
     #region Original Data
 
@@ -126,7 +127,7 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    [ContextMenu("SaveDataToFirebase")]
+    [ContextMenu("SaveOriginalDataToFirebase")]
     void SaveOriginalDataToFirebase()
     {
         FirebaseApp.DefaultInstance.Options.DatabaseUrl = dbUrl;
@@ -134,37 +135,117 @@ public class DataManager : MonoBehaviour
 
         reference.RemoveValueAsync();
 
-        carData.ForEach(data => 
+        var originalPlayerData = new Player(5000, carData, songData, stageData);
+        var json = JsonUtility.ToJson(originalPlayerData);
+        reference.SetRawJsonValueAsync(json);
+
+        //carData.ForEach(data => 
+        //{
+        //    string dataToJson = JsonUtility.ToJson(data);
+        //    string key = data.Name;
+
+        //    reference.Child("carData").Child(key).SetRawJsonValueAsync(dataToJson);
+        //});
+
+        //songData.ForEach(data =>
+        //{
+        //    string dataToJson = JsonUtility.ToJson(data);
+        //    string key = data.SongName;
+
+        //    reference.Child("songData").Child(key).SetRawJsonValueAsync(dataToJson);
+        //});
+
+        //stageData.ForEach(data =>
+        //{
+        //    string dataToJson = JsonUtility.ToJson(data);
+        //    string key = data.Theme + " lv" + data.Level;
+
+        //    reference.Child("stageData").Child(key).SetRawJsonValueAsync(dataToJson);
+        //    //.ContinueWith(task =>
+        //    //{
+        //    //    if (task.IsCompleted) Debug.Log("Data Upload Complete");
+        //    //});
+        //});
+    }
+
+    [ContextMenu("Delete Player")]
+    public void DeletePlayer()
+    {
+        player = new Player();
+    }
+
+    [ContextMenu("LoadPlayerDataToFirebase")]
+    public void LoadPlayerDataToFirebase()
+    {
+        if (player == null)
         {
-            string dataToJson = JsonUtility.ToJson(data);
-            string key = data.Name;
+            player = new Player();
+            InitIngameManager.player = player;
+            
+            Debug.Log("Set Player");
+        }
 
-            reference.Child("carData").Child(key).SetRawJsonValueAsync(dataToJson);
-        });
+        //Debug.Log(InitIngameManager.player.GetHashCode());
 
-        songData.ForEach(data =>
+        FirebaseApp.DefaultInstance.Options.DatabaseUrl = dbUrl;
+        reference = FirebaseDatabase.DefaultInstance.GetReference("UserData");
+
+        //var a = FirebaseDatabase.DefaultInstance.GetReference("UserData").Child("key");
+        //Debug.Log(a);
+
+        string uid = "TestUser";
+        reference.Child(uid).GetValueAsync().ContinueWith(task =>
         {
-            string dataToJson = JsonUtility.ToJson(data);
-            string key = data.SongName;
+            if (task.IsCompleted)
+            {
+                DataSnapshot snapshot = task.Result;
 
-            reference.Child("songData").Child(key).SetRawJsonValueAsync(dataToJson);
+                if (snapshot.Value == null)
+                {
+                    Debug.Log("처음 접속하는 유저입니다.");
+
+                    reference = FirebaseDatabase.DefaultInstance.GetReference("originalData");
+
+                    reference.GetValueAsync().ContinueWith(task => 
+                    {
+                        DataSnapshot snapshot = task.Result;
+
+                        Debug.Log("Access originalData");
+                        var playerData = snapshot.GetRawJsonValue();
+                        player = JsonUtility.FromJson<Player>(playerData);
+                    });
+
+                    Debug.Log("접속 인증 종료");
+                }
+                else
+                {
+                    //IDictionary dictionary = (IDictionary)snapshot.Value;
+                    Debug.Log("기존 유저입니다.");
+                    //player.Money = int.Parse(dictionary["Money"].ToString());
+
+                }
+            }
         });
+    }
 
-        stageData.ForEach(data =>
+    [ContextMenu("SavePlayerDataToFirebase")]
+    public void SavePlayerDataToFirebase()
+    {
+        if (player == null)
         {
-            string dataToJson = JsonUtility.ToJson(data);
-            string key = data.Theme + " lv" + data.Level;
+            player = InitIngameManager.player;
+            Debug.Log("Set Player");
+        }
 
-            reference.Child("stageData").Child(key).SetRawJsonValueAsync(dataToJson);
-            //.ContinueWith(task =>
-            //{
-            //    if (task.IsCompleted) Debug.Log("Data Upload Complete");
-            //});
-        });
+        FirebaseApp.DefaultInstance.Options.DatabaseUrl = dbUrl;
+        reference = FirebaseDatabase.DefaultInstance.RootReference.Child("UserData");
 
-        //string key = reference.Child("rank").Push().Key;
+        string uid = "TestUser";
 
-        //reference.Child("rank").Child(key).SetRawJsonValueAsync(json);
+        var json = JsonUtility.ToJson(player);
+
+        reference.Child(uid).SetRawJsonValueAsync(json);
+        //reference.Child(uid).Child("Money").SetRawJsonValueAsync(player.Money.ToString());
     }
 
 }

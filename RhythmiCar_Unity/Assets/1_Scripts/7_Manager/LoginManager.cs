@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Firebase.Auth;
+using UniRx;
 
 public class LoginManager : MonoBehaviour
 {
@@ -23,13 +24,10 @@ public class LoginManager : MonoBehaviour
         auth = FirebaseAuth.DefaultInstance;
         TextEmailMessage.text = "";
         TextPasswordMessage.text = "";
-
-
     }
 
     public void Login()
     {
-
         string email = InputFieldEmail.text;
         string password = InputFieldPassword.text;
 
@@ -42,10 +40,8 @@ public class LoginManager : MonoBehaviour
                     Debug.Log("[로그인 성공] ID : " + auth.CurrentUser.UserId);
                     InitIngameManager.auth = auth;
                     Debug.Log(InitIngameManager.auth.CurrentUser.Email);
-                    //SceneManager.LoadScene("LobbyScene");
-                    //Invoke(nameof(MoveScene), 2f);
+                    TextResultMessage.text = "로그인 성공";
                     LoadingSceneManager.LoadScene("LobbyScene");
-                    Debug.Log("MoveScene To LobbyScene");
                 }
                 else
                 {
@@ -56,8 +52,11 @@ public class LoginManager : MonoBehaviour
             });
     }
 
+    [ContextMenu("MoveScene")]
     public void MoveScene()
     {
+        Debug.Log("MoveScene");
+        TextResultMessage.text = "로그인 성공";
         LoadingSceneManager.LoadScene("LobbyScene");
     }
 }

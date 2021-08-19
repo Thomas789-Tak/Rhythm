@@ -7,7 +7,8 @@ using Firebase.Database;
 using Firebase.Auth;
 using UniRx;
 
-public class Player : MonoBehaviour
+[System.Serializable]
+public class Player
 {
     [SerializeField] private int money = 0;
 
@@ -24,8 +25,18 @@ public class Player : MonoBehaviour
     private Subject<Stage> stageSubject;
 
     public DatabaseReference reference { get; set; }
+    public int Money { get => money; set => money = value; }
+
     public FirebaseAuth auth;
 
+    public Player() { }
+    public Player(int money, List<Car> carData, List<Song> songData, List<Stage> stageData)
+    {
+        this.money = money;
+        this.carData = carData;
+        this.songData = songData;
+        this.stageData = stageData;
+    }
 
     [ContextMenu("Get Path")]
     public void GETPATH()
