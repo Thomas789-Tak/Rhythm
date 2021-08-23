@@ -1473,13 +1473,13 @@ MonoBehaviour:
   myVehicleName: 
   mySongEquipList: 
   myAcceleration: 17
-  myBoosterMaxGauge: 0
+  myBoosterMaxGauge: 100
   myBoosterSpeed: 0
   myTurnStrength: 60
   myBrakeForce: 3
   myFriction: 40
   myCurrentSpeed: 20
-  maxSpeed: 0
+  maxSpeed: 480
 --- !u!1001 &554338283
 PrefabInstance:
   m_ObjectHideFlags: 0

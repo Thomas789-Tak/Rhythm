@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public Button KickButton;
     public Button BoosterButton;
     public Image BoosterGauge;
+    public Slider RhythmPower;
     public Scrollbar WheelScrollBar;
     public int myNum = 1;
     public int noteCount;
