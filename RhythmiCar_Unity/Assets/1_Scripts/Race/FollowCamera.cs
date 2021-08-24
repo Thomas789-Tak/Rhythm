@@ -14,8 +14,8 @@ public class FollowCamera : MonoBehaviour
         transform.parent = null;
         offset.x = 0f;
         //offset.y = 4f;
-        //offset.y = 2.8f;
-        //offset.z = -6.7f;
+        offset.y = 15f;
+        offset.z = -10f;
         translateSpeed = 15f;
         rotationSpeed = 11f;
     }

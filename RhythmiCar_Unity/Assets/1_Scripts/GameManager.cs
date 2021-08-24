@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        text.text = car.MyRigidBody.velocity.magnitude.ToString("N0")+"Km/h";
+        //text.text = car.MyRigidBody.velocity.magnitude.ToString("N0")+"Km/h";
     }
     public void RetryGame()
     {
