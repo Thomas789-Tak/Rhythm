@@ -8,6 +8,7 @@ using TMPro;
 
 public class InputController : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
+    public InputField InputFieldCheckDistance;
     public bool isTouch;
     private static InputController instance = null;
     public static InputController Instance
@@ -99,6 +100,11 @@ public class InputController : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         }
 
 
+    }
+
+    public void SetCheckDistance()
+    {
+        float.TryParse(InputFieldCheckDistance.text, out checkDistance);
     }
 
 }
