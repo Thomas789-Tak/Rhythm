@@ -31,6 +31,7 @@ public class CarController : MonoBehaviour
     [SerializeField] [Tooltip("제동력")] [Range(1, 300)] float myBrakeForce;
     [SerializeField] [Tooltip("제동마찰력")] [Range(1, 300)] float myFriction;
     float myRhythmPower;
+    float myMaxRhythmPower;
     public float myCurrentSpeed;
     float myMaxSteering=45;
     float myBoosterCurrentGauge;
@@ -63,6 +64,8 @@ public class CarController : MonoBehaviour
     void InitRigidBody() // (1) 리지드바드 + 스페어콜라이더 초기화하는 함수
     {
         /// 초기화 할때 mass 값과ㅓ 같은건 프리팹으로 따로 빼서 awake 때 호출하지 않게 하자 
+        myMaxRhythmPower = 100;
+        myRhythmPower = myMaxRhythmPower;
         MyRigidBody = transform.GetChild(2).GetComponent<Rigidbody>();
         MyRigidBody.interpolation = RigidbodyInterpolation.Extrapolate;
         MySphereCollider = MyRigidBody.GetComponent<SphereCollider>();
@@ -98,7 +101,7 @@ public class CarController : MonoBehaviour
         UpdateObjectTransform();
         UpdateCurrentState();
         BoosterState();
-        print(isBoosting +""+ myBoosterCurrentGauge);
+        RhythmPowerState();
     }
 
     void BoosterState()
@@ -119,6 +122,17 @@ public class CarController : MonoBehaviour
                 }
                 isBoosting = false;
             }
+        }
+    }
+
+    void RhythmPowerState()
+    {
+        myRhythmPower -= Time.deltaTime;
+        GameManager.Instance.RhythmPower.value = myRhythmPower;
+        GameManager.Instance.RhythmPower.maxValue = myMaxRhythmPower;
+        if(myRhythmPower<=0)
+        {
+            //게임오버
         }
     }
 
@@ -178,17 +192,18 @@ public class CarController : MonoBehaviour
         {
             driftTime = 0;
         }
+
         //가속
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if(myCurrentSpeed<=maxSpeed)
             {
                 myCurrentSpeed += myAcceleration;
-                if(myBoosterCurrentGauge<myBoosterMaxGauge)  // 모바일도 구현 부스터 게이지 차는 것
+                if(myBoosterCurrentGauge<myBoosterMaxGauge&&isBoosting==false)  // 모바일도 구현 부스터 게이지 차는 것
                 {
                     myBoosterCurrentGauge += 10;
                 }
-                else
+                else if(myBoosterCurrentGauge>myBoosterMaxGauge)
                 {
                     myBoosterCurrentGauge = myBoosterMaxGauge;
                 }
@@ -283,18 +298,12 @@ public class CarController : MonoBehaviour
 
     void CarEngine() // 차량에 동력을 전달하는 함수
     {
-        if (isGrounding&&isDrifting==false) // 평상 시 가속
+        if (isGrounding) // 평상 시 가속
         {       
             MyRigidBody.AddForce(transform.forward * myCurrentSpeed * 1000f,ForceMode.Force);
             MyRigidBody.drag = groundDrag;
             MyRigidBody.angularDrag = groundAngularDrag;
-        }
-        else if(isDrifting) // 드리프트 시
-        {
-            MyRigidBody.drag = 1f;
-            MyRigidBody.angularDrag = 1f;
-            // 기존 MyRigidBody.AddForce(transform.forward * myCurrentSpeed * 1000f*0.01f, ForceMode.Force);
-            MyRigidBody.AddForce(transform.forward* myCurrentSpeed * 1000f*0.5f, ForceMode.Force);
+
         }
     }
 
@@ -306,40 +315,19 @@ public class CarController : MonoBehaviour
             {
                 if(turnInput>0) // 오른쪽 회전 시
                 {
-                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, turnInput * myTurnStrength*0.03f, 0f)), turnLerpSpeed);
-                    MyRigidBody.AddForce(Vector3.Slerp(-transform.right, -transform.right * myFriction * myCurrentSpeed*0.05f * turnInput, 10f), ForceMode.Force);
-                    if (myCurrentSpeed > 0)
-                    {
-                        myCurrentSpeed -= myBrakeForce;
-                    }
-                    else
-                    {
-                        myCurrentSpeed = 0f;
-                    }
+                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, turnInput * myTurnStrength*0.04f, 0f)), turnLerpSpeed);
+                    //MyRigidBody.AddForce(Vector3.Slerp(-transform.right, -transform.right * myFriction * myCurrentSpeed *10f* turnInput, 2f), ForceMode.Force);
+                    myCurrentSpeed -= myBrakeForce;
                 }
                 else if(turnInput==0) // 중립 시 
                 {
-                    if (myCurrentSpeed > 0)
-                    {
-                        myCurrentSpeed -= myBrakeForce;
-                    }
-                    else
-                    {
-                        myCurrentSpeed = 0f;
-                    }
+                    myCurrentSpeed -= myBrakeForce;
                 }
                 else // 왼쪽 회전 시
                 {
-                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, turnInput * myTurnStrength * 0.03f, 0f)), turnLerpSpeed);
-                    MyRigidBody.AddForce(Vector3.Slerp(transform.right, transform.right * myFriction * myCurrentSpeed*0.05f * Mathf.Abs(turnInput), 10f), ForceMode.Force);
-                    if (myCurrentSpeed > 0)
-                    {
-                        myCurrentSpeed -= myBrakeForce;
-                    }
-                    else
-                    {
-                        myCurrentSpeed = 0f;
-                    }
+                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, turnInput * myTurnStrength * 0.04f, 0f)), turnLerpSpeed);
+                    //MyRigidBody.AddForce(Vector3.Slerp(transform.right, transform.right * myFriction * myCurrentSpeed*10f * Mathf.Abs(turnInput), 2f), ForceMode.Force);
+                    myCurrentSpeed -= myBrakeForce;
                 }
             }
             else // 드리프트를 하지 않는 평상시 좌우 회전
