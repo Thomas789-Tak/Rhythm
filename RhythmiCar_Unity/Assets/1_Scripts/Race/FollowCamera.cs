@@ -20,11 +20,10 @@ public class FollowCamera : MonoBehaviour
         rotationSpeed = 11f;
     }
 
-
     private void LateUpdate()
     {
-        CameraTranslation();
-        CameraRotation();
+        //CameraTranslation();
+        //CameraRotation();
     }
 
 

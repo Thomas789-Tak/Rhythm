@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Firebase;
+using System;
 
 public class RightNotesBehaviour : MonoBehaviour // 실제 게임에 영향을 주는 노트
 {
     public float noteSpeed;
     bool isJudgeAble;
+
     private void OnEnable()
     {
         noteSpeed = NoteManager.Instance.bpm * 1.5f;
         isJudgeAble = false;
     }
-
 
     void Update()
     {

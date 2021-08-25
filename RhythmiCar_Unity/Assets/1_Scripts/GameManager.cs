@@ -81,14 +81,7 @@ public class GameManager : MonoBehaviour
     {
         car.SpeedUP();
     }
-    public void BoosterTouchDown()
-    {        
-        car.isBoosting = true;
-    }
 
-    interface ITak
-    {
-        public void Takgi();
-    }
+
        
 }
