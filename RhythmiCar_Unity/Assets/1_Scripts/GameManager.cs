@@ -85,4 +85,10 @@ public class GameManager : MonoBehaviour
     {        
         car.isBoosting = true;
     }
+
+    interface ITak
+    {
+        public void Takgi();
+    }
+       
 }
