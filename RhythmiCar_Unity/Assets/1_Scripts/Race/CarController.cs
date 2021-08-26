@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Profiling;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class CarController : MonoBehaviour
 {
-
+    //구현해야할 내용 : 부스터 중일 때 리듬실패 처리 X  ,
     [Header("유저 스탯")]
     [SerializeField]
     List<SoundManager.EBGM> songEquipList = new List<SoundManager.EBGM>();
@@ -14,12 +15,12 @@ public class CarController : MonoBehaviour
     [SerializeField] [Tooltip("최대 부스터게이지량")] [Range(1, 300)] float boosterMaxGauge;
     float boosterCurrentGauge;
     float boosterSpeed;
-    float rhythmPower;
-    float maxRhythmPower;
+    [SerializeField] float currentRhythmEnergy;
+    [SerializeField] float maxRhythmEnergy;
     [SerializeField] float currentSpeed;
     [SerializeField] float maxSpeed;
     float maxSteering=45;
-    float turnInput; // 좌우 방향키 입력값
+    [SerializeField] float turnSpeed;
     public bool isBoosting { get; set; }
 
     int currentDirection;
@@ -27,8 +28,6 @@ public class CarController : MonoBehaviour
     List<float> gearRatio = new List<float>();
     [SerializeField]int currentGear;
     //참조 영역
-    Transform FrontLeftWheel;
-    Transform FrontRightWheel;
     Transform Body;
     TrailRenderer BackLeftSkidMark;
     TrailRenderer BackRightSkidMark;
@@ -36,8 +35,8 @@ public class CarController : MonoBehaviour
     ParticleSystem FailVFx;
     Rigidbody rigid;
     Vector3[] WayPoint = new Vector3[10];
+    IEnumerator Co_Booster;
 
-    bool isCrossing;
     void Awake()
     {
         gearRatio.Add(30);
@@ -48,6 +47,8 @@ public class CarController : MonoBehaviour
         InitReference();
         SoundManager.Instance.PlayOneShotSFX(SoundManager.ESFX.EngineStartSound);
     }
+
+    //--------------------------------------------------update----------------------------------------------------------------------
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.W))
@@ -58,23 +59,30 @@ public class CarController : MonoBehaviour
         {
             SetGear(0);
         }
-        DecreaseRhythmPower();
+        if(Input.GetKeyDown(KeyCode.T))
+        {
+            if(currentSpeed >= 0f)            
+            currentSpeed -= 10;
+        }
+        DecreaseRhythmEnergy();
         Accelerate();
         SteeringWheel();
+        ObserveGearState();
+        GameManager.Instance.text.text = currentSpeed.ToString("N0") + "Km/h"+currentGear.ToString();
     }
+    //----------------------------------------------------update--------------------------------------------------------------------
+
     void InitReference() // 각종 참조를 하는 함수
     {
         //나중에 여기서 인게임초기화 VO 받아서 하자
         currentGear = 1;
         maxSpeed = gearRatio[currentGear - 1];
         roadCount = 6;
-        maxRhythmPower = 100;
-        rhythmPower = maxRhythmPower;
-        boosterMaxGauge = 100;
-        boosterSpeed = 100f;
+        //maxRhythmPower = 10;
+        currentRhythmEnergy = maxRhythmEnergy;
+        //boosterMaxGauge = 7;
+        //boosterSpeed = 10f;
         Body = transform.Find("Body").GetComponent<Transform>();
-        FrontLeftWheel = transform.Find("Body").Find("Wheels").transform.Find("Meshes").transform.Find("FLW").GetComponent<Transform>();
-        FrontRightWheel = transform.Find("Body").Find("Wheels").transform.Find("Meshes").transform.Find("FRW").GetComponent<Transform>();
         BackRightSkidMark = transform.Find("Body").Find("Wheels").transform.Find("Meshes").transform.Find("RRW").transform.Find("BackRightSkid").GetComponent<Transform>().GetComponent<TrailRenderer>();
         BackLeftSkidMark = transform.Find("Body").Find("Wheels").transform.Find("Meshes").transform.Find("RLW").transform.Find("BackLeftSkid").GetComponent<Transform>().GetComponent<TrailRenderer>();
         FailVFx = transform.Find("FailFX").GetComponent<ParticleSystem>();
@@ -83,21 +91,22 @@ public class CarController : MonoBehaviour
         if(roadCount%2==0) // 차선이 짝수
         {
             currentDirection = roadCount / 2;
-            transform.position = new Vector3(0f, 1.2f, -8 * currentDirection);
+            transform.position = new Vector3(0f, 0f, -8 * currentDirection);
         }
         else // 차선이 홀수
         {
             currentDirection = roadCount / 2; 
-            transform.position = new Vector3(0f, 1.2f, -8 * currentDirection);
+            transform.position = new Vector3(0f, 0f, -8 * currentDirection);
         }
+        Co_Booster = Booster();
     }
 
-    IEnumerator Booster()
+    IEnumerator Booster() // 부스터를 활성화 하는 함수
     {
         while(isBoosting)
         {
             print("부스터중");
-            boosterCurrentGauge -= Time.deltaTime*10f;  // 부스터게이지가 100이라면 10초 뒤 0된다
+            boosterCurrentGauge -= Time.deltaTime;
             if(currentGear<gearRatio.Count)
             {
                 if (currentSpeed <= gearRatio[currentGear])
@@ -125,21 +134,41 @@ public class CarController : MonoBehaviour
         }
     }
 
-    void DecreaseRhythmPower()
+    void DecreaseRhythmEnergy() // 자동적으로 연료를 닳게 하는 함수
     {
-        rhythmPower -= Time.deltaTime;
-        GameManager.Instance.RhythmPower.value = rhythmPower;
-        GameManager.Instance.RhythmPower.maxValue = maxRhythmPower;
-        if(rhythmPower<=0)
+        currentRhythmEnergy -= Time.deltaTime;
+        GameManager.Instance.RhythmPower.value = currentRhythmEnergy;
+        GameManager.Instance.RhythmPower.maxValue = maxRhythmEnergy;
+        if(currentRhythmEnergy<=0)
         {
             //게임오버
         }
     }
-
-    void DelayRotate()
+    void ObserveGearState() // 현재속도가 낮아 기어를 낮추는 조건을 탐색하는 함수 
     {
-        //Body.rotation = Quaternion.Euler(transform.eulerAngles.x, 90, transform.eulerAngles.z);
-        Body.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.eulerAngles.x,90, transform.eulerAngles.z),3f);
+        if(currentGear>2) // 2단 기어보다 높을 때 
+        {
+            if (currentSpeed <= gearRatio[currentGear - 2] - 10f)
+            {
+                currentSpeed = (gearRatio[currentGear - 2] + gearRatio[currentGear - 3]) * 0.5f;
+                currentGear--;
+            }
+        }
+        else if(currentGear==2)
+        {
+            if (currentSpeed <= gearRatio[currentGear - 2] - 10f)
+            {
+                currentSpeed = gearRatio[currentGear - 2] * 0.5f;
+                currentGear--;
+            }
+
+        }
+    }
+
+    void DelayRotate() // 회전 뒤 딜레이를 줘서 차량을 정면으로 유지시키는 함수
+    {
+        //Body.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.eulerAngles.x,90, transform.eulerAngles.z),3f);
+        Body.transform.DOLocalRotate(Vector3.zero, 0.3f);
     }
     public void MoveLeft()
     {
@@ -148,8 +177,10 @@ public class CarController : MonoBehaviour
             if (currentDirection != 0)
             {
                 currentDirection--;
-                Body.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0, -1, 0f)), 10f);
-                Invoke("DelayRotate", 0.1f);
+                //Body.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0, -1, 0f)), 10f);
+                Body.transform.DOLocalRotate(new Vector3(0, -5f, 0), 0.3f);
+
+                Invoke("DelayRotate", 0.3f);
             }
         }
     }
@@ -160,31 +191,30 @@ public class CarController : MonoBehaviour
             if (currentDirection < roadCount - 1)
             {
                 currentDirection++;
-                Body.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0, 1, 0f)), 10f);
-                Invoke("DelayRotate", 0.1f);
+                //Body.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0, 1, 0f)), 10f);
+                Body.transform.DOLocalRotate(new Vector3(0, 5f, 0), 0.3f);
+
+                Invoke("DelayRotate", 0.3f);
             }
 
         }
     }
 
-    void Accelerate() // 차량을 가속해주는 함수
+    void Accelerate() // 차량의 현재속도를 받아와 지속적으로 움직이게 하는 함수
     {
         transform.Translate(Vector3.forward*currentSpeed*Time.deltaTime);
     }
-    void SteeringWheel()
+    void SteeringWheel() // 좌우 이동 키 입력을 받아 해당하는 지점으로 이동하는 함수
     {
         for (int i = 0; i < roadCount; i++) //이동할 지점들 위치 업데이트
         {
-            WayPoint[i] = new Vector3(transform.position.x, transform.position.y, i * -8f);
+            WayPoint[i] = new Vector3(transform.position.x, 0f, i * -8f);
         }
-        transform.position = Vector3.MoveTowards(transform.position, WayPoint[currentDirection], 50 * Time.deltaTime);
-
-        //바퀴 메쉬 움직임 구현
-        FrontLeftWheel.localRotation = Quaternion.Euler(FrontLeftWheel.localRotation.eulerAngles.x, (turnInput * maxSteering), FrontLeftWheel.localRotation.eulerAngles.z);
-        FrontRightWheel.localRotation = Quaternion.Euler(FrontRightWheel.localRotation.eulerAngles.x, turnInput * maxSteering, FrontRightWheel.localRotation.eulerAngles.z);
+        //transform.position = Vector3.MoveTowards(transform.position, WayPoint[currentDirection], turnSpeed * Time.deltaTime);
+        transform.DOMoveZ(WayPoint[currentDirection].z, turnSpeed, false).SetEase(Ease.OutExpo);
     }
 
-    public void SpeedUP()
+    public void SpeedUP() // 노트 성공 시 속도를 올려주는 함수 --- 이 부분을 판정 결과와 관련된 함수로 바꾸자
     {
         if (currentSpeed <= maxSpeed)
         {
@@ -199,7 +229,28 @@ public class CarController : MonoBehaviour
         }
     }
 
-    public void SetGear(int direction)
+    public void SpeedDown() // 노트 실패 시 속도를 내려주는 함수
+    {
+        
+    }
+
+    public void Bump()  // 다른 오브젝트 부딪힐 때 피해 X, 다른 오브젝트랑 부딪칠 때 리듬 에너지 감소
+    {
+        if(isBoosting)
+        {
+            
+        }
+        else
+        {
+            //카메라 쉐이크
+            //차량 회전하는 연출
+            // 이펙트 발생
+            //속도 감소
+            // 리듬 에너지 감소
+        }
+    }
+
+    public void SetGear(int direction) // 기어를 올리거나 내리는 함수
     {
         if(direction>0) // 위쪽 && 기어업
         {
@@ -231,18 +282,23 @@ public class CarController : MonoBehaviour
         }
 
     }
-    void DelayDriftFX()
+    void DelayDriftFX() // 드리프트 FX를 딜레이를 준 뒤 꺼주는 함수
     {
         BackLeftSkidMark.emitting = false;
         BackRightSkidMark.emitting = false;
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Booster"))
         {
             isBoosting = true;
             boosterCurrentGauge = boosterMaxGauge;
-            StartCoroutine(Booster());
+            StartCoroutine(Co_Booster);
+        }
+        if(other.CompareTag("Jump"))
+        {
+            Body.transform.DOLocalJump(Vector3.zero, 10f, 0, 2f);
         }
     }
 }

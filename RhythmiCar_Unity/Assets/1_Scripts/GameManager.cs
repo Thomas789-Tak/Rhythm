@@ -19,12 +19,10 @@ public class GameManager : MonoBehaviour
     public Scrollbar WheelScrollBar;
     public int myNum = 1;
     public int noteCount;
-    public PathCreator[] road;
     public bool isTouchWheelUI;
     public bool isTouchKickUI;
     private void Awake()
     {
-        text.text = (road[0].path.length/1.6f).ToString();
         Time.timeScale = 1;
         if (instance == null)
         {

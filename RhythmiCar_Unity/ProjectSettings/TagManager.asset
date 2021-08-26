@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Note
   - Booster
+  - Jump
+  - Ground
   layers:
   - Default
   - TransparentFX

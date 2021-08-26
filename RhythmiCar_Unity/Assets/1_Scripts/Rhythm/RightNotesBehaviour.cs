@@ -31,14 +31,13 @@ public class RightNotesBehaviour : MonoBehaviour // 실제 게임에 영향을 주는 노트
                 NoteManager.Instance.isStart = true;
             }
             isJudgeAble = true;
-            if (isJudgeAble && Input.GetKeyDown(KeyCode.Space)||InputController.Instance.isTouch)
+            if (isJudgeAble && Input.GetKeyDown(KeyCode.Space))
             {
                 print("성공");
                 GameManager.Instance.SpeedUp();
                 CarController.SuccessVFx.Play();
                 ObjectPooler.instance.RightNoteQueue.Enqueue(gameObject);
                 gameObject.SetActive(false);
-                InputController.Instance.isTouch = false;
             }
         }
 
