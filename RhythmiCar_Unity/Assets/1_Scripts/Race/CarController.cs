@@ -31,14 +31,14 @@ public class CarController : MonoBehaviour
     Transform Body;
     TrailRenderer BackLeftSkidMark;
     TrailRenderer BackRightSkidMark;
-    public static ParticleSystem SuccessVFx;
+    [SerializeField] ParticleSystem SuccessVFx;
     ParticleSystem FailVFx;
     Rigidbody rigid;
     Vector3[] WayPoint = new Vector3[10];
     IEnumerator Co_Booster;
-
     void Awake()
     {
+        SoundManager.Instance.PlayBGM(SoundManager.EBGM._90BPM_WakeUp);
         gearRatio.Add(30);
         gearRatio.Add(60);
         gearRatio.Add(90);
@@ -47,22 +47,18 @@ public class CarController : MonoBehaviour
         InitReference();
         SoundManager.Instance.PlayOneShotSFX(SoundManager.ESFX.EngineStartSound);
     }
-
+    private void Start()
+    {
+        InputManager.Instance.touchEvent.AddListener(Judge);
+        InputManager.Instance.verticalEvent.AddListener(SetGear);
+        InputManager.Instance.horizontalEvent.AddListener(MoveDirection);
+    }
     //--------------------------------------------------update----------------------------------------------------------------------
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.W))
+        if(Input.GetKeyDown(KeyCode.A))
         {
-            SetGear(1);
-        }
-        else if(Input.GetKeyDown(KeyCode.S))
-        {
-            SetGear(0);
-        }
-        if(Input.GetKeyDown(KeyCode.T))
-        {
-            if(currentSpeed >= 0f)            
-            currentSpeed -= 10;
+            SuccessVFx.Play();
         }
         DecreaseRhythmEnergy();
         Accelerate();
@@ -101,6 +97,28 @@ public class CarController : MonoBehaviour
         Co_Booster = Booster();
     }
 
+
+    public void Judge(EJudge judgement)
+    {
+        switch(judgement)
+        {
+            case EJudge.Perfect:
+                SpeedUP();
+                break;
+
+            case EJudge.Good:
+                SpeedUP();
+                break;
+
+            case EJudge.Bad:
+                SpeedDown();
+                break;
+
+            case EJudge.Miss:
+                SpeedDown();
+                break;
+        }
+    }
     IEnumerator Booster() // 부스터를 활성화 하는 함수
     {
         while(isBoosting)
@@ -170,33 +188,35 @@ public class CarController : MonoBehaviour
         //Body.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.eulerAngles.x,90, transform.eulerAngles.z),3f);
         Body.transform.DOLocalRotate(Vector3.zero, 0.3f);
     }
-    public void MoveLeft()
-    {
-        if (currentSpeed != 0)
-        {
-            if (currentDirection != 0)
-            {
-                currentDirection--;
-                //Body.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0, -1, 0f)), 10f);
-                Body.transform.DOLocalRotate(new Vector3(0, -5f, 0), 0.3f);
 
-                Invoke("DelayRotate", 0.3f);
+    public void MoveDirection(int direction)
+    {
+        if(direction==1) // 오른쪽
+        {
+            if (currentSpeed != 0)
+            {
+                if (currentDirection < roadCount - 1)
+                {
+                    currentDirection++;
+                    Body.transform.DOLocalRotate(new Vector3(0, 5f, 0), 0.3f);
+
+                    Invoke("DelayRotate", 0.3f);
+                }
+
             }
         }
-    }
-    public void MoveRight()
-    {
-        if (currentSpeed != 0)
+        else //왼쪽
         {
-            if (currentDirection < roadCount - 1)
+            if (currentSpeed != 0)
             {
-                currentDirection++;
-                //Body.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0, 1, 0f)), 10f);
-                Body.transform.DOLocalRotate(new Vector3(0, 5f, 0), 0.3f);
+                if (currentDirection != 0)
+                {
+                    currentDirection--;
+                    Body.transform.DOLocalRotate(new Vector3(0, -5f, 0), 0.3f);
 
-                Invoke("DelayRotate", 0.3f);
+                    Invoke("DelayRotate", 0.3f);
+                }
             }
-
         }
     }
 
@@ -219,6 +239,7 @@ public class CarController : MonoBehaviour
         if (currentSpeed <= maxSpeed)
         {
             currentSpeed += acceleration;
+            SuccessVFx.Play();
         }
         if(currentSpeed>maxSpeed)
         {
@@ -229,9 +250,18 @@ public class CarController : MonoBehaviour
         }
     }
 
+
     public void SpeedDown() // 노트 실패 시 속도를 내려주는 함수
     {
-        
+        if(currentSpeed>=0)
+        {
+            FailVFx.Play();
+            currentSpeed -= 5f;
+        }
+        if(currentSpeed<0)
+        {
+            currentSpeed = 0;
+        }
     }
 
     public void Bump()  // 다른 오브젝트 부딪힐 때 피해 X, 다른 오브젝트랑 부딪칠 때 리듬 에너지 감소
@@ -254,6 +284,7 @@ public class CarController : MonoBehaviour
     {
         if(direction>0) // 위쪽 && 기어업
         {
+            print("기어업");
             if(currentGear < gearRatio.Count&&currentSpeed>=maxSpeed)
             {
                 currentGear++;                

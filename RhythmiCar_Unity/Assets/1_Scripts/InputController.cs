@@ -70,12 +70,12 @@ public class InputController : MonoBehaviour, IPointerDownHandler, IPointerUpHan
             if (preVec.y < 0)
             {
                 // 위로 슬라이드
-                InputManager.verticalEvent.Invoke(-1);
+                InputManager.verticalEvent.Invoke(1);
             }
             else
             {
                 // 아래로 슬라이드
-                InputManager.verticalEvent.Invoke(1);
+                InputManager.verticalEvent.Invoke(-1);
             }
         }
     }
