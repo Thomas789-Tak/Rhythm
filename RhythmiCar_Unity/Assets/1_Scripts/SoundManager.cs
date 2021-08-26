@@ -24,7 +24,7 @@ public class SoundManager : MonoBehaviour
 
     [Header("[[AudioSource]]")]
     [SerializeField]
-    AudioSource bgm;
+    public AudioSource bgm;
 
     public AudioSource sfx;
 

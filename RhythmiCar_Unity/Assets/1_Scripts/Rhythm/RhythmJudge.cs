@@ -36,17 +36,20 @@ public class RhythmJudge : MonoBehaviour
     // Use this for initialization
      protected virtual void Start()
     {
-        //InputManager = InputManager.Instance;
-        AudioSource = GetComponent<AudioSource>() ? 
-            GetComponent<AudioSource>() : gameObject.AddComponent<AudioSource>();
+        // Audio Source 할당
+        if (SoundManager.Instance)
+            AudioSource = SoundManager.Instance.bgm;
+        else
+            AudioSource = GetComponent<AudioSource>() ?
+                GetComponent<AudioSource>() : gameObject.AddComponent<AudioSource>();
 
         isSongStart = false;
         currentNoteNum = 0;
         songPlayTime = 0f;
 
         ObjectPooling();
+        //SongStart();
 
-        SongStart();
     }
 
     protected virtual void Update()
@@ -70,8 +73,10 @@ public class RhythmJudge : MonoBehaviour
         this.isSongStart = true;
         this.AudioSource.clip = CurrentSong.info.clip;
         this.AudioSource.Play();
+        //SoundManager.Instance.PlayBGM(SoundManager.EBGM._90BPM_WakeUp);
         this.JudgeEvent.AddListener((judge) => InputManager.Instance.touchEvent.Invoke(judge));
         this.JudgeEvent.AddListener((judge) => this.DeleteNote(judge));
+        this.JudgeEvent.AddListener((judge) => this.JudgeInformation(judge));
     }
 
     /// <summary>
@@ -82,7 +87,8 @@ public class RhythmJudge : MonoBehaviour
     {
         if (!isSongStart) return;
 
-        songPlayTime += Time.deltaTime;
+        //songPlayTime += Time.deltaTime;
+        songPlayTime = AudioSource.time;
     }
 
     /// <summary>
@@ -181,5 +187,10 @@ public class RhythmJudge : MonoBehaviour
         currentNoteNum++;
     }
 
+    private void JudgeInformation(EJudge eJudge)
+    {
+        Debug.Log(this.songPlayTime);
+        Debug.Log(this.AudioSource.time);
+    }
 
 }

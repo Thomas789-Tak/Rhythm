@@ -38,7 +38,6 @@ public class CarController : MonoBehaviour
     IEnumerator Co_Booster;
     void Awake()
     {
-        SoundManager.Instance.PlayBGM(SoundManager.EBGM._90BPM_WakeUp);
         gearRatio.Add(30);
         gearRatio.Add(60);
         gearRatio.Add(90);

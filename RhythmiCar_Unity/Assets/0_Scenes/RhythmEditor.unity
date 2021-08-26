@@ -199,13 +199,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3912637}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: 0.28743535, y: -0, z: -0, w: 0.9578001}
+  m_LocalPosition: {x: 0, y: 8.63, z: -5.86}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 33.409, y: 0, z: 0}
 --- !u!1 &31178002
 GameObject:
   m_ObjectHideFlags: 0
@@ -494,6 +494,7 @@ GameObject:
   m_Component:
   - component: {fileID: 242634607}
   - component: {fileID: 242634608}
+  - component: {fileID: 242634609}
   m_Layer: 0
   m_Name: Square
   m_TagString: Untagged
@@ -508,13 +509,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 242634606}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 5, z: 0}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 2118648001}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Father: {fileID: 1608402875}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!212 &242634608
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -566,6 +567,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &242634609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 242634606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53a4c20964b6ca840b80cfde2a797711, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RhythmJudge: {fileID: 0}
+  isSet: 0
+  num: 0
+  time: 0
+  speed: 0
 --- !u!1 &286668468
 GameObject:
   m_ObjectHideFlags: 0
@@ -1533,79 +1551,22 @@ MonoBehaviour:
     speedAccel: 0
     isOpend: 0
     noteData:
-    - 4.115164
-    - 6.1344156
-    - 8.786632
-    - 11.413478
-    - 14.084121
-    - 16.748043
-    - 19.458382
-    - 22.089813
-    - 24.730316
-    - 26.104143
-    - 27.484304
-    - 28.801956
-    - 30.125307
-    - 31.446257
-    - 32.78651
-    - 34.095676
-    - 35.483707
-    - 36.79085
-    - 38.14453
-    - 39.45052
-    - 40.752163
-    - 42.11886
-    - 43.425987
-    - 44.765182
-    - 46.01367
-    - 47.415695
-    - 48.7775
-    - 50.114517
-    - 51.38554
-    - 52.758038
-    - 54.10323
-    - 55.38551
-    - 57.470806
-    - 58.778835
-    - 60.089207
-    - 61.39093
-    - 62.746838
-    - 64.114
-    - 65.425125
-    - 66.70812
-    - 68.06147
-    - 69.40203
-    - 70.68737
-    - 72.03745
-    - 73.40311
-    - 74.73923
-    - 76.06129
-    - 77.33472
-    - 78.74562
-    - 80.10313
-    - 81.4121
-    - 82.74408
-    - 84.04768
-    - 85.347626
-    - 86.748985
-    - 88.06317
-    - 89.41319
-    - 90.757545
-    - 92.03911
-    - 93.37286
-    - 94.74434
-    - 96.090164
-    - 97.382416
-    - 98.75084
-    - 100.09311
-    - 101.3633
-    - 102.75954
-    - 104.005775
-    - 105.392395
-    - 106.714775
-    - 108.09346
-    - 109.35586
-    - 110.9135
+    - 4.812458
+    - 7.481243
+    - 10.070181
+    - 12.745796
+    - 15.463974
+    - 18.062471
+    - 20.793322
+    - 23.455462
+    - 24.814116
+    - 26.11984
+    - 27.49516
+    - 28.774912
+    - 30.114927
+    - 31.44462
+    - 32.7651
+    - 34.153248
   JudgeEvent:
     m_PersistentCalls:
       m_Calls:
@@ -1621,6 +1582,14 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  JudgeLine: {fileID: 1608402874}
+  NoteObject: {fileID: 242634606}
+  NotePool: []
+  isSongStart: 0
+  currentNoteNum: 0
+  songPlayTime: 0
+  noteSpeed: 10
+  noteStartingX: 10
   speedAccel: 1
   noteInstanceDistance: 10
   endJudgeTime: 0.5
@@ -2290,6 +2259,38 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1556195635}
   m_CullTransparentMesh: 1
+--- !u!1 &1608402874
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1608402875}
+  m_Layer: 0
+  m_Name: Line
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1608402875
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1608402874}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 2118648001}
+  - {fileID: 242634607}
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1648393165
 GameObject:
   m_ObjectHideFlags: 0
@@ -2550,11 +2551,10 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2118647996}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 242634607}
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_Children: []
+  m_Father: {fileID: 1608402875}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
