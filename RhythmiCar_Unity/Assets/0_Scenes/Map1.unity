@@ -1552,7 +1552,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 273968789, guid: 450d5122745e105439b3ea5eef08c202, type: 3}
       propertyPath: turnSpeed
-      value: 50
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 273968789, guid: 450d5122745e105439b3ea5eef08c202, type: 3}
       propertyPath: acceleration
@@ -9603,24 +9603,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a19bb0f4bb4b0648b8b94e1b23dc8d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InputFieldCheckDistance: {fileID: 994181041}
-  isTouch: 0
   checkDistance: 9000
-  aaa:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  InputFieldCheckDistance: {fileID: 994181041}
 --- !u!1001 &2009638988
 PrefabInstance:
   m_ObjectHideFlags: 0
