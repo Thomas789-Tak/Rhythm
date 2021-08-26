@@ -12,15 +12,9 @@ public class GameManager : MonoBehaviour
     public Text text;
     public CarController car;
     public Button RetryButton;
-    public Button KickButton;
-    public Button BoosterButton;
     public Image BoosterGauge;
     public Slider RhythmPower;
-    public Scrollbar WheelScrollBar;
-    public int myNum = 1;
-    public int noteCount;
-    public bool isTouchWheelUI;
-    public bool isTouchKickUI;
+
     private void Awake()
     {
         Time.timeScale = 1;
@@ -58,28 +52,5 @@ public class GameManager : MonoBehaviour
     public void ToMainScene()
     {
         SceneManager.LoadScene(0);
-    }
-    public void WheelTouchDown()
-    {
-        isTouchWheelUI = true;
-    }
-    public void WheelTouchUp()
-    {
-        isTouchWheelUI = false;
-    }
-    public void KickTouchDown()
-    {
-        isTouchKickUI = true;
-    }
-    public void KickTouchUp()
-    {
-        isTouchKickUI = false;
-    }
-    public void SpeedUp()
-    {
-        car.SpeedUP();
-    }
-
-
-       
+    }    
 }

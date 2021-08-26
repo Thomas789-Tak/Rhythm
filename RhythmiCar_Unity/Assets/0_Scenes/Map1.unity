@@ -364,15 +364,8 @@ MonoBehaviour:
   text: {fileID: 383957006}
   car: {fileID: 526541194}
   RetryButton: {fileID: 1880446405}
-  KickButton: {fileID: 2004022782}
-  BoosterButton: {fileID: 0}
   BoosterGauge: {fileID: 0}
   RhythmPower: {fileID: 747627302}
-  WheelScrollBar: {fileID: 0}
-  myNum: 1
-  noteCount: 0
-  isTouchWheelUI: 0
-  isTouchKickUI: 0
 --- !u!4 &23010981
 Transform:
   m_ObjectHideFlags: 0
@@ -1521,7 +1514,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 273968789, guid: 450d5122745e105439b3ea5eef08c202, type: 3}
       propertyPath: turnSpeed
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 273968789, guid: 450d5122745e105439b3ea5eef08c202, type: 3}
       propertyPath: acceleration
@@ -1561,15 +1554,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2094865780, guid: 450d5122745e105439b3ea5eef08c202, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.4
+      value: -0.54
       objectReference: {fileID: 0}
     - target: {fileID: 2094865780, guid: 450d5122745e105439b3ea5eef08c202, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 30.8
+      value: 42.56
       objectReference: {fileID: 0}
     - target: {fileID: 2094865780, guid: 450d5122745e105439b3ea5eef08c202, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.9
+      value: -4.76
       objectReference: {fileID: 0}
     - target: {fileID: 2094865780, guid: 450d5122745e105439b3ea5eef08c202, type: 3}
       propertyPath: m_LocalRotation.w

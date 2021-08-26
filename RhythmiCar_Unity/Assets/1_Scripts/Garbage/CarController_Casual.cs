@@ -220,41 +220,7 @@ public class CarController_Casual : MonoBehaviour
         }
     }
 
-    void MobileController()
-    {
-        //좌우 회전
-        if(myCurrentSpeed!=0)
-        {
-            turnInput = (GameManager.Instance.WheelScrollBar.value-0.5f)*2f;
-        }
-        else
-        {
-            turnInput = 0;
-        }
 
-        // 터치가 없을 경우 중립 위치로 조정
-        if (GameManager.Instance.isTouchWheelUI == false)
-        {
-            GameManager.Instance.WheelScrollBar.value = 0.5f;
-        }
-        //드리프트
-        if (GameManager.Instance.isTouchKickUI)
-        {
-            driftTime += Time.deltaTime;
-        }
-        else
-        {
-            driftTime = 0f;
-        }
-        if(myBoosterCurrentGauge>=myBoosterMaxGauge)
-        {
-            GameManager.Instance.BoosterButton.interactable = true;
-        }
-        else
-        {
-            GameManager.Instance.BoosterButton.interactable = false;
-        }
-    }
     void UpdateCurrentState() // (6) 현재 상태를 업데이트 하는 함수
     {     
         //드리프트
