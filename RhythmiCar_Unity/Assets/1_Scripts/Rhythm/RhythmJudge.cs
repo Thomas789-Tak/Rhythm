@@ -45,6 +45,8 @@ public class RhythmJudge : MonoBehaviour
         songPlayTime = 0f;
 
         ObjectPooling();
+
+        SongStart();
     }
 
     protected virtual void Update()
@@ -152,8 +154,8 @@ public class RhythmJudge : MonoBehaviour
             note.num = i;
             note.speed = noteSpeed;
             note.time = CurrentSong.noteData[i];
-            note.transform.localPosition =
-                new Vector3(0, CurrentSong.noteData[i] * noteSpeed);
+            //note.transform.localPosition =
+            //    new Vector3(0, CurrentSong.noteData[i] * noteSpeed);
 
             //note.gameObject.SetActive(false);
             NotePool.Add(note.gameObject);

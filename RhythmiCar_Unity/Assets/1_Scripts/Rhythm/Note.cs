@@ -28,9 +28,9 @@ public class Note : MonoBehaviour
         if (isSet == false) return;
 
         Vector3 vec = transform.localPosition;
-        float posY = (time - RhythmJudge.songPlayTime) / speed;
+        float posZ = (time - RhythmJudge.songPlayTime) * speed;
 
-        vec.y = posY;
+        vec.z = posZ;
 
         transform.localPosition = vec;
     }
