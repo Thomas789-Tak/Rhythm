@@ -8,103 +8,80 @@ using TMPro;
 
 public class InputController : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
+    private InputManager InputManager;
+    private RhythmJudge RhythmJudge;
+    private Vector2 preVec;
+
+    public float checkDistance = 9000f;
     public InputField InputFieldCheckDistance;
-    public bool isTouch;
-    private static InputController instance = null;
-    public static InputController Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                instance = FindObjectOfType<InputController>();
 
-                if (instance == null)
-                {
-                    Debug.LogError("SoundManager singelton Error");
-                }
-            }
-            return instance;
-        }
+    private void Start()
+    {
+        InputManager = InputManager.Instance;
+        RhythmJudge = GetComponent<RhythmJudge>();
     }
 
-    private void Awake()
+    private void Update()
     {
-        if (instance == null)
-            instance = this;
-    }
-    //public TextMeshProUGUI TextInfor;
-    private Vector2 a;
-    public float checkDistance = 10f;
 
-    public UnityEvent aaa;
+    }
+
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        //Debug.Log("Pointer Down : " + eventData.position);
-        //TextInfor.text = "Down \n" + eventData.position;
-        a = eventData.position;
-        isTouch = true;
-        print(isTouch);
+        preVec = eventData.position;
+        RhythmJudge.Judge();
     }
-
-
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        a -= eventData.position;
-        Debug.Log(a);
-        //Debug.Log
-        //    ("Pointer UP : " + eventData.position + "\n" +
-        //    "Distance = " + b);
-        //TextInfor.text = "Up \n" + eventData.position;
+        preVec -= eventData.position;
         DragCheck();
-        isTouch = false;
-        print(isTouch);
     }
 
     public void DragCheck()
     {
-        var x = Mathf.Pow(a.x, 2);
-        var y = Mathf.Pow(a.y, 2);
+        var x = Mathf.Pow(preVec.x, 2);
+        var y = Mathf.Pow(preVec.y, 2);
 
         if (x < checkDistance && y < checkDistance)
         {
-            Debug.Log("Just Touch");
+            //Debug.Log("Just Touch");
+            //RhythmJudge.Judge();
+            return;
         }
         // X축 드래그 판정
         else if (x >= y)    
         {
-            if (a.x > 0)
+            if (preVec.x > 0)
             {
-                Debug.Log("Move To Left");
-                GameManager.Instance.car.MoveLeft();
+                // 좌로 슬라이드
+                InputManager.horizontalEvent.Invoke(-1);
             }    
             else
             {
-                Debug.Log("Move To Right");
-                GameManager.Instance.car.MoveRight();
+                // 우로 슬라이드
+                InputManager.horizontalEvent.Invoke(1);
             }
         }
         // Y축 드래그 판정
         else
         {
-            if (a.y < 0)
+            if (preVec.y < 0)
             {
-                Debug.Log("Move To up");
+                // 위로 슬라이드
+                InputManager.verticalEvent.Invoke(-1);
             }
             else
             {
-                Debug.Log("Move To Down");
+                // 아래로 슬라이드
+                InputManager.verticalEvent.Invoke(1);
             }
         }
-
-
     }
 
     public void SetCheckDistance()
     {
         float.TryParse(InputFieldCheckDistance.text, out checkDistance);
     }
-
 }

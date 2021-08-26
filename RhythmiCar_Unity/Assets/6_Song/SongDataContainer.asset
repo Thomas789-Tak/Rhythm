@@ -1,0 +1,115 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dae96920dff30b643bdf6ae6c71ce840, type: 3}
+  m_Name: SongDataContainer
+  m_EditorClassIdentifier: 
+  songInformationDatas:
+  - title: Wake Up ALL
+    artist: Bluedy
+    BPM: 90
+    clip: {fileID: 8300000, guid: 29de273815f3a9840805dc96eac4bbf0, type: 3}
+  - title: If I
+    artist: Bluedy
+    BPM: 108
+    clip: {fileID: 8300000, guid: d40d8802d0be5724aafc5fdbecfdc713, type: 3}
+  - title: Turn
+    artist: Bluedy
+    BPM: 180
+    clip: {fileID: 8300000, guid: ff1d4f2ebc8618e41953572f2819f9b9, type: 3}
+  - title: Sudden Shower
+    artist: Bluedy
+    BPM: 196
+    clip: {fileID: 8300000, guid: de2102de97f091349893d66d6d7d365f, type: 3}
+  songNoteDatas:
+  - name: Wake Up ALL_Easy
+    info:
+      title: Wake Up ALL
+      artist: Bluedy
+      BPM: 90
+      clip: {fileID: 8300000, guid: 29de273815f3a9840805dc96eac4bbf0, type: 3}
+    difficulty: 0
+    speedAccel: 3
+    isOpend: 1
+    noteData:
+    - 4.115164
+    - 6.1344156
+    - 8.786632
+    - 11.413478
+    - 14.084121
+    - 16.748043
+    - 19.458382
+    - 22.089813
+    - 24.730316
+    - 26.104143
+    - 27.484304
+    - 28.801956
+    - 30.125307
+    - 31.446257
+    - 32.78651
+    - 34.095676
+    - 35.483707
+    - 36.79085
+    - 38.14453
+    - 39.45052
+    - 40.752163
+    - 42.11886
+    - 43.425987
+    - 44.765182
+    - 46.01367
+    - 47.415695
+    - 48.7775
+    - 50.114517
+    - 51.38554
+    - 52.758038
+    - 54.10323
+    - 55.38551
+    - 57.470806
+    - 58.778835
+    - 60.089207
+    - 61.39093
+    - 62.746838
+    - 64.114
+    - 65.425125
+    - 66.70812
+    - 68.06147
+    - 69.40203
+    - 70.68737
+    - 72.03745
+    - 73.40311
+    - 74.73923
+    - 76.06129
+    - 77.33472
+    - 78.74562
+    - 80.10313
+    - 81.4121
+    - 82.74408
+    - 84.04768
+    - 85.347626
+    - 86.748985
+    - 88.06317
+    - 89.41319
+    - 90.757545
+    - 92.03911
+    - 93.37286
+    - 94.74434
+    - 96.090164
+    - 97.382416
+    - 98.75084
+    - 100.09311
+    - 101.3633
+    - 102.75954
+    - 104.005775
+    - 105.392395
+    - 106.714775
+    - 108.09346
+    - 109.35586
+    - 110.9135
