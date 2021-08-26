@@ -82,7 +82,7 @@ public class RhythmEditorTest : MonoBehaviour
     {
         var songNoteData = currentSongNoteData;
 
-        songNoteData.info = this.currentSongInfortmationData;
+        songNoteData.SetSongInformaitonData(this.currentSongInfortmationData);
         songNoteData.difficulty = this.difficulty;
         songNoteData.speedAccel = this.speedAccel;
         songNoteData.noteData = this.noteData;

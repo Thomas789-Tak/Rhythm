@@ -48,7 +48,7 @@ public class RhythmJudge : MonoBehaviour
         songPlayTime = 0f;
 
         ObjectPooling();
-        //SongStart();
+        SongStart();
 
     }
 
@@ -59,6 +59,10 @@ public class RhythmJudge : MonoBehaviour
         //CreateNote();
     }
 
+    /// <summary>
+    /// 현재 노래 데이터 설정
+    /// </summary>
+    /// <param name="songNoteData"></param>
     public void SetSongNoteData(SongNoteData songNoteData)
     {
         this.CurrentSong = songNoteData;
@@ -66,17 +70,21 @@ public class RhythmJudge : MonoBehaviour
 
     /// <summary>
     /// 노래 시작.
+    /// SoundManager 의 음악 재생.
+    /// InputManager 의 Event 등록.
     /// </summary>
     [ContextMenu("GameStart")]
     public void SongStart()
     {
         this.isSongStart = true;
-        this.AudioSource.clip = CurrentSong.info.clip;
-        this.AudioSource.Play();
-        //SoundManager.Instance.PlayBGM(SoundManager.EBGM._90BPM_WakeUp);
+
+        //this.AudioSource.clip = CurrentSong.info.clip;
+        //this.AudioSource.Play();
+        SoundManager.Instance.PlayBGM(this.CurrentSong.EBGM);
+
         this.JudgeEvent.AddListener((judge) => InputManager.Instance.touchEvent.Invoke(judge));
-        this.JudgeEvent.AddListener((judge) => this.DeleteNote(judge));
-        this.JudgeEvent.AddListener((judge) => this.JudgeInformation(judge));
+        this.JudgeEvent.AddListener((judge) => this.DeleteNote());
+
     }
 
     /// <summary>
@@ -108,7 +116,6 @@ public class RhythmJudge : MonoBehaviour
             //currentNoteNum++;
         }
     }
-
 
     /// <summary>
     /// 유저 입력 감지시 호출됨
@@ -142,7 +149,9 @@ public class RhythmJudge : MonoBehaviour
         JudgeEvent.Invoke(judge);
     }
 
-
+    /// <summary>
+    /// 노트들을 Current Song에 맞게 생성해둔다.
+    /// </summary>
     private void ObjectPooling()
     {
         int pNum = 300;
@@ -168,6 +177,9 @@ public class RhythmJudge : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     private void CreateNote()
     {
 
@@ -181,16 +193,20 @@ public class RhythmJudge : MonoBehaviour
         }
     }
 
-    private void DeleteNote(EJudge judge)
+    /// <summary>
+    /// 맞추거나 놓친 노트를 비활성화 해둔다.
+    /// </summary>
+    /// <param name="judge"></param>
+    private void DeleteNote()
     {
         NotePool[currentNoteNum].SetActive(false);
         currentNoteNum++;
     }
 
-    private void JudgeInformation(EJudge eJudge)
-    {
-        Debug.Log(this.songPlayTime);
-        Debug.Log(this.AudioSource.time);
-    }
+
+
+
+
+
 
 }

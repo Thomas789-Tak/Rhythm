@@ -17,11 +17,22 @@ public class SongDataContainer : ScriptableObject
 public class SongNoteData
 {
     public string name;
-    public SongInformationData info;
+    private SongInformationData info;
     public ESongDifficulty difficulty;
     public float speedAccel;
     public bool isOpend = false;
     public List<float> noteData;
+
+    public string title { get =>  info.title; }
+    public string artist { get => info.artist; }
+    public int BPM { get => info.BPM; } 
+    public AudioClip clip { get => info.clip; }
+    public SoundManager.EBGM EBGM { get => info.EBGM; }
+    public void SetSongInformaitonData(SongInformationData songInformationData)
+    {
+        info = songInformationData;
+    }
+
 }
 
 [System.Serializable]
@@ -29,8 +40,9 @@ public class SongInformationData
 {
     public string title;
     public string artist;
-    public string BPM;
+    public int BPM;
     public AudioClip clip;
+    public SoundManager.EBGM EBGM;
 }
 
 public enum ESongDifficulty
