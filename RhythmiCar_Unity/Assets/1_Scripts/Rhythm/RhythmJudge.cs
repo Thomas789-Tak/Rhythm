@@ -11,7 +11,7 @@ using UnityEngine.Events;
 public class RhythmJudge : MonoBehaviour
 {
     //private InputManager InputManager;
-    private AudioSource AudioSource;
+    protected AudioSource AudioSource;
     public SongNoteData CurrentSong;
     public UnityEvent<EJudge> JudgeEvent;
 
@@ -20,7 +20,7 @@ public class RhythmJudge : MonoBehaviour
     public List<GameObject> NotePool;
 
     [SerializeField]
-    private bool isTestMode = false;
+    protected bool isTestMode = false;
     public bool isSongStart = false;
     public int currentNoteNum = 0;
     public float songPlayTime = 0f;
@@ -58,8 +58,11 @@ public class RhythmJudge : MonoBehaviour
 
     protected virtual void Update()
     {
-        TimeCheck();
-        MissCheck();
+        if (isSongStart)
+        {
+            TimeCheck();
+            MissCheck();
+        }
         //CreateNote();
     }
 
@@ -97,9 +100,6 @@ public class RhythmJudge : MonoBehaviour
     /// </summary>
     private void TimeCheck()
     {
-        if (!isSongStart) return;
-
-        //songPlayTime += Time.deltaTime;
         songPlayTime = AudioSource.time;
     }
 
@@ -109,8 +109,6 @@ public class RhythmJudge : MonoBehaviour
     /// </summary>
     private void MissCheck()
     {
-        if (!isSongStart) return;
-
         // 한 노트가 판정선 너머로 가버렸을 경우 (판정 Miss 의 경우)
         float nTime = CurrentSong.noteData[currentNoteNum];
         if (nTime + endJudgeTime < songPlayTime)

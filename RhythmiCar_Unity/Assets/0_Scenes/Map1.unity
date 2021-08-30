@@ -9695,10 +9695,10 @@ MonoBehaviour:
   noteStartingX: 10
   speedAccel: 1
   noteInstanceDistance: 10
-  endJudgeTime: 0.2
-  perfectJudgeTime: 0.1
+  endJudgeTime: 0.05
+  perfectJudgeTime: 0.08
   goodJudgeTime: 0.1
-  badJudgeTime: 0.1
+  badJudgeTime: 0.02
 --- !u!1001 &2009638988
 PrefabInstance:
   m_ObjectHideFlags: 0
