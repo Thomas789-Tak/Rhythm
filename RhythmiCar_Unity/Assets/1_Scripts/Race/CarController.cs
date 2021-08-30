@@ -14,7 +14,7 @@ public class CarController : MonoBehaviour
     [SerializeField] [Tooltip("가속도")] [Range(1, 100)] float acceleration;
     [SerializeField] [Tooltip("최대 부스터게이지량")] [Range(1, 300)] float boosterMaxGauge;
     float boosterCurrentGauge;
-    float boosterSpeed;
+    [SerializeField] float boosterSpeed;
     [SerializeField] float currentRhythmEnergy;
     [SerializeField] float maxRhythmEnergy;
     [SerializeField] float currentSpeed;
@@ -63,7 +63,7 @@ public class CarController : MonoBehaviour
         Accelerate();
         SteeringWheel();
         ObserveGearState();
-        GameManager.Instance.text.text = currentSpeed.ToString("N0") + "Km/h"+currentGear.ToString();
+        GameManager.Instance.text.text = currentSpeed.ToString("N0") + "Km/h"+ " 현재기어 ["+currentGear.ToString()+"]";
     }
     //----------------------------------------------------update--------------------------------------------------------------------
 
@@ -331,6 +331,10 @@ public class CarController : MonoBehaviour
         if(other.CompareTag("Jump"))
         {
             Body.transform.DOLocalJump(Vector3.zero, 10f, 0, 2f);
+        }
+        if(other.CompareTag("Coin"))
+        {
+            other.gameObject.SetActive(false);
         }
     }
 }
