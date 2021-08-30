@@ -235,10 +235,11 @@ public class CarController : MonoBehaviour
 
     public void SpeedUP() // 노트 성공 시 속도를 올려주는 함수 --- 이 부분을 판정 결과와 관련된 함수로 바꾸자
     {
+        SuccessVFx.Play();
         if (currentSpeed <= maxSpeed)
         {
             currentSpeed += acceleration;
-            SuccessVFx.Play();
+
         }
         if(currentSpeed>maxSpeed)
         {
@@ -252,9 +253,10 @@ public class CarController : MonoBehaviour
 
     public void SpeedDown() // 노트 실패 시 속도를 내려주는 함수
     {
-        if(currentSpeed>=0)
+        FailVFx.Play();
+        if (currentSpeed>=0)
         {
-            FailVFx.Play();
+
             currentSpeed -= 5f;
         }
         if(currentSpeed<0)
