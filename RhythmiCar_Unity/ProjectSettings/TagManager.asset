@@ -7,7 +7,7 @@ TagManager:
   - Note
   - Booster
   - Jump
-  - Ground
+  - Coin
   layers:
   - Default
   - TransparentFX
