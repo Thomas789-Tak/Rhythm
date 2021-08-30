@@ -19,6 +19,8 @@ public class RhythmJudge : MonoBehaviour
     public GameObject NoteObject;
     public List<GameObject> NotePool;
 
+    [SerializeField]
+    private bool isTestMode = false;
     public bool isSongStart = false;
     public int currentNoteNum = 0;
     public float songPlayTime = 0f;
@@ -48,7 +50,9 @@ public class RhythmJudge : MonoBehaviour
         songPlayTime = 0f;
 
         ObjectPooling();
-        SongStart();
+
+        if (!isTestMode)
+            SongStart();
 
     }
 
