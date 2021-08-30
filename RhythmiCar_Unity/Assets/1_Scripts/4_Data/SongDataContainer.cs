@@ -8,8 +8,6 @@ public class SongDataContainer : ScriptableObject
     public List<SongInformationData> songInformationDatas = new List<SongInformationData>();
     public List<SongNoteData> songNoteDatas = new List<SongNoteData>();
 
-
-
 }
 
 
@@ -17,6 +15,7 @@ public class SongDataContainer : ScriptableObject
 public class SongNoteData
 {
     public string name;
+    [SerializeField]
     private SongInformationData info;
     public ESongDifficulty difficulty;
     public float speedAccel;
