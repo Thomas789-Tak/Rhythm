@@ -16,7 +16,7 @@ public class UIManager : Singleton<MonoBehaviour>
     // Start is called before the first frame update
     void Start()
     {
-        InputManager.Instance.touchEvent.AddListener((EJudge) => SetNoteNum());
+        InputManager.Instance.touchEvent.AddListener((EJudge) => SetNoteNum(EJudge));
         InputManager.Instance.touchEvent.AddListener((EJudge) => SetNoteJudge(EJudge));
     }
 
@@ -26,9 +26,12 @@ public class UIManager : Singleton<MonoBehaviour>
         
     }
 
-    private void SetNoteNum()
+    private void SetNoteNum(EJudge eJudge)
     {
-        noteNum++;
+        if (eJudge == EJudge.Miss)
+            noteNum = 0;
+        else
+            noteNum++;
         TextNoteNum.text = noteNum.ToString();
     }
 
