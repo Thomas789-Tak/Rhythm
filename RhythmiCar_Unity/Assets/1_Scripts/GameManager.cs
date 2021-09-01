@@ -7,17 +7,46 @@ using PathCreation;
 
 public class GameManager : MonoBehaviour
 {
-    public int gold { get; set; }
-    public int star { get; set; }
-    public int note { get; set; }
-    public int score { get; set; }
+    public int Gold
+    {
+        get => gold; set
+        {
+            gold = value;
+            UIManager.Instance.SetGold(gold);
+        }
+    }
+    public int Star
+    {
+        get => star; set
+        {
+            star = value;
+            UIManager.Instance.SetStar(star);
+        }
+    }
+    public int Note
+    {
+        get => note; set
+        {
+            note = value;
+            UIManager.Instance.SetNote(note);
+        }
+    }
+    public int Score
+    {
+        get => score; set
+        {
+            score = value;
+            UIManager.Instance.SetScore(score);
+        }
+    }
 
-    private static GameManager instance =null;
-    public Text text;
+    private int gold;
+    private int star;
+    private int note;
+    private int score;
+
+    private static GameManager instance = null;
     public CarController car;
-    public Button RetryButton;
-    public Image BoosterGauge;
-    public Slider RhythmPower;
 
     private void Awake()
     {
@@ -30,7 +59,6 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        RetryButton.gameObject.SetActive(false);
         Application.targetFrameRate = 60;
     }
     public static GameManager Instance
@@ -48,7 +76,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
 
-        print("°ñµå·®"+gold);
+        print("°ñµå·®" + Gold);
     }
     public void RetryGame()
     {
@@ -57,12 +85,12 @@ public class GameManager : MonoBehaviour
     public void ToMainScene()
     {
         SceneManager.LoadScene(0);
-    }    
+    }
 
     [ContextMenu("Send")]
     public void SendResult()
     {
-         // VO.gold = gold
-         // VO.star = star
+        // VO.gold = gold
+        // VO.star = star
     }
 }

@@ -106,7 +106,7 @@ public class CarController_Casual : MonoBehaviour
 
     void BoosterState()
     {
-        GameManager.Instance.BoosterGauge.fillAmount = myBoosterCurrentGauge / myBoosterMaxGauge;
+        //GameManager.Instance.BoosterGauge.fillAmount = myBoosterCurrentGauge / myBoosterMaxGauge;
         if(isBoosting)
         {
             myBoosterCurrentGauge -= Time.deltaTime*30f;
@@ -128,8 +128,8 @@ public class CarController_Casual : MonoBehaviour
     void RhythmPowerState()
     {
         myRhythmPower -= Time.deltaTime;
-        GameManager.Instance.RhythmPower.value = myRhythmPower;
-        GameManager.Instance.RhythmPower.maxValue = myMaxRhythmPower;
+        //GameManager.Instance.RhythmPower.value = myRhythmPower;
+        //GameManager.Instance.RhythmPower.maxValue = myMaxRhythmPower;
         if(myRhythmPower<=0)
         {
             //게임오버
@@ -244,7 +244,7 @@ public class CarController_Casual : MonoBehaviour
         //Invoke("DelaySetCollider", 2f);
         if (transform.position.y<=-19f) // 패배조건 설정; 
         {
-            GameManager.Instance.RetryButton.gameObject.SetActive(true);
+            //GameManager.Instance.RetryButton.gameObject.SetActive(true);
             Time.timeScale = 0;
 
         }
