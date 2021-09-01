@@ -8,6 +8,7 @@ public class AICarMove : MonoBehaviour
     public float speed;
     bool takeDown;
     public float rot;
+
     void Start()
     {
         rigid = GetComponent<Rigidbody>();    

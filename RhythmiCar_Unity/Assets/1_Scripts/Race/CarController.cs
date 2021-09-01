@@ -122,6 +122,7 @@ public class CarController : MonoBehaviour
 
     public void GetItem(EnumItemVO.EItemType itemType, int goldAmount=0 , int noteAmount=0, int starAmount=0, float rhythmEnergyAmount=0 )
     {
+        //연출넣자 파티클 같은거
         switch (itemType)
         {
             case EnumItemVO.EItemType.gold:
