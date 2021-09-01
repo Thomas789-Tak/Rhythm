@@ -7,6 +7,10 @@ using PathCreation;
 
 public class GameManager : MonoBehaviour
 {
+    public int gold { get; set; }
+    public int star { get; set; }
+    public int note { get; set; }
+    public int score { get; set; }
 
     private static GameManager instance =null;
     public Text text;
@@ -43,7 +47,8 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        //text.text = car.MyRigidBody.velocity.magnitude.ToString("N0")+"Km/h";
+
+        print("°ñµå·®"+gold);
     }
     public void RetryGame()
     {
@@ -53,4 +58,9 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }    
+    public void SendResult()
+    {
+         // VO.gold = gold
+         // VO.star = star
+    }
 }

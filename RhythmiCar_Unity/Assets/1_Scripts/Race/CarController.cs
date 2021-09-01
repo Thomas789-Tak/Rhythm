@@ -55,10 +55,6 @@ public class CarController : MonoBehaviour
     //--------------------------------------------------update----------------------------------------------------------------------
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.A))
-        {
-            SuccessVFx.Play();
-        }
         DecreaseRhythmEnergy();
         Accelerate();
         SteeringWheel();
@@ -99,28 +95,78 @@ public class CarController : MonoBehaviour
 
     public void Judge(EJudge judgement)
     {
-        switch(judgement)
+        if(isBoosting==false)
         {
-            case EJudge.Perfect:
-                SpeedUP();
+            switch (judgement)
+            {
+                case EJudge.Perfect:
+                    SpeedUP();
+                    break;
+
+                case EJudge.Good:
+                    SpeedUP();
+                    break;
+
+                case EJudge.Bad:
+                    SpeedDown();
+                    break;
+
+                case EJudge.Miss:
+                    SpeedDown();
+                    break;
+            }
+        }
+        
+    }
+
+    public void GetItem(EnumItemVO.EItemType itemType, int goldAmount=0 , int noteAmount=0, int starAmount=0, float rhythmEnergyAmount=0 )
+    {
+        switch (itemType)
+        {
+            case EnumItemVO.EItemType.gold:
+
+                GameManager.Instance.gold += goldAmount;
+
                 break;
 
-            case EJudge.Good:
-                SpeedUP();
+            case EnumItemVO.EItemType.note:
+
+                GameManager.Instance.note += noteAmount;
+
                 break;
 
-            case EJudge.Bad:
-                SpeedDown();
+            case EnumItemVO.EItemType.rhythmEnergy:
+                
+                if(currentRhythmEnergy<maxRhythmEnergy)
+                {
+                    currentRhythmEnergy += rhythmEnergyAmount;
+                }
+                if(currentRhythmEnergy>maxRhythmEnergy)
+                {
+                    currentRhythmEnergy = maxRhythmEnergy;
+                }
+
                 break;
 
-            case EJudge.Miss:
-                SpeedDown();
+            case EnumItemVO.EItemType.star:
+                
+                GameManager.Instance.star += starAmount;
+
+                break;
+
+            case EnumItemVO.EItemType.booster:
+
+                isBoosting = true;
+                boosterCurrentGauge = boosterMaxGauge;
+                StartCoroutine(Co_Booster);
+
                 break;
         }
     }
-    IEnumerator Booster() // 부스터를 활성화 하는 함수
+
+    public IEnumerator Booster() // 부스터를 활성화 하는 함수
     {
-        while(isBoosting)
+        while (isBoosting)
         {
             print("부스터중");
             boosterCurrentGauge -= Time.deltaTime;
@@ -318,23 +364,5 @@ public class CarController : MonoBehaviour
     {
         BackLeftSkidMark.emitting = false;
         BackRightSkidMark.emitting = false;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.CompareTag("Booster"))
-        {
-            isBoosting = true;
-            boosterCurrentGauge = boosterMaxGauge;
-            StartCoroutine(Co_Booster);
-        }
-        if(other.CompareTag("Jump"))
-        {
-            Body.transform.DOLocalJump(Vector3.zero, 10f, 0, 2f);
-        }
-        if(other.CompareTag("Coin"))
-        {
-            other.gameObject.SetActive(false);
-        }
     }
 }

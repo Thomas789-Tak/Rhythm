@@ -5,11 +5,24 @@ using DG.Tweening;
 
 public class Item : MonoBehaviour
 {
-    float rotation;
+    [SerializeField] EnumItemVO.EItemType enumType;
+    [SerializeField] int goldAmount;
+    [SerializeField] int noteAmount;
+    [SerializeField] int starAmount;
+    [SerializeField] float rhythmEnergyAmount;
 
-    void Update()
+    private void Start()
     {
-        rotation += Time.deltaTime * 60f;
-        transform.DORotate(Vector3.up*rotation, 1f).SetLoops(-1).SetEase(Ease.Linear);
+        transform.DORotate(Vector3.up*180, 1f).SetLoops(-1).SetEase(Ease.Linear);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Player"))
+        {
+            other.gameObject.GetComponent<CarController>().GetItem(enumType,goldAmount,noteAmount,starAmount,rhythmEnergyAmount);
+            //연출넣자 파티클 같은거
+            gameObject.SetActive(false);
+        }
     }
 }
