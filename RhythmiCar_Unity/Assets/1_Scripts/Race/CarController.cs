@@ -59,7 +59,8 @@ public class CarController : MonoBehaviour
         Accelerate();
         SteeringWheel();
         ObserveGearState();
-        GameManager.Instance.text.text = currentSpeed.ToString("N0") + "Km/h"+ " 현재기어 ["+currentGear.ToString()+"]";
+        //GameManager.Instance.text.text = currentSpeed.ToString("N0") + "Km/h"+ " 현재기어 ["+currentGear.ToString()+"]";
+        UIManager.Instance.SetCarInformation(currentSpeed, currentGear);
     }
     //----------------------------------------------------update--------------------------------------------------------------------
 

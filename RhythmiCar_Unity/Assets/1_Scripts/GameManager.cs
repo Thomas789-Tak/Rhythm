@@ -58,6 +58,8 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }    
+
+    [ContextMenu("Send")]
     public void SendResult()
     {
          // VO.gold = gold
