@@ -3097,6 +3097,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2094865780, guid: 450d5122745e105439b3ea5eef08c202, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.5400007
+      objectReference: {fileID: 0}
+    - target: {fileID: 2094865780, guid: 450d5122745e105439b3ea5eef08c202, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 33
+      objectReference: {fileID: 0}
+    - target: {fileID: 2094865780, guid: 450d5122745e105439b3ea5eef08c202, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 6.999996
+      objectReference: {fileID: 0}
     - target: {fileID: 8355446946540298292, guid: 450d5122745e105439b3ea5eef08c202, type: 3}
       propertyPath: m_Name
       value: Dai-ichi Nyoko - Blue
