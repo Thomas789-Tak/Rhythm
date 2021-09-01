@@ -361,11 +361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 871f9e3e56b77694191443c9ed531675, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 383957006}
   car: {fileID: 526541194}
-  RetryButton: {fileID: 1880446405}
-  BoosterGauge: {fileID: 0}
-  RhythmPower: {fileID: 747627302}
 --- !u!4 &23010981
 Transform:
   m_ObjectHideFlags: 0
@@ -4812,17 +4808,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &383957006 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6283112180072024774, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
-  m_PrefabInstance: {fileID: 6283112180455649992}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &384048369 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7159515379680924021, guid: fe5b373f358dbf346b95951bf1e70bc8, type: 3}
@@ -9262,17 +9247,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1187358587045185975, guid: fe5b373f358dbf346b95951bf1e70bc8, type: 3}
   m_PrefabInstance: {fileID: 733805110}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &747627302 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6283112180782125550, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
-  m_PrefabInstance: {fileID: 6283112180455649992}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &752204729 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 577158074, guid: 450d5122745e105439b3ea5eef08c202, type: 3}
@@ -22420,17 +22394,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1876492427}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1880446405 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6283112181796464397, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
-  m_PrefabInstance: {fileID: 6283112180455649992}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1887915846
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24740,6 +24703,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
+    - target: {fileID: 3922326981034358184, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3922326981034358184, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
       propertyPath: JudgeLine
       value: 
@@ -24748,9 +24719,5 @@ PrefabInstance:
       propertyPath: NoteObject
       value: 
       objectReference: {fileID: 752204729}
-    - target: {fileID: 6283112181794584554, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}

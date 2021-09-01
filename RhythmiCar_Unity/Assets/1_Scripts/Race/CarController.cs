@@ -51,6 +51,8 @@ public class CarController : MonoBehaviour
         InputManager.Instance.touchEvent.AddListener(Judge);
         InputManager.Instance.verticalEvent.AddListener(SetGear);
         InputManager.Instance.horizontalEvent.AddListener(MoveDirection);
+        UIManager.Instance.SetMaxRhythmEnergy(maxRhythmEnergy);
+        UIManager.Instance.SetCurrentRhythmEnergy(currentRhythmEnergy);
     }
     //--------------------------------------------------update----------------------------------------------------------------------
     void Update()
@@ -61,6 +63,7 @@ public class CarController : MonoBehaviour
         ObserveGearState();
         //GameManager.Instance.text.text = currentSpeed.ToString("N0") + "Km/h"+ " 현재기어 ["+currentGear.ToString()+"]";
         UIManager.Instance.SetCarInformation(currentSpeed, currentGear);
+        UIManager.Instance.SetCurrentRhythmEnergy(currentRhythmEnergy);
     }
     //----------------------------------------------------update--------------------------------------------------------------------
 
@@ -202,8 +205,6 @@ public class CarController : MonoBehaviour
     void DecreaseRhythmEnergy() // 자동적으로 연료를 닳게 하는 함수
     {
         currentRhythmEnergy -= Time.deltaTime;
-        GameManager.Instance.RhythmPower.value = currentRhythmEnergy;
-        GameManager.Instance.RhythmPower.maxValue = maxRhythmEnergy;
         if(currentRhythmEnergy<=0)
         {
             //게임오버

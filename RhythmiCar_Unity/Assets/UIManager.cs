@@ -8,6 +8,7 @@ using DG.Tweening;
 
 public class UIManager : Singleton<UIManager>
 {
+    public Text TextTime;
     public Text TextScore;
     public Text TextGold;
     public Text TextINote;
@@ -22,7 +23,7 @@ public class UIManager : Singleton<UIManager>
     private int gear;
     private int speed;
 
-
+    public Slider SliderRhythmEnergyBar;
 
 
 
@@ -33,19 +34,20 @@ public class UIManager : Singleton<UIManager>
         InputManager.Instance.touchEvent.AddListener((EJudge) => SetNoteJudge(EJudge));
 
         TextScore.text = 0.ToString();
-        TextGold.text = 0.ToString();
-        TextINote.text = 0.ToString();
-        TextStar.text = 0.ToString();
+        //TextGold.text = 0.ToString();
+        //TextINote.text = 0.ToString();
+        //TextStar.text = 0.ToString();
 
-        TextGear.text = 0.ToString();
-        TextSpeed.text = 0.ToString();
+        //TextGear.text = 0.ToString();
+        //TextSpeed.text = 0.ToString();
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        // if game start
+        SetTime(Time.time);
     }
 
     private void SetNoteNum(EJudge eJudge)
@@ -88,4 +90,25 @@ public class UIManager : Singleton<UIManager>
         this.TextScore.text = score.ToString();
     }
 
+    public void SetTime(float time)
+    {
+        int min = (int)(time / 60);
+        int sec = (int)(time % 60);
+        int point = (int)(time * 100) % 100;
+
+        TextTime.text =
+            min.ToString("00") + ":" +
+            sec.ToString("00") + ":" +
+            point.ToString("00");
+    }
+
+    public void SetCurrentRhythmEnergy(float curRE)
+    {
+        SliderRhythmEnergyBar.value = curRE;
+    }
+
+    public void SetMaxRhythmEnergy(float maxRE)
+    {
+        SliderRhythmEnergyBar.maxValue = maxRE;
+    }
 }

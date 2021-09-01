@@ -46,12 +46,7 @@ public class GameManager : MonoBehaviour
     private int score;
 
     private static GameManager instance = null;
-    public Text text;
     public CarController car;
-    public Button RetryButton;
-    public Image BoosterGauge;
-    public Slider RhythmPower;
-
 
     private void Awake()
     {
@@ -64,7 +59,6 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        RetryButton.gameObject.SetActive(false);
         Application.targetFrameRate = 60;
     }
     public static GameManager Instance
