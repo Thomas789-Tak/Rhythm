@@ -126,13 +126,13 @@ public class CarController : MonoBehaviour
         {
             case EnumItemVO.EItemType.gold:
 
-                GameManager.Instance.gold += goldAmount;
+                GameManager.Instance.Gold += goldAmount;
 
                 break;
 
             case EnumItemVO.EItemType.note:
 
-                GameManager.Instance.note += noteAmount;
+                GameManager.Instance.Note += noteAmount;
 
                 break;
 
@@ -151,7 +151,7 @@ public class CarController : MonoBehaviour
 
             case EnumItemVO.EItemType.star:
                 
-                GameManager.Instance.star += starAmount;
+                GameManager.Instance.Star += starAmount;
 
                 break;
 
