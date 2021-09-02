@@ -21,7 +21,6 @@ public class Item : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             other.gameObject.GetComponent<CarController>().GetItem(enumType,goldAmount,noteAmount,starAmount,rhythmEnergyAmount);
-
             gameObject.SetActive(false);
         }
     }
