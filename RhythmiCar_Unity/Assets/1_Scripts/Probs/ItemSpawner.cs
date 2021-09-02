@@ -5,28 +5,24 @@ using UnityEngine;
 public class ItemSpawner : MonoBehaviour
 {
     public List<GameObject> ItemList;
-    [SerializeField] List<LevelInfo> levels;
-    int currentStage;
+    [SerializeField] List<LineInfo> line;
     [SerializeField] int itemInterval;
     [SerializeField] int itemStartPos;
     void Start()
     {
-        currentStage = 0;
-        for(int i=0;i<levels[currentStage].SpawnList.Count;i++)
+        for(int i=0; i<line.Count;i++)
         {
-            Instantiate(ItemList[(int)levels[currentStage].SpawnList[i]], new Vector3((i + itemStartPos) * itemInterval, 1.5f, (-8)*levels[currentStage].SpawnPosZ[i]), Quaternion.identity) ;
+            for (int j = 0; j < line[i].SpawnList.Count; j++)
+            {
+                Instantiate(ItemList[(int)line[i].SpawnList[j]], new Vector3((j + itemStartPos) * itemInterval, 1.5f, (-8) * i), Quaternion.identity);
+            }
         }
+
     }
 
-
-    void Update()
-    {
-        
-    }
     [System.Serializable]
-    public class LevelInfo
+    public class LineInfo
     {
-        public List<float> SpawnPosZ;
         public List<ESpawnList> SpawnList;       
     }
 

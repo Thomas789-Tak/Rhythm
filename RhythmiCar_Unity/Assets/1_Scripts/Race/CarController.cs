@@ -19,12 +19,12 @@ public class CarController : MonoBehaviour
     [SerializeField] float maxRhythmEnergy;
     [SerializeField] float currentSpeed;
     [SerializeField] float maxSpeed;
-    float maxSteering=45;
     [SerializeField] float turnSpeed;
     public bool isBoosting { get; set; }
 
     int currentDirection;
     int roadCount;
+    int combo;
     List<float> gearRatio = new List<float>();
     [SerializeField]int currentGear;
     //참조 영역
@@ -53,6 +53,7 @@ public class CarController : MonoBehaviour
         InputManager.Instance.horizontalEvent.AddListener(MoveDirection);
         UIManager.Instance.SetMaxRhythmEnergy(maxRhythmEnergy);
         UIManager.Instance.SetCurrentRhythmEnergy(currentRhythmEnergy);
+        GameManager.Instance.car = GetComponent<CarController>();
     }
     //--------------------------------------------------update----------------------------------------------------------------------
     void Update()
@@ -72,7 +73,7 @@ public class CarController : MonoBehaviour
         //나중에 여기서 인게임초기화 VO 받아서 하자
         currentGear = 1;
         maxSpeed = gearRatio[currentGear - 1];
-        roadCount = 6;
+        roadCount = 6; //로드카운트 게임매니저에서 받아오자
         //maxRhythmPower = 10;
         currentRhythmEnergy = maxRhythmEnergy;
         //boosterMaxGauge = 7;
@@ -96,6 +97,10 @@ public class CarController : MonoBehaviour
         Co_Booster = Booster();
     }
 
+    public int GetComboCount()
+    {
+        return combo;
+    }
 
     public void Judge(EJudge judgement)
     {
@@ -367,5 +372,13 @@ public class CarController : MonoBehaviour
     {
         BackLeftSkidMark.emitting = false;
         BackRightSkidMark.emitting = false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Finish"))
+        {
+            // 승리 처리
+        }
     }
 }
