@@ -31,7 +31,7 @@ public class UIManager : Singleton<UIManager>
     void Start()
     {
         //InputManager.Instance.touchEvent.AddListener((EJudge) => SetNoteNum(EJudge));
-        //InputManager.Instance.touchEvent.AddListener((EJudge) => SetNoteJudge(EJudge));
+        InputManager.Instance.touchEvent.AddListener((EJudge) => SetNoteJudge(EJudge));
 
         TextScore.text = 0.ToString();
         //TextGold.text = 0.ToString();
