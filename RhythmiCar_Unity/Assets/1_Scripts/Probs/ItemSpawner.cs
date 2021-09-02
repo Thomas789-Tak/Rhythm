@@ -5,14 +5,17 @@ using UnityEngine;
 public class ItemSpawner : MonoBehaviour
 {
     public List<GameObject> ItemList;
-    public List<GameObject> SpawnList;
-    public List<int> SpawnPosZ;
-    public List<Tak> takgi;
-
+    [SerializeField] List<LevelInfo> levels;
+    int currentStage;
+    [SerializeField] int itemInterval;
+    [SerializeField] int itemStartPos;
     void Start()
     {
-        SpawnList.Add(ItemList[0]);
-        
+        currentStage = 0;
+        for(int i=0;i<levels[currentStage].SpawnList.Count;i++)
+        {
+            Instantiate(ItemList[(int)levels[currentStage].SpawnList[i]], new Vector3((i + itemStartPos) * itemInterval, 1.5f, (-8)*levels[currentStage].SpawnPosZ[i]), Quaternion.identity) ;
+        }
     }
 
 
@@ -20,8 +23,22 @@ public class ItemSpawner : MonoBehaviour
     {
         
     }
-    public class Tak
+    [System.Serializable]
+    public class LevelInfo
     {
+        public List<float> SpawnPosZ;
+        public List<ESpawnList> SpawnList;       
+    }
 
+    public enum ESpawnList
+    {
+        gold_copper,
+        gold_silver,
+        gold_gold,
+        booster,
+        star,
+        note,
+        rhythmEnergy,
+        empty,
     }
 }

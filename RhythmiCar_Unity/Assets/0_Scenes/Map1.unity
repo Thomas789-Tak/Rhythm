@@ -1793,9 +1793,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemList:
-  - {fileID: 0}
-  SpawnList: []
-  SpawnPosZ: 
+  - {fileID: 2742529566755157099, guid: 6f67909a76b83ed46b6eb17fa8388d0f, type: 3}
+  - {fileID: 1388457931215535792, guid: 70d914ac4a54f35428211cfc9f75154b, type: 3}
+  - {fileID: 5982681236911995957, guid: a50d9c3a7cceeab48b85659b2bc05acf, type: 3}
+  - {fileID: 6910440973981866524, guid: d265572effa58fa4ea8300977a0c5ffd, type: 3}
+  - {fileID: 6925495570132615176, guid: c2708a04b17a7b34b9daeab57111af34, type: 3}
+  - {fileID: 2972599180480926570, guid: b6e059b5da6eb3c4aa34cc049886a3e1, type: 3}
+  - {fileID: 1021629315903504536, guid: ceeeb08df56afa2469113296824d532d, type: 3}
+  - {fileID: 3566407037128107711, guid: 35a86db266a32d544999fb217b0a0e71, type: 3}
+  levels:
+  - SpawnPosZ:
+    - 0
+    - 1
+    - 2
+    - 1
+    - 2
+    - 3
+    - 4
+    - 3
+    - 2
+    - 1
+    SpawnList: 00000000010000000200000004000000070000000700000003000000020000000100000000000000
+  - SpawnPosZ:
+    - 0
+    - 1
+    - 2
+    - 1
+    - 2
+    - 3
+    - 4
+    - 3
+    - 2
+    - 1
+    SpawnList: 00000000010000000200000004000000070000000700000003000000020000000100000000000000
+  itemInterval: 5
+  itemStartPos: 5
 --- !u!4 &131956333
 Transform:
   m_ObjectHideFlags: 0
