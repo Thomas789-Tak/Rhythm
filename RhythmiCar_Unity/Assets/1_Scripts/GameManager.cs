@@ -41,7 +41,12 @@ public class GameManager : MonoBehaviour
     }
     public float GameTime
     {
-        get => gameTime; set
+        get
+        {
+            return gameTime;
+        }
+
+        set
         {
             gameTime = value;
             UIManager.Instance.SetTime(value);
@@ -106,5 +111,17 @@ public class GameManager : MonoBehaviour
     {
         // VO.gold = gold
         // VO.star = star
+    }
+
+    public void GamePause()
+    {
+        Time.timeScale = 0.0001f;
+        SoundManager.Instance.bgm.Pause();
+    }
+
+    public void GameResume()
+    {
+        Time.timeScale = 1f;
+        SoundManager.Instance.bgm.Play();
     }
 }

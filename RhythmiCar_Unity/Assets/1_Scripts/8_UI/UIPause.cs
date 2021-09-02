@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class UIPause : MonoBehaviour
+public class UIPause : MonoBehaviour, IUISetting
 {
     private SoundManager SoundManager;
     private GameManager GameManager;
@@ -20,16 +20,18 @@ public class UIPause : MonoBehaviour
     public Toggle ToggleVibration;
     public Toggle ToggleShake;
 
-    void Start()
+    public void SetUI()
     {
         UIManager = UIManager.Instance;
         GameManager = GameManager.Instance;
         SoundManager = SoundManager.Instance;
     }
 
+
     [ContextMenu("OnUI")]
     public void OnUI()
     {
+        this.GameManager.GamePause();
         this.gameObject.SetActive(true);
         this.TextGold.text = GameManager.Gold.ToString();
         this.TextINote.text = GameManager.Note.ToString();
@@ -40,6 +42,7 @@ public class UIPause : MonoBehaviour
     public void OffUI()
     {
         this.gameObject.SetActive(false);
+        this.GameManager.GameResume();
     }
 
     public void SetBGM()

@@ -41,6 +41,7 @@ public class UIManager : Singleton<UIManager>
         //TextGear.text = 0.ToString();
         //TextSpeed.text = 0.ToString();
 
+        this.GetComponentsInChildren<IUISetting>(true).ToList().ForEach(x => x.SetUI());
     }
 
     // Update is called once per frame
