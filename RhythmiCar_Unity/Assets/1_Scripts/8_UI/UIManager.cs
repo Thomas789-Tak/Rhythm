@@ -14,7 +14,7 @@ public class UIManager : Singleton<UIManager>
     public Text TextINote;
     public Text TextStar;
 
-    public Text TextNoteNum;
+    public Text TextNoteCombo;
     public Text TextNoteJudge;
     private int noteNum = 0;
 
@@ -30,8 +30,8 @@ public class UIManager : Singleton<UIManager>
     // Start is called before the first frame update
     void Start()
     {
-        InputManager.Instance.touchEvent.AddListener((EJudge) => SetNoteNum(EJudge));
-        InputManager.Instance.touchEvent.AddListener((EJudge) => SetNoteJudge(EJudge));
+        //InputManager.Instance.touchEvent.AddListener((EJudge) => SetNoteNum(EJudge));
+        //InputManager.Instance.touchEvent.AddListener((EJudge) => SetNoteJudge(EJudge));
 
         TextScore.text = 0.ToString();
         //TextGold.text = 0.ToString();
@@ -50,13 +50,13 @@ public class UIManager : Singleton<UIManager>
 
     }
 
-    private void SetNoteNum(EJudge eJudge)
+    /// <summary>
+    /// 차량을 통해 현재 콤보 수를 입력받는다.
+    /// </summary>
+    /// <param name="combo"></param>
+    public void SetNoteCombo(int combo)
     {
-        if (eJudge == EJudge.Miss)
-            noteNum = 0;
-        else
-            noteNum++;
-        TextNoteNum.text = noteNum.ToString();
+        TextNoteCombo.text = combo.ToString();
     }
 
     private void SetNoteJudge(EJudge eJudge)

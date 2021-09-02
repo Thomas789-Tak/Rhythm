@@ -2655,7 +2655,7 @@ MonoBehaviour:
   TextGold: {fileID: 0}
   TextINote: {fileID: 0}
   TextStar: {fileID: 0}
-  TextNoteNum: {fileID: 8941354923037929218}
+  TextNoteCombo: {fileID: 8941354923037929218}
   TextNoteJudge: {fileID: 4072591010852175838}
   TextGear: {fileID: 75834865820352729}
   TextSpeed: {fileID: 4682060492632874527}
@@ -11069,7 +11069,7 @@ GameObject:
   - component: {fileID: 8941354923037929218}
   - component: {fileID: 6176338856896064776}
   m_Layer: 5
-  m_Name: Txt_NoteNum
+  m_Name: Txt_NoteCombo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
