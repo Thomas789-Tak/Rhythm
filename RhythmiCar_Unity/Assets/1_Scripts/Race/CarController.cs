@@ -97,10 +97,6 @@ public class CarController : MonoBehaviour
         Co_Booster = Booster();
     }
 
-    public int GetComboCount()
-    {
-        return combo;
-    }
 
     public void Judge(EJudge judgement)
     {
@@ -110,6 +106,7 @@ public class CarController : MonoBehaviour
             {
                 case EJudge.Perfect:
                     SpeedUP();
+                    
                     break;
 
                 case EJudge.Good:
@@ -124,7 +121,9 @@ public class CarController : MonoBehaviour
                     SpeedDown();
                     break;
             }
+
         }
+        UIManager.Instance.SetNoteCombo(combo);
         
     }
 
