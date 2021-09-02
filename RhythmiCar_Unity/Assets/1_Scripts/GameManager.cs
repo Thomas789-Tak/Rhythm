@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
         get => gold; set
         {
             gold = value;
-            UIManager.Instance.SetGold(gold);
+            //UIManager.Instance.SetGold(gold);
         }
     }
     public int Star
@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
         get => star; set
         {
             star = value;
-            UIManager.Instance.SetStar(star);
+            //UIManager.Instance.SetStar(star);
         }
     }
     public int Note
@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
         get => note; set
         {
             note = value;
-            UIManager.Instance.SetNote(note);
+            //UIManager.Instance.SetNote(note);
         }
     }
     public int Score
@@ -39,14 +39,27 @@ public class GameManager : MonoBehaviour
             UIManager.Instance.SetScore(score);
         }
     }
+    public float GameTime
+    {
+        get => gameTime; set
+        {
+            gameTime = value;
+            UIManager.Instance.SetTime(value);
+        }
+    }
+    public float Achievement { get => achievement; set => achievement = value; }
 
     private int gold;
     private int star;
     private int note;
     private int score;
+    private float gameTime;
+    private float achievement;
 
     private static GameManager instance = null;
     public CarController car;
+
+
 
     private void Awake()
     {
@@ -73,9 +86,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
     private void Update()
     {
-
+        GameTime = Time.time;
         print("°ñµå·®" + Gold);
     }
     public void RetryGame()

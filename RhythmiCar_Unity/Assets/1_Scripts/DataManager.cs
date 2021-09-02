@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Firebase;
 using Firebase.Database;
-using UniRx;
+
 public class DataManager : MonoBehaviour
 {
     public static System.Uri dbUrl = new System.Uri("https://rhythmicar-default-rtdb.firebaseio.com/");

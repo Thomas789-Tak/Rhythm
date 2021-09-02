@@ -46,8 +46,7 @@ public class UIManager : Singleton<UIManager>
     // Update is called once per frame
     void Update()
     {
-        // if game start
-        SetTime(Time.time);
+
     }
 
     private void SetNoteNum(EJudge eJudge)
