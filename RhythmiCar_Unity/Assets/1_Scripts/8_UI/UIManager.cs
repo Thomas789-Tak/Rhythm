@@ -14,6 +14,12 @@ public class UIManager : Singleton<UIManager>
     public Text TextINote;
     public Text TextStar;
 
+    public GameObject NoteJudgeObject;
+    private Sequence NoteJudgeSequence;
+    //private CanvasGroup NoteJudgeCanvasGroup;
+    //private RectTransform NoteJudgeRectTransform;
+    public float noteJudgedirectionTime = 0.5f;
+
     public Text TextNoteCombo;
     public Text TextNoteJudge;
     private int noteNum = 0;
@@ -41,6 +47,11 @@ public class UIManager : Singleton<UIManager>
         //TextGear.text = 0.ToString();
         //TextSpeed.text = 0.ToString();
 
+        SetNoteJudgeTween();
+        
+        
+        
+
         this.GetComponentsInChildren<IUISetting>(true).ToList().ForEach(x => x.SetUI());
     }
 
@@ -59,9 +70,41 @@ public class UIManager : Singleton<UIManager>
         TextNoteCombo.text = combo.ToString();
     }
 
+    /// <summary>
+    /// 각 판정 시마다 노트 텍스트를 변경한다.
+    /// </summary>
+    /// <param name="eJudge"></param>
     private void SetNoteJudge(EJudge eJudge)
     {
         TextNoteJudge.text = eJudge.ToString();
+        NoteJudgeDirection();
+    }
+
+    private void SetNoteJudgeTween()
+    {
+        var NoteJudgeCanvasGroup = NoteJudgeObject.GetComponent<CanvasGroup>();
+        var NoteJudgeRectTransform = NoteJudgeObject.GetComponent<RectTransform>();
+
+        NoteJudgeSequence = DOTween.Sequence()
+            .SetAutoKill(false)
+            .OnStart(() =>
+            {
+                NoteJudgeRectTransform.localScale = new Vector2(1f, 1f);
+                NoteJudgeCanvasGroup.alpha = 0f;
+            })
+            .Append(NoteJudgeCanvasGroup.DOFade(0.6f, 0.3f))
+            .Join(NoteJudgeRectTransform.DOScale(1.2f, 0.3f));
+
+        NoteJudgeSequence.Pause();
+        NoteJudgeCanvasGroup.alpha = 0f;
+    }
+
+    /// <summary>
+    /// 노트 콤보와 판정 연출.
+    /// </summary>
+    private void NoteJudgeDirection()
+    {
+        NoteJudgeSequence.Restart();
     }
 
     public void SetCarInformation(float speed, int gear)
