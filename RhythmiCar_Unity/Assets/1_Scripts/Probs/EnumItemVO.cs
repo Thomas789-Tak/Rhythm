@@ -13,3 +13,9 @@ public static class EnumItemVO
         booster,
     }
 }
+public enum BrakeCase
+{
+    miss,
+    bad,
+    bump,
+}

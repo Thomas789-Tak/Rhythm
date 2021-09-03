@@ -30,7 +30,7 @@ public class AICarMove : MonoBehaviour
         {
             rigid.AddForce(Vector3.up * 10f+Vector3.right*30f,ForceMode.VelocityChange);
             takeDown = true;
-            print("¥Í¿Ω");
+            other.GetComponent<CarController>().SpeedDown(BrakeCase.bump);
         }
     }
 }
