@@ -19,8 +19,8 @@ public class CSVReader
 
         if (lines.Length <= 1) return list;
 
-        var header = Regex.Split(lines[0], SPLIT_RE);
-        for (var i = 1; i < lines.Length; i++)
+        var header = Regex.Split(lines[6], SPLIT_RE);
+        for (var i = 7; i < lines.Length; i++)
         {
 
             var values = Regex.Split(lines[i], SPLIT_RE);
