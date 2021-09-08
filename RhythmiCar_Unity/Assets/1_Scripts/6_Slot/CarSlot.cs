@@ -12,7 +12,7 @@ public class CarSlot : Slot<Car>
     {
         base.SetContent(car);
 
-        TextCarName.text = car.Name;
+        TextCarName.text = car.CarName;
     }
     
     

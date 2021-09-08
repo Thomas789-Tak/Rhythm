@@ -23,7 +23,7 @@ public static class InitIngameManager //씬에 들어올 때 이 클래스의 정보를 바탕으
         // Car DATA
         float acceleration = selectedCar.Acceleration;
         float carCurrentLevel = selectedCar.CurrentLevel;
-        string name = selectedCar.Name;
+        string name = selectedCar.CarName;
 
         // Song DATA
         int currentSong = 2;

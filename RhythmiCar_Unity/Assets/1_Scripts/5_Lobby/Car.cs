@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 [System.Serializable]
 public class Car
 {
-    [SerializeField] private string name;
+    [SerializeField] private string carName;
     [SerializeField] private int currentLevel;
 
     [SerializeField] private List<Status> statuses = new List<Status>();
@@ -55,12 +54,12 @@ public class Car
 
     public Car(string name, int currentLevel, List<Status> statuses)
     {
-        this.name = name;
+        this.carName = name;
         this.currentLevel = currentLevel;
         this.statuses = statuses;
     }
 
-    public string Name { get => name; }
+    public string CarName { get => carName; }
     public int CurrentLevel { get => currentLevel; }
     public int SongEquipCount { get => statuses[currentLevel].SongEquipCount; }
     public int Level { get => statuses[currentLevel].Level; }

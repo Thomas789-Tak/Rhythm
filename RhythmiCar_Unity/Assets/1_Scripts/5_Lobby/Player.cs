@@ -46,7 +46,7 @@ public class Player
 
     public void SetCar(Car newCar)
     {
-        curCar = carData.Find(car => car.Name == newCar.Name);
+        curCar = carData.Find(car => car.CarName == newCar.CarName);
     }
 
     public void SetSong(int slotNum, SoundManager.EBGM newBGM)
