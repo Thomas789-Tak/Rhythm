@@ -13,6 +13,10 @@ public class RhythmEditor : RhythmJudge
     public GameObject NoteEditorParent;
     public GameObject NoteEditor;
 
+    public float firstNoteJudgeTime;
+    public float noteJudgeIntervalTime;
+    public int totalNoteNum;
+
     protected override void Start()
     {
         base.Start();
@@ -120,8 +124,18 @@ public class RhythmEditor : RhythmJudge
             loPos.z = i * noteSpeed / 10;
             go.transform.localPosition = loPos;
         }
-
-
     }
 
+    public void MakeNoteList()
+    {
+        List<float> noteList = new List<float>();
+
+        noteList.Add(firstNoteJudgeTime);
+
+        for (int i = 1; i < totalNoteNum; i++)
+        {
+            var noteTime = firstNoteJudgeTime + noteJudgeIntervalTime * i;
+            noteList.Add(noteTime);
+        }
+    }
 }

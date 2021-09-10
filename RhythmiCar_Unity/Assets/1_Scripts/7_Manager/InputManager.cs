@@ -12,7 +12,7 @@ public class InputManager : Singleton<InputManager>
     {
         touchEvent.AddListener((EJudge) => Debug.Log(EJudge));
         verticalEvent.AddListener((inta) => Debug.Log("Vertical + " + inta));
-        horizontalEvent.AddListener((inta) => Debug.Log("Vertical + " + inta));
+        horizontalEvent.AddListener((inta) => Debug.Log("Horizon + " + inta));
 
     }
 }
