@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8715f3b57644ae468e34d23eac69404, type: 3}
+  m_Name: StageDataContainer 2
+  m_EditorClassIdentifier: 
+  stageNum: 2
+  stageName: WoolTaRi City
+  ImageStage: {fileID: 21300000, guid: fdc3ad5fb76254238bca973927314946, type: 3}
+  time: 65
+  score: 217980

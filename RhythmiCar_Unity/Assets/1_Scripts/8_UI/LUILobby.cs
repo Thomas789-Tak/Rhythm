@@ -11,8 +11,6 @@ public class LUILobby : Singleton<LUILobby>
     public RectTransform PanelParentRect;
     private float sizeX;
 
-    public Image ImageCar;
-    public Image ImgaeStage;
 
     public TextMeshProUGUI TextGold;
     public TextMeshProUGUI TextDiamond;
@@ -24,7 +22,7 @@ public class LUILobby : Singleton<LUILobby>
 
     [SerializeField]
     private GameObject CarListContent;
-    private string CarDataPath = "Data/Scriptable Object";
+    private string CarDataPath = "Data/Scriptable Object/Car";
     private Car CurrentCar;
 
     [System.Serializable]
@@ -65,12 +63,14 @@ public class LUILobby : Singleton<LUILobby>
     public StatBar Handling;
 
     [Header("Panel_Main")]
-    public int a;
+    public Image ImageCar;
+    public Image ImageStage;
 
     [Header("Panel_Stage")]
-    public int c;
-
-
+    [SerializeField]
+    private GameObject StageListContent;
+    private string StageDataPath = "Data/Scriptable Object/Stage";
+    private Stage currentStage;
 
     private void Awake()
     {
@@ -92,6 +92,7 @@ public class LUILobby : Singleton<LUILobby>
         HeaderButtonDown(1);
 
         SetCarButtons();
+        SetStageButtons();
     }
 
     // Update is called once per frame
@@ -158,22 +159,49 @@ public class LUILobby : Singleton<LUILobby>
 
     }
 
-    public void SelectCar(CarDataContainer carDataContainer)
+    public void SelectCar(CarDataContainer car)
     {
 
         //this.ImageCar.sprite = carDataContainer.ImageCar;
-        this.ImageCarBig.sprite = carDataContainer.ImageCar;
+        this.ImageCarBig.sprite = car.ImageCar;
 
-        this.TextCarLevel.text = "Lv. " + carDataContainer.level.ToString();
-        this.TextCarName.text = carDataContainer.carName;
-
-
+        this.TextCarLevel.text = "Lv. " + car.level.ToString();
+        this.TextCarName.text = car.carName;
     }
 
-    
+
 
 
     #endregion Panel_Car
 
+    #region Panel_Stage
+
+    public void SetStageButtons()
+    {
+        var stages = Resources.LoadAll(StageDataPath);
+        var btns = StageListContent.GetComponentsInChildren<Button_Stage>(true);
+
+        for (int i = 0; i < stages.Length; i++)
+        {
+            if (i < btns.Length)
+            {
+                btns[i].SetStage((StageDataContainer)stages[i]);
+            }
+            else
+            {
+                var btn = Instantiate(btns[0], StageListContent.transform);
+                btn.SetStage((StageDataContainer)stages[i]);
+            }
+        }
+    }
+
+    public void SelectStage(StageDataContainer stage)
+    {
+        this.ImageStage.sprite = stage.ImageStage;
+    }
+
+
+
+    #endregion
 
 }

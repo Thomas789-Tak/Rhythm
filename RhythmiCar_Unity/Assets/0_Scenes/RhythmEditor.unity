@@ -1532,9 +1532,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: RhythmJudge, Assembly-CSharp
-        m_MethodName: SongStart
+      - m_Target: {fileID: 889645207}
+        m_TargetAssemblyTypeName: RhythmEditor, Assembly-CSharp
+        m_MethodName: TestStart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
