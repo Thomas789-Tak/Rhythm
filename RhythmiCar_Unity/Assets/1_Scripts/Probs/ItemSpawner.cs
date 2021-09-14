@@ -10,25 +10,29 @@ public class ItemSpawner : MonoBehaviour
     [SerializeField] int itemStartPos;
     int currentStage;
     int roadCount;
+    int itemLength;
 
     private void Awake()
     {
         
-        string dataPath = "Data/ItemData";
-        List<Dictionary<string, object>> data = CSVReader.Read(dataPath);
+        string stagePath = "Data/StageInfo";
+        string spawnPath = "Data/SpawnData";
+        List<Dictionary<string, object>> stageInfo = CSVReader.Read(stagePath);
+        List<Dictionary<string, object>> spawnData = CSVReader.Read(spawnPath);
 
         currentStage = 0; // initGamemanager 에서 호출
-        itemInterval = (int)data[currentStage]["itemInterval"];
-        itemStartPos = (int)data[currentStage]["itemStartPos"];
-        roadCount = (int)data[currentStage]["road"];
+        itemInterval = (int)stageInfo[currentStage]["itemInterval"];
+        itemStartPos = (int)stageInfo[currentStage]["itemStartPos"];
+        roadCount = (int)stageInfo[currentStage]["road"];
+        itemLength = (int)stageInfo[currentStage]["itemLength"];
         for(int i=0;i<roadCount;i++)
         {           
             LineInfo road = new LineInfo();
             line.Add(road);
 
-            for(int j=0;j<(int)data[currentStage]["itemLength"];j++)
+            for(int j=0;j<itemLength;j++)
             {
-                line[i].SpawnList.Add((ESpawnList)data[j]["road" + currentStage + "" + i]);
+                line[i].SpawnList.Add((ESpawnList)spawnData[(currentStage*8)+i][j+"m"]);
             }
         }
     }
