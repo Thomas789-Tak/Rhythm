@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Firebase.Auth;
 
-public class JoinManager : MonoBehaviour
+public class JoinManager : Singleton<JoinManager>
 {
 
     private FirebaseAuth auth;
@@ -115,4 +115,10 @@ public class JoinManager : MonoBehaviour
         }
     }
 
+
+    public void GetPlayer(out FirebaseAuth auth)
+    {
+        auth = this.auth;
+        Destroy(this.gameObject);
+    }
 }

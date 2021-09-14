@@ -8,7 +8,7 @@ using Firebase.Auth;
 using UniRx;
 
 [System.Serializable]
-public class Player
+public class Player : MonoBehaviour
 {
     [SerializeField] private int money = 0;
 
@@ -62,7 +62,7 @@ public class Player
 
 
     [ContextMenu("FirebaseDatabase")]
-    void aa()
+    void WriteAndReadDatabase()
     {
         WriteDatabase();
         ReadDatabase();

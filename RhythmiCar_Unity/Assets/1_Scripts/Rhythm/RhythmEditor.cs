@@ -13,6 +13,7 @@ public class RhythmEditor : RhythmJudge
     public GameObject NoteEditorParent;
     public GameObject NoteEditor;
 
+    [Header("리듬 노트 리스트에 들어갈 변수들")]
     public float firstNoteJudgeTime;
     public float noteJudgeIntervalTime;
     public int totalNoteNum;
@@ -126,6 +127,7 @@ public class RhythmEditor : RhythmJudge
         }
     }
 
+    [ContextMenu("Make Note Editor")]
     public void MakeNoteList()
     {
         List<float> noteList = new List<float>();
@@ -137,5 +139,8 @@ public class RhythmEditor : RhythmJudge
             var noteTime = firstNoteJudgeTime + noteJudgeIntervalTime * i;
             noteList.Add(noteTime);
         }
+
+        this.CurrentSong.noteData = noteList;
     }
+
 }

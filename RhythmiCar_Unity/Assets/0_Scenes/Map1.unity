@@ -24735,6 +24735,18 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 23010980}
+    - target: {fileID: 1104715317215562102, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1104715317215562102, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1104715317215562102, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1404288103594785402, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -24911,6 +24923,22 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 23010980}
+    - target: {fileID: 5948044730770189110, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5948044730770189110, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5948044730770189110, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5948044730770189110, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
       propertyPath: JudgeLine
       value: 
@@ -24919,5 +24947,209 @@ PrefabInstance:
       propertyPath: NoteObject
       value: 
       objectReference: {fileID: 752204729}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.info.EBGM
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.size
+      value: 42
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[0]
+      value: 2.0075
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[1]
+      value: 4.6735
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[2]
+      value: 7.3394995
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[3]
+      value: 10.0055
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[4]
+      value: 12.671499
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[5]
+      value: 15.3375
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[6]
+      value: 18.0035
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[7]
+      value: 20.669498
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[8]
+      value: 23.335499
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[9]
+      value: 26.0015
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[10]
+      value: 28.6675
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[11]
+      value: 31.333498
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[12]
+      value: 33.9995
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[13]
+      value: 36.665497
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[14]
+      value: 39.331497
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[15]
+      value: 41.997498
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[16]
+      value: 44.663498
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[17]
+      value: 47.3295
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[18]
+      value: 49.9955
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[19]
+      value: 52.6615
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[20]
+      value: 55.3275
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[21]
+      value: 57.993496
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[22]
+      value: 60.659496
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[23]
+      value: 63.325497
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[24]
+      value: 65.9915
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[25]
+      value: 68.65749
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[26]
+      value: 71.323494
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[27]
+      value: 73.989494
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[28]
+      value: 76.655495
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[29]
+      value: 79.321495
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[30]
+      value: 81.987495
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[31]
+      value: 84.653496
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[32]
+      value: 87.319496
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[33]
+      value: 89.9855
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[34]
+      value: 92.6515
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[35]
+      value: 95.3175
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[36]
+      value: 97.9835
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[37]
+      value: 100.6495
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[38]
+      value: 103.3155
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[39]
+      value: 105.9815
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[40]
+      value: 108.6475
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[41]
+      value: 111.31349
+      objectReference: {fileID: 0}
+    - target: {fileID: 7368584871065715832, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7368584871065715832, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7368584871065715832, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7368584871065715832, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8228854485839800699, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8228854485839800699, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8228854485839800699, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}

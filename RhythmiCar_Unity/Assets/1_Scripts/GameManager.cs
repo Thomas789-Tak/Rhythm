@@ -61,10 +61,11 @@ public class GameManager : MonoBehaviour
     private float gameTime;
     private float achievement;
 
+    private int stageNum;
+    private int carNum;
+
     private static GameManager instance = null;
     public CarController car;
-
-
 
     private void Awake()
     {
@@ -99,23 +100,34 @@ public class GameManager : MonoBehaviour
     }
     public void RetryGame()
     {
-        SceneManager.LoadScene(1);
+        LoadingSceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
     public void ToMainScene()
     {
-        SceneManager.LoadScene(0);
+        LoadingSceneManager.LoadScene("LobbyScene");
     }
 
     [ContextMenu("Send")]
     public void SendResult()
     {
-        // VO.gold = gold
-        // VO.star = star
+        var gameResult = new GameResult.GameResultData
+        {
+            gold = this.gold,
+            score = this.score,
+            iNote = this.note,
+            star = this.star,
+            time = this.gameTime,
+            achievement = this.achievement,
+            stage = this.stageNum,
+        };
+
+        GameResult.SetResult(gameResult);
     }
 
     public void GamePause()
     {
-        Time.timeScale = 0.0001f;
+        Time.timeScale = 0.000001f;
         SoundManager.Instance.bgm.Pause();
     }
 
