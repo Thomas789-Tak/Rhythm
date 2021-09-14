@@ -109,6 +109,10 @@ public class RhythmJudge : MonoBehaviour
     /// </summary>
     private void MissCheck()
     {
+        // 노트가 끝났을 경우
+        if (CurrentSong.noteData.Count >= currentNoteNum)
+            return;
+
         // 한 노트가 판정선 너머로 가버렸을 경우 (판정 Miss 의 경우)
         float nTime = CurrentSong.noteData[currentNoteNum];
         if (nTime + endJudgeTime < songPlayTime)

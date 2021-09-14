@@ -1793,13 +1793,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemList:
-  - {fileID: 7921253499237954128, guid: 7a66e4eab48d0f1479f283b4a4b5c04c, type: 3}
-  - {fileID: 3039247759322890377, guid: eae3cbfb205b3e14a95b13fd8dab7547, type: 3}
-  - {fileID: 7106261933163175698, guid: 25c930017c4f0df47bc483cf07d08d50, type: 3}
-  - {fileID: 7269699079266503872, guid: 97b6d8e4a8bf414478f8e0a5c102c160, type: 3}
-  - {fileID: 4739339240572572977, guid: 47aa3ae48b3bd7e4c80af6de3f5f5f9d, type: 3}
-  - {fileID: 1508836150038571552, guid: 369de4a11225cf843a11f3660005a818, type: 3}
-  - {fileID: 4257791585654012607, guid: f6db0e5b310b508408f15e07192cb1e5, type: 3}
+  - {fileID: 2742529566755157099, guid: 6f67909a76b83ed46b6eb17fa8388d0f, type: 3}
+  - {fileID: 1388457931215535792, guid: 70d914ac4a54f35428211cfc9f75154b, type: 3}
+  - {fileID: 5982681236911995957, guid: a50d9c3a7cceeab48b85659b2bc05acf, type: 3}
+  - {fileID: 6910440973981866524, guid: d265572effa58fa4ea8300977a0c5ffd, type: 3}
+  - {fileID: 6925495570132615176, guid: c2708a04b17a7b34b9daeab57111af34, type: 3}
+  - {fileID: 2972599180480926570, guid: b6e059b5da6eb3c4aa34cc049886a3e1, type: 3}
+  - {fileID: 1021629315903504536, guid: ceeeb08df56afa2469113296824d532d, type: 3}
   - {fileID: 3566407037128107711, guid: 35a86db266a32d544999fb217b0a0e71, type: 3}
   line: []
   itemInterval: 5
@@ -24947,6 +24947,182 @@ PrefabInstance:
       propertyPath: NoteObject
       value: 
       objectReference: {fileID: 752204729}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.info.EBGM
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.size
+      value: 42
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[0]
+      value: 2.0075
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[1]
+      value: 4.6735
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[2]
+      value: 7.3394995
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[3]
+      value: 10.0055
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[4]
+      value: 12.671499
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[5]
+      value: 15.3375
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[6]
+      value: 18.0035
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[7]
+      value: 20.669498
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[8]
+      value: 23.335499
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[9]
+      value: 26.0015
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[10]
+      value: 28.6675
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[11]
+      value: 31.333498
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[12]
+      value: 33.9995
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[13]
+      value: 36.665497
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[14]
+      value: 39.331497
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[15]
+      value: 41.997498
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[16]
+      value: 44.663498
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[17]
+      value: 47.3295
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[18]
+      value: 49.9955
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[19]
+      value: 52.6615
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[20]
+      value: 55.3275
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[21]
+      value: 57.993496
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[22]
+      value: 60.659496
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[23]
+      value: 63.325497
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[24]
+      value: 65.9915
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[25]
+      value: 68.65749
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[26]
+      value: 71.323494
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[27]
+      value: 73.989494
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[28]
+      value: 76.655495
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[29]
+      value: 79.321495
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[30]
+      value: 81.987495
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[31]
+      value: 84.653496
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[32]
+      value: 87.319496
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[33]
+      value: 89.9855
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[34]
+      value: 92.6515
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[35]
+      value: 95.3175
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[36]
+      value: 97.9835
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[37]
+      value: 100.6495
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[38]
+      value: 103.3155
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[39]
+      value: 105.9815
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[40]
+      value: 108.6475
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: CurrentSong.noteData.Array.data[41]
+      value: 111.31349
+      objectReference: {fileID: 0}
     - target: {fileID: 7368584871065715832, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

@@ -29,7 +29,6 @@ public class RhythmEditorTest : MonoBehaviour
    // Start is called before the first frame update
     void Start()
     {
-        
         isTestMode = false;
         this.AudioSource = GetComponent<AudioSource>();
     }

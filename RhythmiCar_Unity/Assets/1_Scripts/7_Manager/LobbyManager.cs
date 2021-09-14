@@ -6,7 +6,7 @@ using UniRx;
 using DG.Tweening;
 
 
-public class LobbyManager : MonoBehaviour
+public class LobbyManager : Singleton<LobbyManager>
 {
     [SerializeField] private Player player;
     [SerializeField] private DataManager dataManager;
@@ -14,16 +14,7 @@ public class LobbyManager : MonoBehaviour
     private void Awake()
     {
         //player = GetComponent<Player>();
-        //dataManager = GetComponent<DataManager>();
-
+        dataManager = GetComponent<DataManager>();
     }
-
-
-    public void GameStart()
-    {
-        LoadingSceneManager.LoadScene("Map1");
-    }
-
-
 }
 
