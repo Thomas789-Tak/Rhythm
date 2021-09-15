@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2678307387110068934}
   - component: {fileID: 8585343456362821962}
   m_Layer: 0
-  m_Name: Item_Coin_Gold
+  m_Name: Item_coin_Gold
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -61,9 +61,9 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -2030901756695967124, guid: e213488c1f91048478769bd7d415d5fa, type: 3}
-  - {fileID: -6329370438950821272, guid: e213488c1f91048478769bd7d415d5fa, type: 3}
-  - {fileID: 4374767759926160521, guid: e213488c1f91048478769bd7d415d5fa, type: 3}
+  - {fileID: 2100000, guid: f50d1cd276941b948a271594d48a5e50, type: 2}
+  - {fileID: 2100000, guid: f50d1cd276941b948a271594d48a5e50, type: 2}
+  - {fileID: 2100000, guid: f50d1cd276941b948a271594d48a5e50, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
