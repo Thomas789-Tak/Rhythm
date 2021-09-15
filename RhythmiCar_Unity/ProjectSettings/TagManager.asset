@@ -5,9 +5,6 @@ TagManager:
   serializedVersion: 2
   tags:
   - Note
-  - Booster
-  - Jump
-  - Coin
   layers:
   - Default
   - TransparentFX

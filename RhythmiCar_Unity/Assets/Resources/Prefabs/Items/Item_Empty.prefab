@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2159275047468879696}
+  - component: {fileID: 5395771837473793457}
   m_Layer: 0
   m_Name: Item_Empty
   m_TagString: Untagged
@@ -30,3 +31,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5395771837473793457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3566407037128107711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb2708dc95a2d4d4999fd1bcb7640410, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enumType: 5
+  goldAmount: 0
+  noteAmount: 0
+  starAmount: 0
+  rhythmEnergyAmount: 0

@@ -42,7 +42,7 @@ public class ItemSpawner : MonoBehaviour
         {
             for (int j = 0; j < line[i].SpawnList.Count; j++)
             {
-                Instantiate(ItemList[(int)line[i].SpawnList[j]], new Vector3((j + itemStartPos) * itemInterval, 1.5f, (-8) * i), Quaternion.identity);
+                Instantiate(ItemList[(int)line[i].SpawnList[j]], new Vector3((j + itemStartPos) * itemInterval, 2f, (-8) * i), Quaternion.identity);
             }
         }
 

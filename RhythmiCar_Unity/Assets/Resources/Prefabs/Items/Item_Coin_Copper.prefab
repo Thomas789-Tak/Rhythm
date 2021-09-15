@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3020274541352733159
+--- !u!1 &6519846436661356781
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,47 +8,47 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2495551774334391133}
-  - component: {fileID: 1517185895739104504}
-  - component: {fileID: 3668982071714637874}
-  - component: {fileID: 2678307387110068934}
-  - component: {fileID: 8585343456362821962}
+  - component: {fileID: 5850445737711350359}
+  - component: {fileID: 7394680736591429106}
+  - component: {fileID: 4718604429264439608}
+  - component: {fileID: 6249391115546095865}
+  - component: {fileID: 2310439517437284524}
   m_Layer: 0
-  m_Name: Item_Coin_Gold
+  m_Name: Item_Coin_Copper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2495551774334391133
+--- !u!4 &5850445737711350359
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3020274541352733159}
+  m_GameObject: {fileID: 6519846436661356781}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.633025, y: 1.5495484, z: -11.93}
+  m_LocalPosition: {x: 14.633025, y: 1.5495484, z: -5.0599995}
   m_LocalScale: {x: 300, y: 300, z: 300}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &1517185895739104504
+--- !u!33 &7394680736591429106
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3020274541352733159}
-  m_Mesh: {fileID: 4481876733522288256, guid: e213488c1f91048478769bd7d415d5fa, type: 3}
---- !u!23 &3668982071714637874
+  m_GameObject: {fileID: 6519846436661356781}
+  m_Mesh: {fileID: 8629249920200189869, guid: 18c9aa6d06e2645448c3b31aa439150f, type: 3}
+--- !u!23 &4718604429264439608
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3020274541352733159}
+  m_GameObject: {fileID: 6519846436661356781}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -61,9 +61,9 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -2030901756695967124, guid: e213488c1f91048478769bd7d415d5fa, type: 3}
-  - {fileID: -6329370438950821272, guid: e213488c1f91048478769bd7d415d5fa, type: 3}
-  - {fileID: 4374767759926160521, guid: e213488c1f91048478769bd7d415d5fa, type: 3}
+  - {fileID: 30494144623850180, guid: 18c9aa6d06e2645448c3b31aa439150f, type: 3}
+  - {fileID: 2100000, guid: 41bfffdb06f170545a176349d52e88ad, type: 2}
+  - {fileID: 4374767759926160521, guid: 18c9aa6d06e2645448c3b31aa439150f, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -85,33 +85,33 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2678307387110068934
+--- !u!114 &6249391115546095865
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3020274541352733159}
+  m_GameObject: {fileID: 6519846436661356781}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eb2708dc95a2d4d4999fd1bcb7640410, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   enumType: 0
-  goldAmount: 100
+  goldAmount: 1
   noteAmount: 0
   starAmount: 0
   rhythmEnergyAmount: 0
---- !u!65 &8585343456362821962
+--- !u!65 &2310439517437284524
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3020274541352733159}
+  m_GameObject: {fileID: 6519846436661356781}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.009872187, y: 0.009872182, z: 0.0021624076}
-  m_Center: {x: 0.00000087218353, y: -0.0000117223235, z: 0.0000042457827}
+  m_Size: {x: 0.009872186, y: 0.009872182, z: 0.0021624076}
+  m_Center: {x: 0.0000008719507, y: -0.0000117223235, z: 0.000004245899}

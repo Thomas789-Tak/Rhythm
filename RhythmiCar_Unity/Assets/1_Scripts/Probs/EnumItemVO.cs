@@ -11,6 +11,7 @@ public static class EnumItemVO
         star,
         rhythmEnergy,
         booster,
+        empty,
     }
 }
 public enum BrakeCase

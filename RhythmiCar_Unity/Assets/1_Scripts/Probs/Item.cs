@@ -13,7 +13,15 @@ public class Item : MonoBehaviour
 
     private void Start()
     {
-        transform.DORotate(Vector3.up*180, 1f).SetLoops(-1).SetEase(Ease.Linear);
+        if(enumType.Equals(EnumItemVO.EItemType.booster)|| enumType.Equals(EnumItemVO.EItemType.rhythmEnergy))
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 30);
+        }
+    }
+    private void Update()
+    {
+        print("È¸Àü");
+        transform.Rotate(Vector3.up * 100f * Time.deltaTime,Space.World);
     }
 
     private void OnTriggerEnter(Collider other)
