@@ -226,6 +226,7 @@ public class CarController : MonoBehaviour
             {
                 currentSpeed = (gearRatio[currentGear - 2] + gearRatio[currentGear - 3]) * 0.5f;
                 currentGear--;
+                maxSpeed = gearRatio[currentGear-1];
             }
         }
         else if(currentGear==2)
@@ -234,6 +235,7 @@ public class CarController : MonoBehaviour
             {
                 currentSpeed = gearRatio[currentGear - 2] * 0.5f;
                 currentGear--;
+                maxSpeed = gearRatio[currentGear-1];
             }
 
         }
