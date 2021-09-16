@@ -72,8 +72,8 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _FresnelBrightness: 0
-    - _FresnelPower: 0
+    - _FresnelBrightness: 1
+    - _FresnelPower: 0.871
     - _FresnelShadowDropoff: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
