@@ -1,6 +1,10 @@
 fileFormatVersion: 2
-guid: a604c19d5fa865d448884f0d951f2384
-folderAsset: yes
+guid: 015ef18e20f24535830f59eda9e70830
+labels:
+- gvh
+- gvh_dotnet-3.5
+- gvh_version-8.1.0
+- gvhp_exportpath-Parse/Plugins/Unity.Compat.dll
 PluginImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -13,11 +17,6 @@ PluginImporter:
   validateReferences: 1
   platformData:
   - first:
-      Android: Android
-    second:
-      enabled: 1
-      settings: {}
-  - first:
       Any: 
     second:
       enabled: 0
@@ -28,6 +27,12 @@ PluginImporter:
       enabled: 0
       settings:
         DefaultValueInitialized: true
+  - first:
+      Windows Store Apps: WindowsStoreApps
+    second:
+      enabled: 0
+      settings:
+        CPU: AnyCPU
   userData: 
   assetBundleName: 
   assetBundleVariant: 
