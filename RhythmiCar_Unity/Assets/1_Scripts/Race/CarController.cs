@@ -11,15 +11,15 @@ public class CarController : MonoBehaviour
     [Header("유저 스탯")]
     [SerializeField]
     List<SoundManager.EBGM> songEquipList = new List<SoundManager.EBGM>();
-    [SerializeField] [Tooltip("가속도")] [Range(1, 100)] float acceleration;
-    [SerializeField] [Tooltip("최대 부스터게이지량")] [Range(1, 300)] float boosterMaxGauge;
+    [SerializeField] [Tooltip("가속도")] [Range(1, 30)] float acceleration;
+    [SerializeField] [Tooltip("부스터속도")] [Range(10, 50)] float boosterSpeed;
+    [SerializeField] [Tooltip("리듬에너지")] [Range(30, 300)] float maxRhythmEnergy;
+    [SerializeField] [Tooltip("좌우 이동속도")] [Range(1, 6)] float turnSpeed;
+    [SerializeField] [Tooltip("최대 부스터게이지량")] const float boosterMaxGauge=5f;
     float boosterCurrentGauge;
-    [SerializeField] float boosterSpeed;
     [SerializeField] float currentRhythmEnergy;
-    [SerializeField] float maxRhythmEnergy;
     [SerializeField] float currentSpeed;
     [SerializeField] float maxSpeed;
-    [SerializeField] float turnSpeed;
     public bool isBoosting { get; set; }
 
     int currentDirection;
@@ -28,7 +28,7 @@ public class CarController : MonoBehaviour
     List<float> gearRatio = new List<float>();
     [SerializeField]int currentGear;
     //참조 영역
-    Transform Body;
+    public Transform Body;
     TrailRenderer BackLeftSkidMark;
     TrailRenderer BackRightSkidMark;
     [SerializeField] ParticleSystem SuccessVFx;
@@ -42,7 +42,6 @@ public class CarController : MonoBehaviour
         gearRatio.Add(60);
         gearRatio.Add(90);
         gearRatio.Add(120);
-        print(maxSpeed + "" + currentGear);
         InitReference();
         SoundManager.Instance.PlayOneShotSFX(SoundManager.ESFX.EngineStartSound);
     }
@@ -53,7 +52,7 @@ public class CarController : MonoBehaviour
         InputManager.Instance.horizontalEvent.AddListener(MoveDirection);
         UIManager.Instance.SetMaxRhythmEnergy(maxRhythmEnergy);
         UIManager.Instance.SetCurrentRhythmEnergy(currentRhythmEnergy);
-        GameManager.Instance.car = GetComponent<CarController>();
+        //GameManager.Instance.car = GetComponent<CarController>();
     }
     //--------------------------------------------------update----------------------------------------------------------------------
     void Update()
@@ -78,9 +77,10 @@ public class CarController : MonoBehaviour
         currentRhythmEnergy = maxRhythmEnergy;
         //boosterMaxGauge = 7;
         //boosterSpeed = 10f;
-        Body = transform.Find("Body").GetComponent<Transform>();
-        BackRightSkidMark = transform.Find("Body").Find("Wheels").transform.Find("Meshes").transform.Find("RRW").transform.Find("BackRightSkid").GetComponent<Transform>().GetComponent<TrailRenderer>();
-        BackLeftSkidMark = transform.Find("Body").Find("Wheels").transform.Find("Meshes").transform.Find("RLW").transform.Find("BackLeftSkid").GetComponent<Transform>().GetComponent<TrailRenderer>();
+        //Body = transform.Find("Body").GetComponent<Transform>();
+        Body = GameObject.FindWithTag("Car").GetComponent<Transform>();
+        BackRightSkidMark = transform.Find("BackRightSkid").GetComponent<Transform>().GetComponent<TrailRenderer>();
+        BackLeftSkidMark = transform.Find("BackLeftSkid").GetComponent<Transform>().GetComponent<TrailRenderer>();
         FailVFx = transform.Find("FailFX").GetComponent<ParticleSystem>();
         SuccessVFx = transform.Find("SuccessFX").GetComponent<ParticleSystem>();
         rigid = GetComponent<Rigidbody>();
@@ -106,8 +106,7 @@ public class CarController : MonoBehaviour
             {
                 case EJudge.Perfect:
                     combo++;
-                    SpeedUP();
-                    
+                    SpeedUP();                    
                     break;
 
                 case EJudge.Good:
@@ -149,12 +148,12 @@ public class CarController : MonoBehaviour
                 break;
 
             case EnumItemVO.EItemType.rhythmEnergy:
-                
-                if(currentRhythmEnergy<maxRhythmEnergy)
+
+                if (currentRhythmEnergy < maxRhythmEnergy)
                 {
                     currentRhythmEnergy += rhythmEnergyAmount;
                 }
-                if(currentRhythmEnergy>maxRhythmEnergy)
+                if (currentRhythmEnergy > maxRhythmEnergy)
                 {
                     currentRhythmEnergy = maxRhythmEnergy;
                 }
@@ -162,16 +161,18 @@ public class CarController : MonoBehaviour
                 break;
 
             case EnumItemVO.EItemType.star:
-                
+
                 GameManager.Instance.Star += starAmount;
 
                 break;
 
             case EnumItemVO.EItemType.booster:
-
-                isBoosting = true;
+                
                 boosterCurrentGauge = boosterMaxGauge;
-                StartCoroutine(Co_Booster);
+                if (isBoosting==false)
+                {
+                    StartCoroutine(Co_Booster);
+                }
 
                 break;
         }
@@ -179,9 +180,9 @@ public class CarController : MonoBehaviour
 
     public IEnumerator Booster() // 부스터를 활성화 하는 함수
     {
+        isBoosting = true;
         while (isBoosting)
         {
-            print("부스터중");
             boosterCurrentGauge -= Time.deltaTime;
             if(currentGear<gearRatio.Count)
             {
@@ -290,6 +291,7 @@ public class CarController : MonoBehaviour
         }
         //transform.position = Vector3.MoveTowards(transform.position, WayPoint[currentDirection], turnSpeed * Time.deltaTime);
         transform.DOMoveZ(WayPoint[currentDirection].z, turnSpeed, false).SetEase(Ease.OutExpo);
+        
     }
 
     public void SpeedUP() // 노트 성공 시 속도를 올려주는 함수 --- 이 부분을 판정 결과와 관련된 함수로 바꾸자
@@ -312,25 +314,28 @@ public class CarController : MonoBehaviour
 
     public void SpeedDown(BrakeCase result) // 노트 실패 시 속도를 내려주는 함수
     {
-        FailVFx.Play();
-        if (currentSpeed>=0 &&result==BrakeCase.bad)
+        if(isBoosting==false)
         {
+            FailVFx.Play();
+            if (currentSpeed >= 0 && result == BrakeCase.bad)
+            {
+                currentSpeed -= 5f;
+            }
+            else if (currentSpeed >= 0 && result == BrakeCase.miss)
+            {
+                currentSpeed -= 10f;
+            }
+            else if (currentSpeed >= 0 && result == BrakeCase.bump)
+            {
+                currentSpeed -= 30f;
 
-            currentSpeed -= 5f;
+            }
+            if (currentSpeed < 0)
+            {
+                currentSpeed = 0;
+            }
         }
-        else if(currentSpeed>=0 && result == BrakeCase.miss)
-        {
-            currentSpeed -= 10f;
-        }
-        else if(currentSpeed>=0 && result == BrakeCase.bump)
-        {
-            currentSpeed -= 30f;
-            
-        }
-        if(currentSpeed<0)
-        {
-            currentSpeed = 0;
-        }
+
     }
 
     public void Bump()  // 다른 오브젝트 부딪힐 때 피해 X, 다른 오브젝트랑 부딪칠 때 리듬 에너지 감소
@@ -353,7 +358,6 @@ public class CarController : MonoBehaviour
     {
         if(direction>0) // 위쪽 && 기어업
         {
-            print("기어업");
             if(currentGear < gearRatio.Count&&currentSpeed>=maxSpeed)
             {
                 currentGear++;                
@@ -392,7 +396,7 @@ public class CarController : MonoBehaviour
     {
         if(other.CompareTag("Finish"))
         {
-            // 승리 처리
+            print("승리");
         }
     }
 }

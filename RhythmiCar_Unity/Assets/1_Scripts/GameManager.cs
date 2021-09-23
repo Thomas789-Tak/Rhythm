@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
     private int carNum;
 
     private static GameManager instance = null;
-    public CarController car;
+    [SerializeField] GameObject[] Cars;
 
     private void Awake()
     {
@@ -78,6 +78,7 @@ public class GameManager : MonoBehaviour
             Destroy(this.gameObject);
         }
         Application.targetFrameRate = 60;
+        Cars[(int)SelectCar.GreenCar].SetActive(true);
     }
     public static GameManager Instance
     {
@@ -90,7 +91,6 @@ public class GameManager : MonoBehaviour
             return instance;
         }
     }
-
 
     private void Update()
     {

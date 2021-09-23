@@ -20,3 +20,8 @@ public enum BrakeCase
     bad,
     bump,
 }
+public enum SelectCar
+{
+    BlueCar,
+    GreenCar,
+}
