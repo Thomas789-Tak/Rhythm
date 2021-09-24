@@ -11,11 +11,15 @@ public class CarController : MonoBehaviour
     [Header("유저 스탯")]
     [SerializeField]
     List<SoundManager.EBGM> songEquipList = new List<SoundManager.EBGM>();
+    ///밸런스 관련 Range 참조 허신행
     [SerializeField] [Tooltip("가속도")] [Range(1, 30)] float acceleration;
     [SerializeField] [Tooltip("부스터속도")] [Range(10, 50)] float boosterSpeed;
     [SerializeField] [Tooltip("리듬에너지")] [Range(30, 300)] float maxRhythmEnergy;
     [SerializeField] [Tooltip("좌우 이동속도")] [Range(1, 6)] float turnSpeed;
+
+    /// -------------여기 까지   줘!
     [SerializeField] [Tooltip("최대 부스터게이지량")] const float boosterMaxGauge=5f;
+
     float boosterCurrentGauge;
     [SerializeField] float currentRhythmEnergy;
     [SerializeField] float currentSpeed;
@@ -69,15 +73,22 @@ public class CarController : MonoBehaviour
 
     void InitReference() // 각종 참조를 하는 함수
     {
-        //나중에 여기서 인게임초기화 VO 받아서 하자
-        currentGear = 1;
-        maxSpeed = gearRatio[currentGear - 1];
-        roadCount = 6; //로드카운트 게임매니저에서 받아오자
+        ///나중에 여기서 인게임초기화 VO 받아서 하자 허신행
+       
         //maxRhythmPower = 10;
-        currentRhythmEnergy = maxRhythmEnergy;
         //boosterMaxGauge = 7;
         //boosterSpeed = 10f;
-        //Body = transform.Find("Body").GetComponent<Transform>();
+
+        /// -----------------여기까지   
+
+
+
+
+
+        roadCount = 6; //로드카운트 스폰매니저에서 받자
+        currentRhythmEnergy = maxRhythmEnergy;
+        maxSpeed = gearRatio[currentGear - 1];
+        currentGear = 1;
         Body = GameObject.FindWithTag("Car").GetComponent<Transform>();
         BackRightSkidMark = transform.Find("BackRightSkid").GetComponent<Transform>().GetComponent<TrailRenderer>();
         BackLeftSkidMark = transform.Find("BackLeftSkid").GetComponent<Transform>().GetComponent<TrailRenderer>();
