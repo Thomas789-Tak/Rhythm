@@ -20,7 +20,6 @@ public class Item : MonoBehaviour
     }
     private void Update()
     {
-        print("È¸Àü");
         transform.Rotate(Vector3.up * 100f * Time.deltaTime,Space.World);
     }
 
