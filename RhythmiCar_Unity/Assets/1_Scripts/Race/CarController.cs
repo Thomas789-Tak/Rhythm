@@ -87,8 +87,8 @@ public class CarController : MonoBehaviour
 
         roadCount = 6; //로드카운트 스폰매니저에서 받자
         currentRhythmEnergy = maxRhythmEnergy;
-        maxSpeed = gearRatio[currentGear - 1];
         currentGear = 1;
+        maxSpeed = gearRatio[currentGear - 1];
         Body = GameObject.FindWithTag("Car").GetComponent<Transform>();
         BackRightSkidMark = transform.Find("BackRightSkid").GetComponent<Transform>().GetComponent<TrailRenderer>();
         BackLeftSkidMark = transform.Find("BackLeftSkid").GetComponent<Transform>().GetComponent<TrailRenderer>();
@@ -224,10 +224,14 @@ public class CarController : MonoBehaviour
 
     void DecreaseRhythmEnergy() // 자동적으로 연료를 닳게 하는 함수
     {
-        currentRhythmEnergy -= Time.deltaTime;
         if(currentRhythmEnergy<=0)
         {
             //게임오버
+            currentRhythmEnergy = 0f;
+        }
+        else
+        {
+            currentRhythmEnergy -= Time.deltaTime;
         }
     }
     void ObserveGearState() // 현재속도가 낮아 기어를 낮추는 조건을 탐색하는 함수 
