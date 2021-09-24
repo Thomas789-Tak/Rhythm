@@ -12707,9 +12707,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2048405608}
   - component: {fileID: 2048405611}
-  - component: {fileID: 2048405609}
   m_Layer: 0
-  m_Name: Manager
+  m_Name: LobbyManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12729,117 +12728,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2048405609
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2048405607}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b2ec188b52da2841b32446562ac533b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player:
-    money: 0
-    carData: []
-    songData: []
-    stageData: []
-    curCar:
-      carName: 
-      currentLevel: 0
-      statuses: []
-    curSongs: []
-    curStage:
-      theme: 
-      level: 0
-      isOpend: 0
-      isCleared: 0
-      highScore: 0
-  carData:
-  - carName: 
-    currentLevel: 0
-    statuses: []
-  - carName: 
-    currentLevel: 0
-    statuses: []
-  - carName: 
-    currentLevel: 0
-    statuses: []
-  - carName: 
-    currentLevel: 0
-    statuses: []
-  songData:
-  - eBGM: 0
-    songName: WakeUp
-    writerName: Bluedy
-    isOpend: 1
-    openCost: 0
-    bpm: 90
-    maxSpeed: 60
-  - eBGM: 1
-    songName: If I
-    writerName: Bluedy
-    isOpend: 1
-    openCost: 0
-    bpm: 100
-    maxSpeed: 70
-  - eBGM: 2
-    songName: Turn
-    writerName: Bluedy
-    isOpend: 0
-    openCost: 500
-    bpm: 108
-    maxSpeed: 75
-  - eBGM: 3
-    songName: Bluedy
-    writerName: Bluedy
-    isOpend: 0
-    openCost: 1000
-    bpm: 196
-    maxSpeed: 120
-  stageData:
-  - theme: "\uC544\uC9C0\uB791\uC774 \uC0AC\uB9C9"
-    level: 1
-    isOpend: 1
-    isCleared: 0
-    highScore: 0
-  - theme: "\uC544\uC9C0\uB791\uC774 \uC0AC\uB9C9"
-    level: 2
-    isOpend: 0
-    isCleared: 0
-    highScore: 0
-  - theme: "\uC544\uC9C0\uB791\uC774 \uC0AC\uB9C9"
-    level: 3
-    isOpend: 0
-    isCleared: 0
-    highScore: 0
-  - theme: "\uC544\uC9C0\uB791\uC774 \uC0AC\uB9C9"
-    level: 4
-    isOpend: 0
-    isCleared: 0
-    highScore: 0
-  - theme: "\uC6B8\uD0C0\uB9AC \uB3C4\uC2DC"
-    level: 1
-    isOpend: 1
-    isCleared: 0
-    highScore: 0
-  - theme: "\uC6B8\uD0C0\uB9AC \uB3C4\uC2DC"
-    level: 2
-    isOpend: 0
-    isCleared: 0
-    highScore: 0
-  - theme: "\uC6B8\uD0C0\uB9AC \uB3C4\uC2DC"
-    level: 3
-    isOpend: 0
-    isCleared: 0
-    highScore: 0
-  - theme: "\uC6B8\uD0C0\uB9AC \uB3C4\uC2DC"
-    level: 4
-    isOpend: 0
-    isCleared: 0
-    highScore: 0
 --- !u!114 &2048405611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12852,23 +12740,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebaeeac0bc40f9f4f97816d709de7640, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player:
-    money: 0
-    carData: []
-    songData: []
-    stageData: []
-    curCar:
-      carName: 
-      currentLevel: 0
-      statuses: []
-    curSongs: []
-    curStage:
-      theme: 
-      level: 0
-      isOpend: 0
-      isCleared: 0
-      highScore: 0
-  dataManager: {fileID: 2048405609}
+  player: {fileID: 0}
+  dataManager: {fileID: 0}
 --- !u!1 &2059862166
 GameObject:
   m_ObjectHideFlags: 0

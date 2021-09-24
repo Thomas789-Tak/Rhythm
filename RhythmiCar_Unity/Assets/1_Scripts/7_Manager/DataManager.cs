@@ -4,7 +4,7 @@ using UnityEngine;
 using Firebase;
 using Firebase.Database;
 
-public class DataManager : MonoBehaviour
+public class DataManager : Singleton<DataManager>
 {
     public static System.Uri dbUrl = new System.Uri("https://rhythmicar-default-rtdb.firebaseio.com/");
     public Player player;
@@ -23,6 +23,11 @@ public class DataManager : MonoBehaviour
     public DatabaseReference reference { get; set; }
 
     #endregion
+
+    private void Start()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
 
     [ContextMenu("ReadDataFromCSV")]
     void ReadDataFromCSV()

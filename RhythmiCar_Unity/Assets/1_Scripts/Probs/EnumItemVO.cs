@@ -14,13 +14,13 @@ public static class EnumItemVO
         empty,
     }
 }
-public enum BrakeCase
+public enum EBrakeCase
 {
     miss,
     bad,
     bump,
 }
-public enum SelectCar
+public enum ESelectCar
 {
     BlueCar,
     GreenCar,

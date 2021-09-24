@@ -127,12 +127,12 @@ public class CarController : MonoBehaviour
 
                 case EJudge.Bad:
                     combo = 0;
-                    SpeedDown(BrakeCase.bad);
+                    SpeedDown(EBrakeCase.bad);
                     break;
 
                 case EJudge.Miss:
                     combo =0;
-                    SpeedDown(BrakeCase.miss);
+                    SpeedDown(EBrakeCase.miss);
                     break;
             }
 
@@ -323,20 +323,20 @@ public class CarController : MonoBehaviour
     }
 
 
-    public void SpeedDown(BrakeCase result) // 노트 실패 시 속도를 내려주는 함수
+    public void SpeedDown(EBrakeCase result) // 노트 실패 시 속도를 내려주는 함수
     {
         if(isBoosting==false)
         {
             FailVFx.Play();
-            if (currentSpeed >= 0 && result == BrakeCase.bad)
+            if (currentSpeed >= 0 && result == EBrakeCase.bad)
             {
                 currentSpeed -= 5f;
             }
-            else if (currentSpeed >= 0 && result == BrakeCase.miss)
+            else if (currentSpeed >= 0 && result == EBrakeCase.miss)
             {
                 currentSpeed -= 10f;
             }
-            else if (currentSpeed >= 0 && result == BrakeCase.bump)
+            else if (currentSpeed >= 0 && result == EBrakeCase.bump)
             {
                 currentSpeed -= 30f;
 

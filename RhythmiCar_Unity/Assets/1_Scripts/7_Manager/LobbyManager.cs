@@ -14,12 +14,12 @@ public class LobbyManager : Singleton<LobbyManager>
     private void Awake()
     {
         //player = GetComponent<Player>();
-        dataManager = GetComponent<DataManager>();
+        //dataManager = GetComponent<DataManager>();
 
-        if (JoinManager.Instance)
-        {
-            JoinManager.Instance.GetPlayer(out player.auth);
-        }
+        //if (JoinManager.Instance)
+        //{
+        //    JoinManager.Instance.GetPlayer(out player.auth);
+        //}
     }
 }
 

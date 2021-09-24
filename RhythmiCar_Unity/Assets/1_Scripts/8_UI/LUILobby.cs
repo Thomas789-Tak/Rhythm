@@ -132,6 +132,9 @@ public class LUILobby : Singleton<LUILobby>
 
     #region Panel_Car
 
+    /// <summary>
+    /// 초기화 시 차량 버튼들을 만드는 함수
+    /// </summary>
     public void SetCarButtons()
     {
         var cars = Resources.LoadAll(CarDataPath);
@@ -159,8 +162,13 @@ public class LUILobby : Singleton<LUILobby>
 
     }
 
+    /// <summary>
+    /// 차량 버튼을 눌렀을 때 현재 플레이어가 선택한 차량의 정보를 바꾸는 함수
+    /// </summary>
+    /// <param name="car"></param>
     public void SelectCar(CarDataContainer car)
     {
+        
 
         //this.ImageCar.sprite = carDataContainer.ImageCar;
         this.ImageCarBig.sprite = car.ImageCar;
@@ -198,8 +206,8 @@ public class LUILobby : Singleton<LUILobby>
     public void SelectStage(StageDataContainer stage)
     {
         this.ImageStage.sprite = stage.ImageStage;
+        
     }
-
 
 
     #endregion

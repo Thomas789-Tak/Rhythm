@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour
             Destroy(this.gameObject);
         }
         Application.targetFrameRate = 60;
-        Cars[(int)SelectCar.GreenCar].SetActive(true);
+        Cars[(int)ESelectCar.GreenCar].SetActive(true);
     }
     public static GameManager Instance
     {
