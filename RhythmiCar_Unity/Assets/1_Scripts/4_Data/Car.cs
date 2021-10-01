@@ -6,6 +6,7 @@ using UnityEngine;
 public class Car
 {
     [SerializeField] private string carName;
+    [SerializeField] private ESelectCar kind;
     [SerializeField] private int currentLevel;
 
     [SerializeField] private List<Status> statuses = new List<Status>();

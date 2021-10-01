@@ -2,10 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 
-public class RhythmEditor : RhythmJudge
+public class RhythmEditor : MonoBehaviour
 {
+    //private InputManager InputManager;
+    protected AudioSource AudioSource;
+    public SongNoteData CurrentSong;
+    public UnityEvent<EJudge> JudgeEvent;
+
+    public GameObject JudgeLine;
+    public GameObject NoteObject;
+    public List<GameObject> NotePool;
+
+    enum ERhythmEditorMode
+    { Stop = 0, Start = 1, Pause = 2 }
+    private ERhythmEditorMode editorMode;
+
+    [SerializeField]
+    protected bool isTestMode = false;
+    public bool isSongStart = false;
+    public int currentNoteNum = 0;
+    public float songPlayTime = 0f;
+
+    public float noteSpeed = 10;
+    public float noteStartingX = 10;
+
+    public float speedAccel = 1f;
+    public float noteInstanceDistance = 10f;
+    public float endJudgeTime = 0.2f;
+    public float perfectJudgeTime = 0.1f;
+    public float goodJudgeTime = 0.1f;
+    public float badJudgeTime = 0.1f;
 
     public Slider SliderSongTimeBar;
     private bool isHanded;   // 슬라이더에 인풋을 받았는가?
@@ -18,29 +47,52 @@ public class RhythmEditor : RhythmJudge
     public float noteJudgeIntervalTime;
     public int totalNoteNum;
 
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
+        AudioSource = GetComponent<AudioSource>();
+        editorMode = ERhythmEditorMode.Stop;
         isHanded = false;
         CreateNoteEditor();
     }
 
-
-    protected override void Update()
+    private void Update()
     {
-        base.Update();
-        if (isSongStart)
+        if (editorMode == ERhythmEditorMode.Start)
         {
             ControlSong();
             OnClick();
-            SetNoteEditorPosition();
+            SetNoteEditorParentPosition();
         }
     }
 
-    public void TestStart()
+    public void SongStart()
     {
-        isTestMode = true;
-        base.SongStart();
+        // 노래가 이미 실행 중이라면 함수를 종료한다.
+        if (editorMode == ERhythmEditorMode.Start) return;
+
+        if (AudioSource.clip)
+        {
+            AudioSource.Play();
+            editorMode = ERhythmEditorMode.Start;
+        }
+    }
+
+    public void SongStop()
+    {
+        // 노래가 이미 멈춘 상태라면 함수를 종료한다.
+        if (editorMode == ERhythmEditorMode.Stop) return;
+
+        AudioSource.Stop();
+        editorMode = ERhythmEditorMode.Stop;
+    }
+
+    public void SongPause()
+    {
+        // 노래가 이미 일시정지된 상태라면 함수를 종료한다.
+        if (editorMode == ERhythmEditorMode.Pause) return;
+
+        AudioSource.Pause();
+        editorMode = ERhythmEditorMode.Pause;
     }
 
     public void ControlSong()
@@ -49,14 +101,13 @@ public class RhythmEditor : RhythmJudge
         
         // 마우스 휠 인풋
         float va = Input.GetAxis("Mouse ScrollWheel");
-
-
         if (va != 0)
         {
             float a = AudioSource.clip.length * perLenght + va;
             ControlSongTime(a);
         }
 
+        // Slider 가 조작되었을 경우.
         if (isHanded)
         {
             float b = SliderSongTimeBar.value * AudioSource.clip.length;
@@ -85,7 +136,9 @@ public class RhythmEditor : RhythmJudge
         isHanded = true;
     }
 
-
+    /// <summary>
+    /// 마우스로 Note Editor 를 클릭 하였을 경우.
+    /// </summary>
     public void OnClick()
     {
         if (Input.GetMouseButtonDown(0))
@@ -96,34 +149,44 @@ public class RhythmEditor : RhythmJudge
 
             if (Physics.Raycast(ray.origin, ray.direction, out hit))
             {
-                Debug.Log(hit.transform.name);
+                var NoteEditor = hit.transform.GetComponent<NoteEditor>();
+                if (NoteEditor) NoteEditor.Check();
             }
         }
     }
 
-    public void SetNoteEditorPosition()
+    /// <summary>
+    /// 노트 에디터 Parent 의 현재 위치를 결정한다.
+    /// </summary>
+    public void SetNoteEditorParentPosition()
     {
         var loPos = NoteEditorParent.transform.localPosition;
 
-        loPos.z = - noteSpeed * AudioSource.time;
+        loPos.z = -AudioSource.time;
 
         NoteEditorParent.transform.localPosition = loPos;
     }
 
+    /// <summary>
+    /// Note Editor (박자 체크용 오브젝트) 들을 BPM과 노래 시간에 맞게 생성한다.
+    /// </summary>
     public void CreateNoteEditor()
     {
-        int num;
-        if (AudioSource.clip)
-            num = (int)(AudioSource.clip.length * 10);
-        else
-            num = 200;
+        int secondPerMinute = 60;
+        int BPM = 60;
+        float BPS = BPM / secondPerMinute;
+        float songLength = AudioSource.clip != null ? AudioSource.clip.length : 60;
+        int totalNoteNum = Mathf.CeilToInt(songLength * BPS);
 
-        for(int i = 0; i < num; i++)
+        float FirstNoteTime = 2.0075f;
+        float NoteInterval = 2.6666f;
+
+        for(int i = 0; i < totalNoteNum; i++)
         {
-            var go = Instantiate(NoteEditor, NoteEditorParent.transform);
-            var loPos = go.transform.localPosition;
-            loPos.z = i * noteSpeed / 10;
-            go.transform.localPosition = loPos;
+            var noteEditor = Instantiate(NoteEditor, NoteEditorParent.transform);
+            var loPos = noteEditor.transform.localPosition;
+            loPos.z = FirstNoteTime + NoteInterval * i;
+            noteEditor.transform.localPosition = loPos;
         }
     }
 

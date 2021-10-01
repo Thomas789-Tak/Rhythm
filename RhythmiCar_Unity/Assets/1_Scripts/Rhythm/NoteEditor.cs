@@ -4,5 +4,14 @@ using UnityEngine;
 
 public class NoteEditor : MonoBehaviour
 {
-    public bool isCheck = false;
+    private bool isCheck = false;
+
+    public void Check()
+    {
+        this.isCheck = !isCheck;
+
+        var scale = this.transform.localScale;
+        scale.x = isCheck ? 3f : 2f;
+        this.transform.localScale = scale;
+    }
 }
