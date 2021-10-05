@@ -117,22 +117,22 @@ public class CarController : MonoBehaviour
             {
                 case EJudge.Perfect:
                     combo++;
-                    SpeedUP();                    
+                    //SpeedUP();                    
                     break;
 
                 case EJudge.Good:
                     combo++;
-                    SpeedUP();
+                    //SpeedUP();
                     break;
 
                 case EJudge.Bad:
                     combo = 0;
-                    SpeedDown(EBrakeCase.bad);
+                    //SpeedDown(EBrakeCase.bad);
                     break;
 
                 case EJudge.Miss:
                     combo =0;
-                    SpeedDown(EBrakeCase.miss);
+                    //SpeedDown(EBrakeCase.miss);
                     break;
             }
 
@@ -267,29 +267,22 @@ public class CarController : MonoBehaviour
     {
         if(direction==1) // ¿À¸¥ÂÊ
         {
-            if (currentSpeed != 0)
+            if (currentDirection < roadCount - 1)
             {
-                if (currentDirection < roadCount - 1)
-                {
-                    currentDirection++;
-                    Body.transform.DOLocalRotate(new Vector3(0, 5f, 0), 0.3f);
+                currentDirection++;
+                Body.transform.DOLocalRotate(new Vector3(0, 5f, 0), 0.3f);
 
-                    Invoke("DelayRotate", 0.3f);
-                }
-
+                Invoke("DelayRotate", 0.3f);
             }
         }
         else //¿ÞÂÊ
         {
-            if (currentSpeed != 0)
+            if (currentDirection != 0)
             {
-                if (currentDirection != 0)
-                {
-                    currentDirection--;
-                    Body.transform.DOLocalRotate(new Vector3(0, -5f, 0), 0.3f);
+                currentDirection--;
+                Body.transform.DOLocalRotate(new Vector3(0, -5f, 0), 0.3f);
 
-                    Invoke("DelayRotate", 0.3f);
-                }
+                Invoke("DelayRotate", 0.3f);
             }
         }
     }

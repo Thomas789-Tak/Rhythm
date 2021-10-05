@@ -8,29 +8,29 @@ public class AICarMove : MonoBehaviour
     public float speed;
     bool takeDown;
     public float rot;
+    public int type;
 
     void Start()
     {
-        rigid = GetComponent<Rigidbody>();    
     }
 
 
     void Update()
     {
-        transform.Translate(Vector3.forward *speed* Time.deltaTime);
-        if(takeDown)
+        if (type == 0)
         {
-            rot += 10*Time.deltaTime;
-            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z+rot);
+            transform.Translate(-Vector3.right * speed * Time.deltaTime);
+        }
+        else
+        {
+            transform.Translate(-Vector3.forward * speed * Time.deltaTime);
         }
     }
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.CompareTag("Player"))
         {
-            rigid.AddForce(Vector3.up * 10f+Vector3.right*30f,ForceMode.VelocityChange);
-            takeDown = true;
-            other.GetComponent<CarController>().SpeedDown(EBrakeCase.bump);
+            //other.GetComponent<CarController>().SpeedDown(EBrakeCase.bump);
         }
     }
 }

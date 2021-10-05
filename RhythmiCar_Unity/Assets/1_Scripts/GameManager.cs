@@ -96,6 +96,11 @@ public class GameManager : MonoBehaviour
     {
         GameTime = Time.time;
         print("°ñµå·®" + Gold);
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            Time.timeScale += 0.2f;
+        }
+
     }
     public void RetryGame()
     {
