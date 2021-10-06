@@ -32,7 +32,7 @@ public class ItemSpawner : MonoBehaviour
 
             for(int j=0;j<itemLength;j++)
             {
-                line[i].SpawnList.Add((ESpawnList)spawnData[(currentStage*8)+i][j+"m"]);
+                line[i].SpawnList.Add((ESpawnList)spawnData[(currentStage * 8) + i][j + "m"]);
             }
         }
     }
