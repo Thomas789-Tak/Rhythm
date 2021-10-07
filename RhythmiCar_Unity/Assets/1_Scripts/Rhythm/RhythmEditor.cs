@@ -112,12 +112,11 @@ public class RhythmEditor : MonoBehaviour
         // 마우스 휠 인풋
         float mouseInput = Input.GetAxis("Mouse ScrollWheel");
         float newSongTime;
-        float weight = 4f;
+        float weight = 2f;
 
         if (mouseInput != 0)
         {
-            newSongTime = AudioSource.clip.length * perLenght + mouseInput;
-            newSongTime *= weight;
+            newSongTime = AudioSource.clip.length * perLenght + mouseInput * weight;
             ControlSongTime(newSongTime);
         }
 
@@ -125,7 +124,6 @@ public class RhythmEditor : MonoBehaviour
         if (isHanded)
         {
             newSongTime = SliderSongTimeBar.value * AudioSource.clip.length;
-            newSongTime *= weight;
             ControlSongTime(newSongTime);
         }
         else
@@ -236,7 +234,7 @@ public class RhythmEditor : MonoBehaviour
         int currentStage = 0;
         int currentDifficult = 0;
 
-        int rowPerDifficult = 6;
+        int rowPerDifficult = 6 + 1;    // 6 Item Row + 1 Note Row
         int rowPerStage = 3 * rowPerDifficult;
 
         //int itemInterval = (int)stageInfo[currentStage]["itemInterval"];
@@ -249,23 +247,30 @@ public class RhythmEditor : MonoBehaviour
             InItemList.ForEach(x => Destroy(x));
         }
 
-        InItemList.Clear();
-
         for (int i = 0; i < InNoteList.Count; i++)
         {
             if (itemLength < i) break;
 
             GameObject Note = InNoteList[i];
-            for (int j = 0; j < roadCount; j++)
+            for (int j = 1; j < roadCount; j++)
             {
+                // 0' Row = Note Row, 1~6' Row = Item Row
                 int id = (currentStage * rowPerStage) + (currentDifficult * rowPerDifficult) + j;
-                GameObject item = ItemList[(int)spwanData[currentStage * 6 + j][i + "m"]];
+                GameObject item = ItemList[(int)spwanData[id][i + "m"]];
                 Vector3 pos = new Vector3(-4 + 2 * j, 2f, Note.transform.position.z);
 
                 var nItem = Instantiate(item, this.NoteEditorParent.transform);
                 nItem.transform.position = pos;
                 InItemList.Add(nItem);
             }
+        }
+    }
+
+    public void DeleteItem()
+    {
+        if (InItemList.Count != 0)
+        {
+            InItemList.ForEach(x => Destroy(x));
         }
     }
 
