@@ -4209,6 +4209,38 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2265307038265969353, guid: 234108a7095b6f4498695c9b371f6945, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2265307038265969353, guid: 234108a7095b6f4498695c9b371f6945, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2265307038265969353, guid: 234108a7095b6f4498695c9b371f6945, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2265307038265969353, guid: 234108a7095b6f4498695c9b371f6945, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2265307038265969353, guid: 234108a7095b6f4498695c9b371f6945, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2265307038265969353, guid: 234108a7095b6f4498695c9b371f6945, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2265307038265969353, guid: 234108a7095b6f4498695c9b371f6945, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2265307038265969353, guid: 234108a7095b6f4498695c9b371f6945, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 234108a7095b6f4498695c9b371f6945, type: 3}
 --- !u!1001 &3341459978367184380
@@ -4531,6 +4563,10 @@ PrefabInstance:
       propertyPath: JudgeLine
       value: 
       objectReference: {fileID: 808380272}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: noteSpeed
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
       propertyPath: NoteObject
       value: 
