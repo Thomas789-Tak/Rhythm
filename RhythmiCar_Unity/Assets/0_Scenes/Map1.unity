@@ -308,6 +308,7 @@ GameObject:
   m_Component:
   - component: {fileID: 131956333}
   - component: {fileID: 131956332}
+  - component: {fileID: 131956334}
   m_Layer: 0
   m_Name: SpawnerManager
   m_TagString: Untagged
@@ -353,6 +354,18 @@ Transform:
   m_Father: {fileID: 310277672}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &131956334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131956331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a1b8913d8c730045867577074fd9649, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &157563645 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1187358587045185975, guid: fe5b373f358dbf346b95951bf1e70bc8, type: 3}
@@ -4523,9 +4536,45 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 752204729}
     - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: ItemList.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
       propertyPath: CurrentSong.info.EBGM
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: ItemList.Array.data[0]
+      value: 
+      objectReference: {fileID: 6519846436661356781, guid: cf6fd659eff2afc4facdc6eca59fce41, type: 3}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: ItemList.Array.data[1]
+      value: 
+      objectReference: {fileID: 8046857772428016964, guid: d38d4990f28c6994a93262195ca92bd1, type: 3}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: ItemList.Array.data[2]
+      value: 
+      objectReference: {fileID: 3020274541352733159, guid: 0d368ab2a9460d94ca6c1a61db67ece5, type: 3}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: ItemList.Array.data[3]
+      value: 
+      objectReference: {fileID: 8149538520671675739, guid: d15f5dd66c1974a418223de6d4026994, type: 3}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: ItemList.Array.data[4]
+      value: 
+      objectReference: {fileID: 4391930606169401958, guid: 5b3793ea08982d849aa16961b584b871, type: 3}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: ItemList.Array.data[5]
+      value: 
+      objectReference: {fileID: 6209255230618241854, guid: b79dfaf5a24dbe74989a571ad8250d46, type: 3}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: ItemList.Array.data[6]
+      value: 
+      objectReference: {fileID: 8350443299201587586, guid: 5407bbd862eba6f4baf873358510bbfa, type: 3}
+    - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
+      propertyPath: ItemList.Array.data[7]
+      value: 
+      objectReference: {fileID: 3566407037128107711, guid: 35a86db266a32d544999fb217b0a0e71, type: 3}
     - target: {fileID: 6283112181673215178, guid: d9dc35ee6e795064dba32435a5eb8c63, type: 3}
       propertyPath: CurrentSong.noteData.Array.size
       value: 42

@@ -5,7 +5,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-
+/// <summary>
+/// 노트 채보를 만들기 위한 클래스.
+/// Note Editor 들을 생성하고 어느 Note Editor 가 박자를 가지고 있을지를 기록한다.
+/// 이후 Note Editor List 를 파일로 생성할 수 있다.
+/// </summary>
 public class RhythmEditor : MonoBehaviour
 {
     //private InputManager InputManager;
@@ -187,7 +191,7 @@ public class RhythmEditor : MonoBehaviour
         int secondPerMinute = 60;
         //int BPM = 90;
         int BPM = int.Parse(InputBPM.text);
-        float BPS = BPM / secondPerMinute;
+        float BPS = (float)BPM / secondPerMinute;
         float songLength = AudioSource.clip != null ? AudioSource.clip.length : 60;
         int totalNoteNum = Mathf.CeilToInt(songLength * BPS);
 

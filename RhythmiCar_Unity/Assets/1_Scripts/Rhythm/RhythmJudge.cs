@@ -20,6 +20,7 @@ public class RhythmJudge : MonoBehaviour
     public List<GameObject> NotePool;
 
     public List<GameObject> ItemList;
+    public List<GameObject> InItemList = new List<GameObject>();
     //public List<GameObject> 
 
     [SerializeField]
@@ -39,7 +40,7 @@ public class RhythmJudge : MonoBehaviour
     public float badJudgeTime = 0.1f;
 
     // Use this for initialization
-     protected virtual void Start()
+    protected virtual void Start()
     {
         // Audio Source 할당
         if (SoundManager.Instance)
@@ -52,10 +53,10 @@ public class RhythmJudge : MonoBehaviour
         currentNoteNum = 0;
         songPlayTime = 0f;
 
-        ObjectPooling();
+        //ObjectPooling();
 
-        if (!isTestMode)
-            SongStart();
+        //if (!isTestMode)
+        //    SongStart();
 
     }
 
@@ -67,6 +68,14 @@ public class RhythmJudge : MonoBehaviour
             MissCheck();
         }
         //CreateNote();
+    }
+
+    public void GameStart()
+    {
+        ObjectPooling();
+
+        if (!isTestMode)
+            SongStart();
     }
 
     /// <summary>
@@ -161,9 +170,9 @@ public class RhythmJudge : MonoBehaviour
     /// <summary>
     /// 노트들을 Current Song에 맞게 생성해둔다.
     /// </summary>
-    private void ObjectPooling()
+    public void ObjectPooling()
     {
-        int pNum = 300;
+        int pNum = 600;
         NotePool = new List<GameObject>();
 
         for (int i = 0; i < pNum; i++)
