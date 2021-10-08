@@ -55,7 +55,11 @@ public class RhythmConstructer : MonoBehaviour
             {
                 // 0' Row = Note Row, 1~6' Row = Item Row
                 int id = (currentStage * rowPerStage) + (currentDifficult * rowPerDifficult) + j;
-                GameObject item = RhythmJudge.ItemList[(int)spwanData[id][i + "m"]];
+                GameObject item;
+                if (spwanData[id][i + "m"].ToString() == "")
+                    item = RhythmJudge.ItemList[8];
+                else
+                    item = RhythmJudge.ItemList[(int)spwanData[id][i + "m"]];
                 //Vector3 pos = new Vector3(-4 + 2 * j, 2f, Note.transform.position.z);
                 Vector3 localPos = new Vector3(-24 + 8 * j, 2f, 0);
 
