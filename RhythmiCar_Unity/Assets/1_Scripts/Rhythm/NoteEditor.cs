@@ -14,4 +14,9 @@ public class NoteEditor : MonoBehaviour
         scale.x = isCheck ? 3f : 2f;
         this.transform.localScale = scale;
     }
+
+    public bool IsChecked()
+    {
+        return isCheck;
+    }
 }

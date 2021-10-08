@@ -274,6 +274,33 @@ public class RhythmEditor : MonoBehaviour
         }
     }
 
+    public void WriteNoteData()
+    {
+
+        string path = Application.dataPath + "/Resources/Data/NoteInformation.csv";
+        Debug.Log(path);
+
+        //string[] header, data = new string[] { };
+        List<string> header = new List<string>(InNoteList.Count);
+        List<string> data = new List<string>(InNoteList.Count);
+
+        for (int i = 0; i < InNoteList.Count; i++)
+        {
+            header.Add(i + "m");
+
+            string note = InNoteList[i].GetComponent<NoteEditor>().IsChecked() ? "1" : "0";
+            data.Add(note);
+        }
+
+        List<string[]> rowData = new List<string[]>();
+        rowData.Add(header.ToArray());
+        rowData.Add(data.ToArray());
+
+        CSVReader.Write(rowData, path);
+
+        Debug.Log("Writed!");
+    }
+
     //[ContextMenu("Make Note Editor")]
     //public void MakeNoteList()
     //{
