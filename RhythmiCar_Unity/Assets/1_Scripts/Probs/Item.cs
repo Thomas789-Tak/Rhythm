@@ -29,6 +29,7 @@ public class Item : MonoBehaviour
         {
             other.gameObject.GetComponent<CarController>().GetItem(enumType,goldAmount,noteAmount,starAmount,rhythmEnergyAmount);
             gameObject.SetActive(false);
+            Debug.Log("Get Item " + name);
         }
     }
 }

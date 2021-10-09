@@ -4,6 +4,7 @@ using UnityEngine;
 public class Note : MonoBehaviour
 {
     public RhythmJudge RhythmJudge;
+    public GameObject noteObject;
 
     public bool isSet = false;
     public int num;

@@ -9,16 +9,16 @@ public class RhythmConstructer : MonoBehaviour
 
     private void Start()
     {
-        RhythmJudge = FindObjectOfType<RhythmJudge>();
+        //RhythmJudge = FindObjectOfType<RhythmJudge>();
 
-        RhythmJudge.ObjectPooling();
-        this.CreateItem();
-        RhythmJudge.SongStart();
+        //RhythmJudge.ObjectPooling();
+        //this.CreateItem();
+        //RhythmJudge.SongStart();
     }
 
     public void CreateItem()
     {
-        if (RhythmJudge.NotePool == null)
+        if (RhythmJudge.BeatTimingObjectList == null)
         {
             Debug.Log("Need \"Create Note!\"");
             return;
@@ -46,11 +46,11 @@ public class RhythmConstructer : MonoBehaviour
             RhythmJudge.InItemList.ForEach(x => Destroy(x));
         }
 
-        for (int i = 0; i < RhythmJudge.NotePool.Count; i++)
+        for (int i = 0; i < RhythmJudge.BeatTimingObjectList.Count; i++)
         {
             if (itemLength < i) break;
 
-            GameObject Note = RhythmJudge.NotePool[i];
+            GameObject Note = RhythmJudge.BeatTimingObjectList[i];
             for (int j = 1; j < roadCount; j++)
             {
                 // 0' Row = Note Row, 1~6' Row = Item Row

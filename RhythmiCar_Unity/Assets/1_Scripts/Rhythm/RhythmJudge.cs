@@ -17,7 +17,8 @@ public class RhythmJudge : MonoBehaviour
 
     public GameObject JudgeLine;
     public GameObject NoteObject;
-    public List<GameObject> NotePool;
+    public List<GameObject> BeatTimingObjectList;
+    public List<float> NoteTimingList;
 
     public List<GameObject> ItemList;
     public List<GameObject> InItemList = new List<GameObject>();
@@ -55,8 +56,9 @@ public class RhythmJudge : MonoBehaviour
 
         //ObjectPooling();
 
-        //if (!isTestMode)
-        //    SongStart();
+        CreateItem();
+        if (!isTestMode)
+            SongStart();
 
     }
 
@@ -122,11 +124,11 @@ public class RhythmJudge : MonoBehaviour
     private void MissCheck()
     {
         // 노트가 끝났을 경우
-        if (CurrentSong.noteData.Count <= currentNoteNum)
+        if (NoteTimingList.Count <= currentNoteNum)
             return;
 
         // 한 노트가 판정선 너머로 가버렸을 경우 (판정 Miss 의 경우)
-        float nTime = CurrentSong.noteData[currentNoteNum];
+        float nTime = NoteTimingList[currentNoteNum];
         if (nTime + endJudgeTime < songPlayTime)
         {
             //Miss 판정 처리
@@ -143,7 +145,7 @@ public class RhythmJudge : MonoBehaviour
     {
         if (!isSongStart) return;
 
-        float nTime = CurrentSong.noteData[currentNoteNum];
+        float nTime = NoteTimingList[currentNoteNum];
         EJudge judge;
 
         if ((nTime -= perfectJudgeTime) < songPlayTime)
@@ -172,26 +174,60 @@ public class RhythmJudge : MonoBehaviour
     /// </summary>
     public void ObjectPooling()
     {
-        int pNum = 600;
-        NotePool = new List<GameObject>();
+        //int pNum = 600;
+        //NotePool = new List<GameObject>();
 
-        for (int i = 0; i < pNum; i++)
+        //for (int i = 0; i < pNum; i++)
+        //{
+        //    if (CurrentSong.noteData.Count <= i)
+        //        break;
+
+        //    var note = Instantiate(NoteObject, JudgeLine.transform).GetComponent<Note>();
+
+        //    note.isSet = true;
+        //    note.RhythmJudge = this;
+        //    note.num = i;
+        //    note.speed = noteSpeed;
+        //    note.time = CurrentSong.noteData[i];
+        //    //note.transform.localPosition =
+        //    //    new Vector3(0, CurrentSong.noteData[i] * noteSpeed);
+
+        //    //note.gameObject.SetActive(false);
+        //    NotePool.Add(note.gameObject);
+        //}
+
+        int secondPerMinute = 60;
+        int BPM = 90;
+        //int BPM = int.Parse(InputBPM.text);
+        float BPS = (float)BPM / secondPerMinute;
+        //float songLength = AudioSource.clip != null ? AudioSource.clip.length : 60;
+        float songLength = 100;
+        int totalNoteNum = Mathf.CeilToInt(songLength * BPS);
+
+        float FirstNoteTime = 2.0075f;
+        //float NoteInterval = 2.6666f;
+        //float NoteMultiple = float.Parse(InputMutiple.text);
+        float NoteInterval = ((float)secondPerMinute / BPM) / 1;
+
+        BeatTimingObjectList = new List<GameObject>();
+        //CurrentSong.noteData.Clear();
+
+        for (int i = 0; i < totalNoteNum; i++)
         {
-            if (CurrentSong.noteData.Count <= i)
-                break;
-
             var note = Instantiate(NoteObject, JudgeLine.transform).GetComponent<Note>();
 
             note.isSet = true;
             note.RhythmJudge = this;
             note.num = i;
             note.speed = noteSpeed;
-            note.time = CurrentSong.noteData[i];
+            note.time = FirstNoteTime + NoteInterval * i;
+
+            //CurrentSong.noteData.Add(note.time);
             //note.transform.localPosition =
             //    new Vector3(0, CurrentSong.noteData[i] * noteSpeed);
 
             //note.gameObject.SetActive(false);
-            NotePool.Add(note.gameObject);
+            BeatTimingObjectList.Add(note.gameObject);
         }
     }
 
@@ -243,7 +279,7 @@ public class RhythmJudge : MonoBehaviour
         //    }
         //}
 
-        foreach (GameObject note in NotePool)
+        foreach (GameObject note in BeatTimingObjectList)
         {
             if (note.activeInHierarchy)
                 continue;
@@ -254,12 +290,136 @@ public class RhythmJudge : MonoBehaviour
     }
 
     /// <summary>
+    /// CSV의 정보를 바탕으로 노트를 생성하고, 각 노트의 자식으로 아이템을 배치한다.
+    /// 1. CSV Reading.
+    /// 2. Object Pooling.
+    /// 3. Create Item.
+    /// 의 순서로 이루어 진다.
+    /// </summary>
+    public void CreateItem()
+    {
+        /// 1. Read CSV 
+
+        if (BeatTimingObjectList == null)
+        {
+            Debug.Log("Need \"Create Note!\"");
+            return;
+        }
+
+        string stagePath = "Data/StageInfo";
+        string spawnPath = "Data/SpawnData";
+
+        List<Dictionary<string, object>> stageInfo = CSVReader.Read(stagePath);
+        List<Dictionary<string, object>> spwanData = CSVReader.Read(spawnPath);
+
+        int currentStage = 0;
+        int currentDifficult = 0;
+
+        int rowPerDifficult = 6 + 1;    // 6 Item Row + 1 Note Row
+        int rowPerStage = 3 * rowPerDifficult;
+
+
+        int difficulty = (int)stageInfo[currentStage]["difficulty"];    // 난이도
+        //string songName = (string)stageInfo[currentStage]["songName"];  // 스테이지 노래의 이름
+        int BPM = (int)stageInfo[currentStage]["BPM"];  // 스테이지 노래의 BPM
+        float multiple = (int)stageInfo[currentStage]["multiple"];     // 노트 배수
+        int roadCount = (int)stageInfo[currentStage]["road"];   // 도로의 수
+        int itemLength = (int)stageInfo[currentStage]["itemLength"]; // 한 도로에 배치된 아이템의 총 수
+        
+        
+
+        /// 2. Object Pooling
+
+        int secondPerMinute = 60;
+        //int BPM = 90;
+        //int BPM = int.Parse(InputBPM.text);
+        float BPS = (float)BPM / secondPerMinute;
+        //float songLength = AudioSource.clip != null ? AudioSource.clip.length : 60;
+        float songLength = 100;
+        int totalNoteNum = Mathf.CeilToInt(songLength * BPS);
+
+        float FirstNoteTime = 2.0075f;
+        //float NoteInterval = 2.6666f;
+        //float NoteMultiple = float.Parse(InputMutiple.text);
+        float NoteInterval = ((float)secondPerMinute / BPM) / 1;
+
+        BeatTimingObjectList = new List<GameObject>();
+        //CurrentSong.noteData.Clear();
+
+        for (int i = 0; i < totalNoteNum; i++)
+        {
+            var note = Instantiate(NoteObject, JudgeLine.transform).GetComponent<Note>();
+
+            note.isSet = true;
+            note.RhythmJudge = this;
+            note.num = i;
+            note.speed = noteSpeed;
+            note.time = FirstNoteTime + NoteInterval * i;
+            
+            //CurrentSong.noteData.Add(note.time);
+            //note.transform.localPosition =
+            //    new Vector3(0, CurrentSong.noteData[i] * noteSpeed);
+
+            //note.gameObject.SetActive(false);
+            BeatTimingObjectList.Add(note.gameObject);
+        }
+
+
+
+        /// 3. Create Item
+
+        if (InItemList.Count != 0)
+        {
+            InItemList.ForEach(x => Destroy(x));
+        }
+
+        for (int i = 0; i < BeatTimingObjectList.Count; i++)
+        {
+            if (itemLength < i) break;
+
+            
+            GameObject Note = BeatTimingObjectList[i];
+            GameObject item;
+            // 0' Row = Note Row, 1~6' Row = Item Row
+            int id = (currentStage * rowPerStage) + (currentDifficult * rowPerDifficult);
+
+            // 쪼개진 비트 타이밍 중 플레이어가 실제로 터치해야하는 노트 타이밍을 생성한다.
+            if ((int)spwanData[id][i + "m"] == 1)
+            {
+                var note = BeatTimingObjectList[i].GetComponent<Note>();
+                note.noteObject.SetActive(true);
+                NoteTimingList.Add(note.time);
+            }
+
+            for (int j = 0; j < roadCount; j++)
+            {
+                int id2 = id + j + 1;
+                if (spwanData[id2][i + "m"].ToString() == "")
+                    item = ItemList[8];
+                else
+                    item = ItemList[(int)spwanData[id2][i + "m"]];
+                Debug.Log(id2 + " " + (int)spwanData[id2][i + "m"]
+                    + " " + item.name);
+
+                //Vector3 pos = new Vector3(-4 + 2 * j, 2f, Note.transform.position.z);
+                Vector3 localPos = new Vector3(8 * j, 2f, 0);
+
+                var nItem = Instantiate(item, new Vector3(100, 100, 100), Quaternion.identity);
+                nItem.transform.parent = Note.transform;
+                nItem.transform.localPosition = localPos;
+                //nItem.transform.localScale = new Vector3(300, 300, 300);
+                InItemList.Add(nItem);
+            }
+        }
+    }
+
+    /// <summary>
     /// 맞추거나 놓친 노트를 비활성화 해둔다.
     /// </summary>
     /// <param name="judge"></param>
     private void DeleteNote()
     {
-        NotePool[currentNoteNum].SetActive(false);
+        BeatTimingObjectList[currentNoteNum].SetActive(false);
         currentNoteNum++;
     }
 
