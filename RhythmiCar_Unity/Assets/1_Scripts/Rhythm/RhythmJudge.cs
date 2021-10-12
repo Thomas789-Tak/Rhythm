@@ -400,13 +400,19 @@ public class RhythmJudge : MonoBehaviour
                     item = ItemList[(int)spwanData[id2][i + "m"]];
                 Debug.Log(id2 + " " + (int)spwanData[id2][i + "m"]
                     + " " + item.name);
-
                 //Vector3 pos = new Vector3(-4 + 2 * j, 2f, Note.transform.position.z);
-                Vector3 localPos = new Vector3(8 * j, 2f, 0);
 
-                var nItem = Instantiate(item, new Vector3(100, 100, 100), Quaternion.identity);
+                Vector3 localPos = new Vector3(8 * j, 2f, 0);
+                var nItem = Instantiate(item, new Vector3(100, 100, 100), Quaternion.Euler(0,90,0));
                 nItem.transform.parent = Note.transform;
-                nItem.transform.localPosition = localPos;
+                if (item == ItemList[7])
+                {
+                    nItem.transform.localPosition = localPos-new Vector3(0,2,0);
+                }
+                else
+                {
+                    nItem.transform.localPosition = localPos;
+                }
                 //nItem.transform.localScale = new Vector3(300, 300, 300);
                 InItemList.Add(nItem);
             }

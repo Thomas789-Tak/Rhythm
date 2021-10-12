@@ -117,22 +117,22 @@ public class CarController : MonoBehaviour
             {
                 case EJudge.Perfect:
                     combo++;
-                    //SpeedUP();                    
+                    SpeedUP();                    
                     break;
 
                 case EJudge.Good:
                     combo++;
-                    //SpeedUP();
+                    SpeedUP();
                     break;
 
                 case EJudge.Bad:
                     combo = 0;
-                    //SpeedDown(EBrakeCase.bad);
+                    SpeedDown(EBrakeCase.bad);
                     break;
 
                 case EJudge.Miss:
                     combo =0;
-                    //SpeedDown(EBrakeCase.miss);
+                    SpeedDown(EBrakeCase.miss);
                     break;
             }
 
@@ -305,18 +305,18 @@ public class CarController : MonoBehaviour
     public void SpeedUP() // 노트 성공 시 속도를 올려주는 함수 --- 이 부분을 판정 결과와 관련된 함수로 바꾸자
     {
         SuccessVFx.Play();
-        if (currentSpeed <= maxSpeed)
-        {
-            currentSpeed += acceleration;
+        //if (currentSpeed <= maxSpeed)
+        //{
+        //    currentSpeed += acceleration;
 
-        }
-        if(currentSpeed>maxSpeed)
-        {
-            if(isBoosting==false)
-            {
-                currentSpeed = maxSpeed;
-            }
-        }
+        //}
+        //if(currentSpeed>maxSpeed)
+        //{
+        //    if(isBoosting==false)
+        //    {
+        //        currentSpeed = maxSpeed;
+        //    }
+        //}
     }
 
 
@@ -325,23 +325,23 @@ public class CarController : MonoBehaviour
         if(isBoosting==false)
         {
             FailVFx.Play();
-            if (currentSpeed >= 0 && result == EBrakeCase.bad)
-            {
-                currentSpeed -= 5f;
-            }
-            else if (currentSpeed >= 0 && result == EBrakeCase.miss)
-            {
-                currentSpeed -= 10f;
-            }
-            else if (currentSpeed >= 0 && result == EBrakeCase.bump)
-            {
-                currentSpeed -= 30f;
+            //if (currentSpeed >= 0 && result == EBrakeCase.bad)
+            //{
+            //    currentSpeed -= 5f;
+            //}
+            //else if (currentSpeed >= 0 && result == EBrakeCase.miss)
+            //{
+            //    currentSpeed -= 10f;
+            //}
+            //else if (currentSpeed >= 0 && result == EBrakeCase.bump)
+            //{
+            //    currentSpeed -= 30f;
 
-            }
-            if (currentSpeed < 0)
-            {
-                currentSpeed = 0;
-            }
+            //}
+            //if (currentSpeed < 0)
+            //{
+            //    currentSpeed = 0;
+            //}
         }
 
     }

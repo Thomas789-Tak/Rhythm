@@ -884,7 +884,7 @@ Transform:
   m_GameObject: {fileID: 8355446946540298292}
   m_LocalRotation: {x: 0, y: -0.999753, z: 0, w: 0.022224974}
   m_LocalPosition: {x: 303.00006, y: 8.14, z: 200.97423}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 6652368073154954835}
   - {fileID: 3931139397426171659}
@@ -912,14 +912,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   songEquipList: 
   acceleration: 20
-  boosterMaxGauge: 5
   boosterSpeed: 20
-  currentRhythmEnergy: 10
   maxRhythmEnergy: 30
+  turnSpeed: 1
+  currentRhythmEnergy: 10
   currentSpeed: 0
   maxSpeed: 120
-  turnSpeed: 1
   currentGear: 0
+  Body: {fileID: 0}
   SuccessVFx: {fileID: 0}
 --- !u!54 &246611974
 Rigidbody:
